@@ -31,7 +31,7 @@ class ConclusionCard extends StatelessWidget {
             ),
             color: AppColors.primary,
             avatar: const Icon(
-              Icons.attach_money,
+              Icons.local_dining,
             ),
           ),
         SizedBox(
