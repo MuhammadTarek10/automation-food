@@ -25,7 +25,12 @@ class AppRouterGenerator {
           ),
         );
       case Routes.conclusionRoute:
-        return MaterialPageRoute(builder: (context) => const ConclusionView());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => instance<FoodOrderBloc>(),
+            child: const ConclusionView(),
+          ),
+        );
       default:
         return undefined();
     }

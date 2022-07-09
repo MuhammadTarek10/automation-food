@@ -1,3 +1,4 @@
+import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
@@ -62,7 +63,8 @@ class _OrderViewState extends State<OrderView> {
         }
       }, builder: (context, state) {
         if (state is DataLoadedState) {
-          final orders = state.orders;
+          final orders = state.orders
+            ..sort((a, b) => b.remaining.compareTo(a.remaining));
           return ListView.builder(
             itemCount: orders.length,
             itemBuilder: (context, index) {
@@ -88,11 +90,15 @@ class _OrderViewState extends State<OrderView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FloatingActionButton(
+              heroTag: AppStrings.addOrderFloatingActionButtonTag,
               backgroundColor: AppColors.primary,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.conclusionRoute);
+              },
               child: const Icon(Icons.add_chart),
             ),
             FloatingActionButton(
+              heroTag: AppStrings.getConclusionFloatingActionButtonTag,
               backgroundColor: AppColors.primary,
               onPressed: () async {
                 await takeInputsDialog(context, null);
@@ -164,31 +170,49 @@ class _OrderViewState extends State<OrderView> {
         actions: [
           TextButton(
             onPressed: () {
-              if (_inputsValid()) {
-                foodBloc.add(AddOrderEvent(
-                  name: _nameController.text,
-                  order: _orderController.text,
-                  price: double.parse(_priceController.text),
-                  payed: double.parse(_payedController.text),
-                  remaining: double.parse(_priceController.text) -
-                      double.parse(_payedController.text),
-                ));
-                Navigator.of(context).pop();
-              } else {
-                AppConstants.showToast(message: AppStrings.invalidInputs);
-              }
-            },
-            child: const Text(
-              AppStrings.addOrderButtonText,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
               Navigator.of(context).pop();
               _clearInputs();
             },
             child: const Text(
               AppStrings.cancelOrderButtonText,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              if (_inputsValid()) {
+                order == null
+                    ? foodBloc.add(
+                        AddOrderEvent(
+                          name: _nameController.text,
+                          order: _orderController.text,
+                          price: double.parse(_priceController.text),
+                          payed: double.parse(_payedController.text),
+                          remaining: double.parse(_payedController.text) -
+                              double.parse(_priceController.text),
+                        ),
+                      )
+                    : foodBloc.add(
+                        UpdateOrderEvent(
+                          order: OrderModel(
+                              id: order.id,
+                              name: _nameController.text,
+                              order: _orderController.text,
+                              price: double.parse(_priceController.text),
+                              payed: double.parse(_payedController.text),
+                              remaining: double.parse(_payedController.text) -
+                                  double.parse(_priceController.text),
+                              done: order.done),
+                        ),
+                      );
+                Navigator.of(context).pop();
+              } else {
+                AppConstants.showToast(message: AppStrings.invalidInputs);
+              }
+            },
+            child: Text(
+              order == null
+                  ? AppStrings.addOrderButtonText
+                  : AppStrings.saveOrderButtonText,
             ),
           ),
         ],

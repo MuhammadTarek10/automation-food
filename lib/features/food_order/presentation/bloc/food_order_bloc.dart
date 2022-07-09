@@ -1,4 +1,6 @@
 import 'package:auto_food/core/usecases/usecases.dart';
+import 'package:auto_food/core/utils/app_strings.dart';
+import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
 import 'package:auto_food/features/food_order/data/models/order_model.dart';
 import 'package:auto_food/features/food_order/domain/usecases/conclusion_usecase.dart';
 import 'package:auto_food/features/food_order/domain/usecases/order_usecase.dart';
@@ -22,7 +24,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
     required this.getOrdersUseCase,
     required this.updateOrderUseCase,
     required this.deleteAllOrdersUseCase,
-    required this.getConclusionUseCase
+    required this.getConclusionUseCase,
   }) : super(FoodOrderInitial()) {
     on<AddOrderEvent>((event, emit) async {
       emit(AddingOrderLoadingState());
@@ -33,6 +35,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
         price: event.price,
         payed: event.payed,
         remaining: event.remaining,
+        done: AppStrings.orderModelNotDone,
       );
       emit(
         (await saveOrderUseCase.call(order)).fold(
@@ -78,6 +81,17 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
         (await deleteAllOrdersUseCase(NoParams())).fold(
           (failure) => AddingOrderErrorState(message: failure.getMessage),
           (_) => AddingOrderSuccessState(),
+        ),
+      );
+    });
+
+    on<GoToConclusionEvent>((event, emit) async {
+      emit(ConclusionInitialState());
+      emit(ConclusionLoaidingState());
+      emit(
+        (await getConclusionUseCase(NoParams())).fold(
+          (failure) => ConclusionErrorState(message: failure.getMessage),
+          (conclusion) => ConclusionLoadedState(conclusion: conclusion),
         ),
       );
     });

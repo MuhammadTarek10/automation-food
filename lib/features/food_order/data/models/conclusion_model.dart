@@ -1,21 +1,28 @@
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
-
 class ConclusionModel {
-  final List<OrderModel> orders;
+  final double total;
+  final double payed;
+  final double remaining;
+  final Map<String, int> orderCount;
 
   const ConclusionModel({
-    required this.orders,
+    required this.total,
+    required this.payed,
+    required this.remaining,
+    required this.orderCount
   });
 
-  factory ConclusionModel.fromJson(Map<String, dynamic> json) {
-    return ConclusionModel(
-      orders: OrderModel.fromJsonList(json['orders']),
-    );
-  }
+  factory ConclusionModel.fromJson(Map<String, dynamic> json) =>
+      ConclusionModel(
+        total: json['total'] as double,
+        payed: json['payed'] as double,
+        remaining: json['remaining'] as double,
+        orderCount: json['orderCount'] as Map<String, int>,
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'orders': orders.map((order) => order.toJson()).toList(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'total': total,
+        'payed': payed,
+        'remaining': remaining,
+        'orderCount': orderCount,
+      };
 }

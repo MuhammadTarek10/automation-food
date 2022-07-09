@@ -48,3 +48,5 @@ class UpdateOrderEvent extends FoodOrderEvent {
 
 
 class DeleteAllOrdersEvent extends FoodOrderEvent {}
+
+class GoToConclusionEvent extends FoodOrderEvent {}

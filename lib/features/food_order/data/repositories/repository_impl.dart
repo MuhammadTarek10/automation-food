@@ -27,9 +27,13 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, ConclusionModel>> getConclusion() {
-    // TODO: implement getConclusion
-    throw UnimplementedError();
+  Future<Either<Failure, ConclusionModel>> getConclusion() async {
+    try {
+      final conclusion = await localDataSource.getConclusion();
+      return Right(conclusion);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   @override
@@ -54,8 +58,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteAllOrders() async{
-    try{
+  Future<Either<Failure, void>> deleteAllOrders() async {
+    try {
       await localDataSource.deleteAllOrders();
       return const Right(Void);
     } on Exception {

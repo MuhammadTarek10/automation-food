@@ -1,3 +1,4 @@
+
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/data/datasources/data_source.dart';
 import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
@@ -20,7 +21,8 @@ class LocalDataSource implements DataSource {
         AppStrings.databaseColPrice,
         AppStrings.databaseColPrice,
         AppStrings.databaseColPayed,
-        AppStrings.databaseColRemaining
+        AppStrings.databaseColRemaining,
+        AppStrings.databaseColDone
       ],
     );
     return OrderModel.fromJsonList(orders);
@@ -62,8 +64,25 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<ConclusionModel> getConclusion() {
-    // TODO: implement getConclusion
-    throw UnimplementedError();
+  Future<ConclusionModel> getConclusion() async {
+    final orders = await getOrders();
+    double totalPrice = 0;
+    double totalPayed = 0;
+    double totalRemaining = 0;
+    Map<String, int> totalByFood = {};
+    for (final order in orders) {
+      totalPrice += order.price;
+      totalPayed += order.payed;
+      totalRemaining += order.remaining;
+      totalByFood[order.order] = totalByFood.containsKey(order.order)
+          ? totalByFood[order.order]! + 1
+          : 1;
+    }
+    return ConclusionModel(
+      total: totalPrice,
+      payed: totalPayed,
+      remaining: totalRemaining,
+      orderCount: totalByFood,
+    );
   }
 }

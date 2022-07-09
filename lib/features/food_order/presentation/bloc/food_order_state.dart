@@ -35,3 +35,25 @@ class AddingOrderErrorState extends FoodOrderState {
   @override
   List<Object> get props => [message];
 }
+
+class ConclusionInitialState extends FoodOrderState {}
+
+class ConclusionLoaidingState extends FoodOrderState {}
+
+class ConclusionErrorState extends FoodOrderState {
+  final String message;
+
+  const ConclusionErrorState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class ConclusionLoadedState extends FoodOrderState {
+  final ConclusionModel conclusion;
+
+  const ConclusionLoadedState({required this.conclusion});
+
+  @override
+  List<ConclusionModel> get props => [conclusion];
+}

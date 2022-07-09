@@ -5,6 +5,7 @@ class OrderModel {
   final double price;
   final double payed;
   final double remaining;
+  int done;
 
   OrderModel({
     required this.id,
@@ -13,6 +14,7 @@ class OrderModel {
     required this.price,
     required this.payed,
     required this.remaining,
+    required this.done,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class OrderModel {
       price: json['price'] as double,
       payed: json['payed'] as double,
       remaining: json['remaining'] as double,
+      done: json['done'] as int,
     );
   }
 
@@ -34,6 +37,7 @@ class OrderModel {
       'price': price,
       'payed': payed,
       'remaining': remaining,
+      'done': done,
     };
   }
 

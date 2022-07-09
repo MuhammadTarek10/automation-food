@@ -5,12 +5,15 @@ class AppStrings {
 
   // database
   static const int databaseVersion = 1;
+  static const int orderModelDone = 1;
+  static const int orderModelNotDone = 0;
   static const String databaseColId = "id";
   static const String databaseColName = "name";
   static const String databaseColOrder = "order";
   static const String databaseColPrice = "price";
   static const String databaseColPayed = "payed";
   static const String databaseColRemaining = "remaining";
+  static const String databaseColDone = "done";
   static const String databaseTableName = "orders";
 
   // failure messages
@@ -37,15 +40,25 @@ class AppStrings {
   static const String orderHintText = "Order";
   static const String priceHintText = "Price";
   static const String payedHintText = "Payed";
+  static const String remainingHintText = "Remaining";
+  static const String addOrderFloatingActionButtonTag = "ADD_ORDER";
+  static const String getConclusionFloatingActionButtonTag = "GET_CONCLUSION";
 
   // dialog text buttons and content
   static const String addOrderButtonText = "Add Order";
   static const String cancelOrderButtonText = "Cancel";
+  static const String saveOrderButtonText = "Save";
   static const String deleteOrderButtonText = "Delete";
   static const String deleteOrderTitle = "Delete Order";
-  static const String deleteOrderContent = "Are you sure you want to delete this order?";
+  static const String deleteOrderContent =
+      "Are you sure you want to delete this order?";
   static const String deleteAllOrdersTitle = "Delete All Orders";
-  static const String deleteAllOrdersContent = "Are you sure you want to delete all orders?";
+  static const String deleteAllOrdersContent =
+      "Are you sure you want to delete all orders?";
 
   // conclusion view
+  static const String conclusionTitle = "Conclusion";
+  static const String conclusionPayedText = "Payed";
+  static const String conclusionRemainingText = "Remaining";
+  static const String conclusionTotalText = "Total";
 }

@@ -34,7 +34,8 @@ Future<dynamic> _createDatabase(Database db, int version) async {
     "${AppStrings.databaseColOrder}" TEXT NOT NULL,
     "${AppStrings.databaseColPrice}" DOUBLE NOT NULL,
     "${AppStrings.databaseColPayed}" DOUBLE NOT NULL,
-    "${AppStrings.databaseColRemaining}" DOUBLE NOT NULL
+    "${AppStrings.databaseColRemaining}" DOUBLE NOT NULL,
+    "${AppStrings.databaseColDone}" BOOL NOT NULL
   )
   ''',
   );
