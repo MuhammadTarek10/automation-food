@@ -8,4 +8,5 @@ abstract class DataSource {
   Future<void> updateOrder(OrderModel order);
   Future<void> deleteAllOrders();
   Future<ConclusionModel> getConclusion();
+  Future<void> updateOrderDone(OrderModel orderModel);
 }

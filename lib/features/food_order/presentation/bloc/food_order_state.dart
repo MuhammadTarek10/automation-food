@@ -57,3 +57,4 @@ class ConclusionLoadedState extends FoodOrderState {
   @override
   List<ConclusionModel> get props => [conclusion];
 }
+

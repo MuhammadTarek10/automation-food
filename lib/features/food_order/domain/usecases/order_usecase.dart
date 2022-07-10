@@ -32,10 +32,16 @@ class DeleteAllOrdersUseCase implements UseCase<void, NoParams> {
       await repository.deleteAllOrders();
 }
 
-
 class UpdateOrderUseCase implements UseCase<void, OrderModel> {
   final Repository repository;
   const UpdateOrderUseCase({required this.repository});
   Future<Either<Failure, void>> call(OrderModel params) async =>
       await repository.updateOrder(params);
+}
+
+class UpdateOrderDoneUseCase implements UseCase<void, OrderModel> {
+  final Repository repository;
+  const UpdateOrderDoneUseCase({required this.repository});
+  Future<Either<Failure, void>> call(OrderModel params) async =>
+      await repository.updateOrderDone(params);
 }

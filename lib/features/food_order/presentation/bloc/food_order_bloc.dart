@@ -18,14 +18,16 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
   final UpdateOrderUseCase updateOrderUseCase;
   final DeleteAllOrdersUseCase deleteAllOrdersUseCase;
   final GetConclusionUseCase getConclusionUseCase;
-  FoodOrderBloc({
-    required this.saveOrderUseCase,
-    required this.deleteOrderUseCase,
-    required this.getOrdersUseCase,
-    required this.updateOrderUseCase,
-    required this.deleteAllOrdersUseCase,
-    required this.getConclusionUseCase,
-  }) : super(FoodOrderInitial()) {
+  final UpdateOrderDoneUseCase updateOrderDoneUseCase;
+  FoodOrderBloc(
+      {required this.saveOrderUseCase,
+      required this.deleteOrderUseCase,
+      required this.getOrdersUseCase,
+      required this.updateOrderUseCase,
+      required this.deleteAllOrdersUseCase,
+      required this.getConclusionUseCase,
+      required this.updateOrderDoneUseCase})
+      : super(FoodOrderInitial()) {
     on<AddOrderEvent>((event, emit) async {
       emit(AddingOrderLoadingState());
       final order = OrderModel(
@@ -92,6 +94,16 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
         (await getConclusionUseCase(NoParams())).fold(
           (failure) => ConclusionErrorState(message: failure.getMessage),
           (conclusion) => ConclusionLoadedState(conclusion: conclusion),
+        ),
+      );
+    });
+
+    on<UpdateOrderDoneEvent>((event, emit) async {
+      emit(AddingOrderLoadingState());
+      emit(
+        (await updateOrderDoneUseCase(event.order)).fold(
+          (failure) => AddingOrderErrorState(message: failure.getMessage),
+          (_) => AddingOrderSuccessState(),
         ),
       );
     });

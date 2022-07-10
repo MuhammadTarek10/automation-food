@@ -73,6 +73,7 @@ class _OrderViewState extends State<OrderView> {
                 order: order,
                 onDelete: (order) => deleteOrder(context, order),
                 onEdit: (order) => editOrder(context, order),
+                onDone: (order) => doneOrder(context, order),
               );
             },
           );
@@ -120,6 +121,10 @@ class _OrderViewState extends State<OrderView> {
   Future<void> editOrder(BuildContext context, OrderModel order) async {
     takeInputsDialog(context, order);
     foodBloc.add(UpdateOrderEvent(order: order));
+  }
+
+  Future<void> doneOrder(BuildContext context, OrderModel order) async {
+    foodBloc.add(UpdateOrderDoneEvent(order: order));
   }
 
   Future<void> deleteAllOrders(BuildContext context) async {

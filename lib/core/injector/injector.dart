@@ -66,6 +66,10 @@ initOrder() {
     instance.registerFactory<GetConclusionUseCase>(
         () => GetConclusionUseCase(repository: instance()));
   }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<UpdateOrderDoneUseCase>(
+        () => UpdateOrderDoneUseCase(repository: instance()));
+  }
   instance.registerFactory(
     () => FoodOrderBloc(
       saveOrderUseCase: instance<SaveOrderUseCase>(),
@@ -74,6 +78,7 @@ initOrder() {
       updateOrderUseCase: instance<UpdateOrderUseCase>(),
       deleteAllOrdersUseCase: instance<DeleteAllOrdersUseCase>(),
       getConclusionUseCase: instance<GetConclusionUseCase>(),
+      updateOrderDoneUseCase: instance<UpdateOrderDoneUseCase>(),
     ),
   );
 }

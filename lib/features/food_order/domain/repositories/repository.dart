@@ -10,4 +10,5 @@ abstract class Repository {
   Future<Either<Failure, List<OrderModel>>> getOrders();
   Future<Either<Failure, ConclusionModel>> getConclusion();
   Future<Either<Failure, void>> deleteAllOrders();
+  Future<Either<Failure, void>> updateOrderDone(OrderModel orderModel);
 }

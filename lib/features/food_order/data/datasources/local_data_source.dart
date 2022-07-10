@@ -85,4 +85,14 @@ class LocalDataSource implements DataSource {
       orderCount: totalByFood,
     );
   }
+  
+  @override
+  Future<void> updateOrderDone(OrderModel orderModel) {
+    return database.update(
+      AppStrings.databaseTableName,
+      orderModel.toJson(),
+      where: '${AppStrings.databaseColId} = ?',
+      whereArgs: [orderModel.id],
+    );
+  }
 }

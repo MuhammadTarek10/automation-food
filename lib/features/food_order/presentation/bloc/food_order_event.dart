@@ -46,7 +46,15 @@ class UpdateOrderEvent extends FoodOrderEvent {
   List<Object> get props => [order];
 }
 
-
 class DeleteAllOrdersEvent extends FoodOrderEvent {}
 
 class GoToConclusionEvent extends FoodOrderEvent {}
+
+class UpdateOrderDoneEvent extends FoodOrderEvent {
+  final OrderModel order;
+
+  const UpdateOrderDoneEvent({required this.order});
+
+  @override
+  List<Object> get props => [order];
+}

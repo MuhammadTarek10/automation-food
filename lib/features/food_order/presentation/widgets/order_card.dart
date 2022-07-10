@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/features/food_order/data/models/order_model.dart';
@@ -13,15 +14,17 @@ class OrderCard extends StatelessWidget {
 
   final OrderCallBack onDelete;
   final OrderCallBack onEdit;
+  final OrderCallBack onDone;
 
   StreamController<int> doneStreamController = StreamController<int>();
 
-  OrderCard({
-    Key? key,
-    required this.order,
-    required this.onDelete,
-    required this.onEdit,
-  }) : super(key: key);
+  OrderCard(
+      {Key? key,
+      required this.order,
+      required this.onDelete,
+      required this.onEdit,
+      required this.onDone})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class OrderCard extends StatelessWidget {
       builder: (context, snapshot) {
         return GFListTile(
           avatar: GFAvatar(
-            backgroundColor: snapshot.data != null && snapshot.data == 1
+            backgroundColor: snapshot.hasData && snapshot.data == 1
                 ? AppColors.primary
                 : AppColors.hint,
             child: Text(order.remaining.toString()),

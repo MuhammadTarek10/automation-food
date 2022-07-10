@@ -76,4 +76,14 @@ class RepositoryImpl implements Repository {
       return Left(CacheFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> updateOrderDone(OrderModel orderModel) async {
+    try {
+      await localDataSource.updateOrderDone(orderModel);
+      return const Right(Void);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
 }
