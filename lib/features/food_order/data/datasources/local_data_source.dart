@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/data/datasources/data_source.dart';
 import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
@@ -71,8 +69,8 @@ class LocalDataSource implements DataSource {
     double totalPayed = 0;
     double totalRemaining = 0;
     Map<String, int> totalByFood = {};
-    Map<String, List<String>> orderToNames = {};
-    Map<String, Map<int, List<String>>> totalByFoodCount = {};
+    Map<String, List<OrderModel>> orderToNames = {};
+    Map<String, Map<int, List<OrderModel>>> totalByFoodCount = {};
     for (final order in orders) {
       totalPrice += order.price;
       totalPayed += order.payed;
@@ -81,8 +79,8 @@ class LocalDataSource implements DataSource {
           ? totalByFood[order.order]! + 1
           : 1;
       orderToNames[order.order] = orderToNames.containsKey(order.order)
-          ? orderToNames[order.order]! + [order.name]
-          : [order.name];
+          ? orderToNames[order.order]! + [order]
+          : [order];
     }
     for (final food in totalByFood.keys) {
       totalByFoodCount[food] = {

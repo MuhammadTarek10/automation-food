@@ -1,8 +1,10 @@
+import 'package:auto_food/features/food_order/data/models/order_model.dart';
+
 class ConclusionModel {
   final double total;
   final double payed;
   final double remaining;
-  final Map<String, Map<int, List<String>>> orderCount;
+  final Map<String, Map<int, List<OrderModel>>> orderCount;
 
   const ConclusionModel(
       {required this.total,
@@ -15,7 +17,7 @@ class ConclusionModel {
         total: json['total'] as double,
         payed: json['payed'] as double,
         remaining: json['remaining'] as double,
-        orderCount: json['orderCount'] as Map<String, Map<int, List<String>>>,
+        orderCount: json['orderCount'] as Map<String, Map<int, List<OrderModel>>>,
       );
 
   Map<String, dynamic> toJson() => {

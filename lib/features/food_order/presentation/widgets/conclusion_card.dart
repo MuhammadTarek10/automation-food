@@ -19,23 +19,29 @@ class ConclusionCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         for (var key in conclusion.orderCount.keys)
-          GFListTile(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  key,
-                ),
-                Text(conclusion.orderCount[key].toString())
-              ],
+          ExpansionTile(
+            title: Center(child: Text(key)),
+            trailing: Text(
+              conclusion.orderCount[key]!.keys
+                  .map((e) => e.toString())
+                  .join(', '),
+              style: TextStyle(
+                fontSize: context.width *
+                    AppSizes.conclusionCardNumberOfOrdersPrecentage,
+              ),
             ),
-            color: AppColors.primary,
-            avatar: const Icon(
-              Icons.local_dining,
-            ),
+            children: [
+              for (var orders in conclusion.orderCount[key]!.values)
+                for (var order in orders)
+                  ListTile(
+                    title: Text(order.name.toString()),
+                    trailing: Text(order.remaining.toString()),
+                  )
+            ],
           ),
         SizedBox(
-          height: context.height * AppSizes.conclusionCardSizeDifference,
+          height:
+              context.height * AppSizes.conclusionCardSizeDifferencePrecentage,
         ),
         GFListTile(
           title: Row(
@@ -81,6 +87,10 @@ class ConclusionCard extends StatelessWidget {
           avatar: const Icon(
             Icons.attach_money,
           ),
+        ),
+        SizedBox(
+          height:
+              context.height * AppSizes.conclusionCardSizeDifferencePrecentage,
         ),
       ],
     );

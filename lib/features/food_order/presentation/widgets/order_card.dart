@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/features/food_order/data/models/order_model.dart';
 import 'package:flutter/material.dart';

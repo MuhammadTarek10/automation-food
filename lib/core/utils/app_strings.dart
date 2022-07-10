@@ -61,4 +61,5 @@ class AppStrings {
   static const String conclusionPayedText = "Payed";
   static const String conclusionRemainingText = "Remaining";
   static const String conclusionTotalText = "Total";
+  static const String pieces = "pieces";
 }
