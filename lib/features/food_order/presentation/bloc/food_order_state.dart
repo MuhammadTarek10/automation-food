@@ -58,3 +58,4 @@ class ConclusionLoadedState extends FoodOrderState {
   List<ConclusionModel> get props => [conclusion];
 }
 
+class ClearAllInputsState extends FoodOrderState {}

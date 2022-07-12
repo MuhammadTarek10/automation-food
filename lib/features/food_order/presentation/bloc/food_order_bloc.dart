@@ -87,7 +87,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       );
     });
 
-    on<GoToConclusionEvent>((event, emit) async {
+    on<GetConclusionEvent>((event, emit) async {
       emit(ConclusionInitialState());
       emit(ConclusionLoaidingState());
       emit(
@@ -106,6 +106,9 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
           (_) => AddingOrderSuccessState(),
         ),
       );
+    });
+    on<ClearAllInputsEvent>((event, emit) async {
+      emit(ClearAllInputsState());
     });
   }
 }

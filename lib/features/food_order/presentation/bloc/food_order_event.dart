@@ -48,7 +48,7 @@ class UpdateOrderEvent extends FoodOrderEvent {
 
 class DeleteAllOrdersEvent extends FoodOrderEvent {}
 
-class GoToConclusionEvent extends FoodOrderEvent {}
+class GetConclusionEvent extends FoodOrderEvent {}
 
 class UpdateOrderDoneEvent extends FoodOrderEvent {
   final OrderModel order;
@@ -58,3 +58,5 @@ class UpdateOrderDoneEvent extends FoodOrderEvent {
   @override
   List<Object> get props => [order];
 }
+
+class ClearAllInputsEvent extends FoodOrderEvent {}
