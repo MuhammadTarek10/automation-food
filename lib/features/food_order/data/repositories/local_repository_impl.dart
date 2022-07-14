@@ -5,19 +5,19 @@ import 'dart:ffi';
 
 import 'package:auto_food/core/error/exceptions.dart';
 import 'package:auto_food/features/food_order/data/datasources/local_data_source.dart';
-import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_conclusion_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:auto_food/core/error/failures.dart';
-import 'package:auto_food/features/food_order/domain/repositories/repository.dart';
+import 'package:auto_food/features/food_order/domain/repositories/local_repository.dart';
 import 'package:dartz/dartz.dart' show Either, Right, Left;
 
-class RepositoryImpl implements Repository {
+class LocalRepositoryImpl implements LocalRepository {
   final LocalDataSource localDataSource;
 
-  const RepositoryImpl({required this.localDataSource});
+  const LocalRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, void>> deleteOrder(OrderModel order) async {
+  Future<Either<Failure, void>> deleteOrder(LocalOrderModel order) async {
     try {
       await localDataSource.deleteOrder(order);
       return const Right(Void);
@@ -27,7 +27,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, ConclusionModel>> getConclusion() async {
+  Future<Either<Failure, LocalConclusionModel>> getConclusion() async {
     try {
       final conclusion = await localDataSource.getConclusion();
       return Right(conclusion);
@@ -37,7 +37,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, List<OrderModel>>> getOrders() async {
+  Future<Either<Failure, List<LocalOrderModel>>> getOrders() async {
     try {
       final orders = await localDataSource.getOrders();
       return Right(orders);
@@ -47,7 +47,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, void>> saveOrder(OrderModel order) async {
+  Future<Either<Failure, void>> saveOrder(LocalOrderModel order) async {
     try {
       await localDataSource.saveOrder(order);
       return const Right(Void);
@@ -68,7 +68,7 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, void>> updateOrder(OrderModel order) async {
+  Future<Either<Failure, void>> updateOrder(LocalOrderModel order) async {
     try {
       await localDataSource.updateOrder(order);
       return const Right(Void);
@@ -78,7 +78,8 @@ class RepositoryImpl implements Repository {
   }
 
   @override
-  Future<Either<Failure, void>> updateOrderDone(OrderModel orderModel) async {
+  Future<Either<Failure, void>> updateOrderDone(
+      LocalOrderModel orderModel) async {
     try {
       await localDataSource.updateOrderDone(orderModel);
       return const Right(Void);

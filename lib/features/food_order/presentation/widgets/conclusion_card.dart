@@ -2,12 +2,12 @@ import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/core/utils/media_query_values.dart';
-import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_conclusion_model.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
 class ConclusionCard extends StatelessWidget {
-  final ConclusionModel conclusion;
+  final LocalConclusionModel conclusion;
   const ConclusionCard({
     Key? key,
     required this.conclusion,

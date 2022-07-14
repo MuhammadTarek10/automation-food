@@ -1,23 +1,24 @@
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 
-class ConclusionModel {
+class LocalConclusionModel {
   final double total;
   final double payed;
   final double remaining;
-  final Map<String, Map<int, List<OrderModel>>> orderCount;
+  final Map<String, Map<int, List<LocalOrderModel>>> orderCount;
 
-  const ConclusionModel(
+  const LocalConclusionModel(
       {required this.total,
       required this.payed,
       required this.remaining,
       required this.orderCount});
 
-  factory ConclusionModel.fromJson(Map<String, dynamic> json) =>
-      ConclusionModel(
+  factory LocalConclusionModel.fromJson(Map<String, dynamic> json) =>
+      LocalConclusionModel(
         total: json['total'] as double,
         payed: json['payed'] as double,
         remaining: json['remaining'] as double,
-        orderCount: json['orderCount'] as Map<String, Map<int, List<OrderModel>>>,
+        orderCount:
+            json['orderCount'] as Map<String, Map<int, List<LocalOrderModel>>>,
       );
 
   Map<String, dynamic> toJson() => {

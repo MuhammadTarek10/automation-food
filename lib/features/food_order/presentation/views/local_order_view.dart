@@ -4,29 +4,29 @@ import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
-import 'package:auto_food/features/food_order/presentation/controllers/order_view_controller.dart';
+import 'package:auto_food/features/food_order/presentation/controllers/local_order_view_controller.dart';
 import 'package:auto_food/features/food_order/presentation/widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OrderView extends StatefulWidget {
-  const OrderView({Key? key}) : super(key: key);
+class LocalOrderView extends StatefulWidget {
+  const LocalOrderView({Key? key}) : super(key: key);
 
   @override
-  State<OrderView> createState() => _OrderViewState();
+  State<LocalOrderView> createState() => _LocalOrderViewState();
 }
 
-class _OrderViewState extends State<OrderView> {
+class _LocalOrderViewState extends State<LocalOrderView> {
   late final TextEditingController nameController;
   late final TextEditingController orderController;
   late final TextEditingController priceController;
   late final TextEditingController payedController;
-  late final OrderViewController _controller;
+  late final LocalOrderViewController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = OrderViewController(
+    _controller = LocalOrderViewController(
         foodOrderBloc: BlocProvider.of<FoodOrderBloc>(context));
     nameController = TextEditingController();
     orderController = TextEditingController();

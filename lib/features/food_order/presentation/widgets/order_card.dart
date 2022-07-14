@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:auto_food/core/utils/app_colors.dart';
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
-typedef OrderCallBack = void Function(OrderModel order);
+typedef OrderCallBack = void Function(LocalOrderModel order);
 
 // ignore: must_be_immutable
 class OrderCard extends StatelessWidget {
-  final OrderModel order;
+  final LocalOrderModel order;
 
   final OrderCallBack onDelete;
   final OrderCallBack onEdit;

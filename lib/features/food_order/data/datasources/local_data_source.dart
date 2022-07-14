@@ -1,7 +1,7 @@
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/data/datasources/data_source.dart';
-import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_conclusion_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class LocalDataSource implements DataSource {
@@ -10,7 +10,7 @@ class LocalDataSource implements DataSource {
   const LocalDataSource({required this.database});
 
   @override
-  Future<List<OrderModel>> getOrders() async {
+  Future<List<LocalOrderModel>> getOrders() async {
     final orders = await database.query(
       AppStrings.databaseTableName,
       columns: [
@@ -24,11 +24,11 @@ class LocalDataSource implements DataSource {
         AppStrings.databaseColDone
       ],
     );
-    return OrderModel.fromJsonList(orders);
+    return LocalOrderModel.fromJsonList(orders);
   }
 
   @override
-  Future<void> saveOrder(OrderModel order) async {
+  Future<void> saveOrder(LocalOrderModel order) async {
     await database.insert(
       AppStrings.databaseTableName,
       order.toJson(),
@@ -37,7 +37,7 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<void> deleteOrder(OrderModel order) {
+  Future<void> deleteOrder(LocalOrderModel order) {
     return database.delete(
       AppStrings.databaseTableName,
       where: '${AppStrings.databaseColId} = ?',
@@ -46,7 +46,7 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<void> updateOrder(OrderModel order) {
+  Future<void> updateOrder(LocalOrderModel order) {
     return database.update(
       AppStrings.databaseTableName,
       order.toJson(),
@@ -63,14 +63,14 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<ConclusionModel> getConclusion() async {
+  Future<LocalConclusionModel> getConclusion() async {
     final orders = await getOrders();
     double totalPrice = 0;
     double totalPayed = 0;
     double totalRemaining = 0;
     Map<String, int> totalByFood = {};
-    Map<String, List<OrderModel>> orderToNames = {};
-    Map<String, Map<int, List<OrderModel>>> totalByFoodCount = {};
+    Map<String, List<LocalOrderModel>> orderToNames = {};
+    Map<String, Map<int, List<LocalOrderModel>>> totalByFoodCount = {};
     for (final order in orders) {
       totalPrice += order.price;
       totalPayed += order.payed;
@@ -87,7 +87,7 @@ class LocalDataSource implements DataSource {
         totalByFood[food]!: orderToNames[food]!,
       };
     }
-    return ConclusionModel(
+    return LocalConclusionModel(
       total: totalPrice,
       payed: totalPayed,
       remaining: totalRemaining,
@@ -96,7 +96,7 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<void> updateOrderDone(OrderModel orderModel) {
+  Future<void> updateOrderDone(LocalOrderModel orderModel) {
     return database.update(
       AppStrings.databaseTableName,
       orderModel.toJson(),

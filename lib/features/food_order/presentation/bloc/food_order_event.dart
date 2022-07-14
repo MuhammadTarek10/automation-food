@@ -29,7 +29,7 @@ class AddOrderEvent extends FoodOrderEvent {
 class GetOrdersEvent extends FoodOrderEvent {}
 
 class DeleteOrderEvent extends FoodOrderEvent {
-  final OrderModel order;
+  final LocalOrderModel order;
 
   const DeleteOrderEvent({required this.order});
 
@@ -38,7 +38,7 @@ class DeleteOrderEvent extends FoodOrderEvent {
 }
 
 class UpdateOrderEvent extends FoodOrderEvent {
-  final OrderModel order;
+  final LocalOrderModel order;
 
   const UpdateOrderEvent({required this.order});
 
@@ -51,7 +51,7 @@ class DeleteAllOrdersEvent extends FoodOrderEvent {}
 class GetConclusionEvent extends FoodOrderEvent {}
 
 class UpdateOrderDoneEvent extends FoodOrderEvent {
-  final OrderModel order;
+  final LocalOrderModel order;
 
   const UpdateOrderDoneEvent({required this.order});
 

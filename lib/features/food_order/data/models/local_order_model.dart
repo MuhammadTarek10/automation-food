@@ -1,4 +1,4 @@
-class OrderModel {
+class LocalOrderModel {
   final String id;
   final String name;
   final String order;
@@ -7,7 +7,7 @@ class OrderModel {
   final double remaining;
   int done;
 
-  OrderModel({
+  LocalOrderModel({
     required this.id,
     required this.name,
     required this.order,
@@ -17,8 +17,8 @@ class OrderModel {
     required this.done,
   });
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) {
-    return OrderModel(
+  factory LocalOrderModel.fromJson(Map<String, dynamic> json) {
+    return LocalOrderModel(
       id: json['id'] as String,
       name: json['name'] as String,
       order: json['order'] as String,
@@ -41,7 +41,7 @@ class OrderModel {
     };
   }
 
-  static List<OrderModel> fromJsonList(List<dynamic> jsonList) {
-    return jsonList.map((json) => OrderModel.fromJson(json)).toList();
+  static List<LocalOrderModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => LocalOrderModel.fromJson(json)).toList();
   }
 }

@@ -1,20 +1,20 @@
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/food_order/presentation/widgets/confrimation_dialog.dart';
 import 'package:flutter/material.dart';
 
-class OrderViewController {
+class LocalOrderViewController {
   final FoodOrderBloc foodOrderBloc;
 
-  const OrderViewController({required this.foodOrderBloc});
+  const LocalOrderViewController({required this.foodOrderBloc});
 
   void getAllOrders() async {
     foodOrderBloc.add(GetOrdersEvent());
   }
 
-  Future<void> deleteOrder(BuildContext context, OrderModel order) async {
+  Future<void> deleteOrder(BuildContext context, LocalOrderModel order) async {
     if (await ConfirmationDialog.confirmDeleteOrder(context, order)) {
       foodOrderBloc.add(DeleteOrderEvent(order: order));
     }
@@ -22,7 +22,7 @@ class OrderViewController {
 
   Future<void> editOrder(
     BuildContext context,
-    OrderModel order,
+    LocalOrderModel order,
     TextEditingController nameController,
     TextEditingController orderController,
     TextEditingController priceController,
@@ -33,7 +33,7 @@ class OrderViewController {
     foodOrderBloc.add(UpdateOrderEvent(order: order));
   }
 
-  Future<void> doneOrder(OrderModel order) async {
+  Future<void> doneOrder(LocalOrderModel order) async {
     foodOrderBloc.add(UpdateOrderDoneEvent(order: order));
   }
 
@@ -45,7 +45,7 @@ class OrderViewController {
 
   Future<dynamic> takeInputsDialog(
       BuildContext context,
-      OrderModel? order,
+      LocalOrderModel? order,
       TextEditingController? nameController,
       TextEditingController? orderController,
       TextEditingController? priceController,
@@ -114,7 +114,7 @@ class OrderViewController {
                       )
                     : foodOrderBloc.add(
                         UpdateOrderEvent(
-                          order: OrderModel(
+                          order: LocalOrderModel(
                               id: order.id,
                               name: nameController.text,
                               order: orderController.text,

@@ -1,7 +1,7 @@
 import 'package:auto_food/core/usecases/usecases.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
-import 'package:auto_food/features/food_order/data/models/conclusion_model.dart';
-import 'package:auto_food/features/food_order/data/models/order_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_conclusion_model.dart';
+import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:auto_food/features/food_order/domain/usecases/conclusion_usecase.dart';
 import 'package:auto_food/features/food_order/domain/usecases/order_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +30,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       : super(FoodOrderInitial()) {
     on<AddOrderEvent>((event, emit) async {
       emit(AddingOrderLoadingState());
-      final order = OrderModel(
+      final order = LocalOrderModel(
         id: const Uuid().v4(),
         name: event.name,
         order: event.order,

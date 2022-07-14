@@ -19,6 +19,10 @@ class AppStrings {
   // failure messages
   static const String cacheFailureMessage = "Cache Failure";
   static const String unexpectedFailureMessage = "Unexpected Failure";
+  static const String serverFailureMessage = "Server Failure";
+  static const String unauthorizedFailureMessage = "Unauthorized Failure";
+  static const String noInternetFailureMessage = "No Internet Failure";
+  static const String unknownFailureMessage = "Unknown Failure";
 
   // excetpotion messages
   static const String cacheExceptionMessage = "Cache Exception";

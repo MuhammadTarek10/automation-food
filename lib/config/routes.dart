@@ -1,8 +1,8 @@
 import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
-import 'package:auto_food/features/food_order/presentation/views/conclusion_view.dart';
-import 'package:auto_food/features/food_order/presentation/views/order_view.dart';
+import 'package:auto_food/features/food_order/presentation/views/local_conclusion_view.dart';
+import 'package:auto_food/features/food_order/presentation/views/local_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,18 +17,18 @@ class AppRouterGenerator {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.orderRoute:
-        initOrder();
+        initLocal();
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<FoodOrderBloc>(),
-            child: const OrderView(),
+            child: const LocalOrderView(),
           ),
         );
       case Routes.conclusionRoute:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<FoodOrderBloc>(),
-            child: const ConclusionView(),
+            child: const LocalConclusionView(),
           ),
         );
       default:

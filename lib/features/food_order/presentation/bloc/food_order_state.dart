@@ -15,16 +15,16 @@ class DataEmptyState extends FoodOrderState {}
 
 class AddingOrderSuccessState extends FoodOrderState {
   @override
-  List<OrderModel> get props => [];
+  List<LocalOrderModel> get props => [];
 }
 
 class DataLoadedState extends FoodOrderState {
-  final List<OrderModel> orders;
+  final List<LocalOrderModel> orders;
 
   const DataLoadedState({required this.orders});
 
   @override
-  List<OrderModel> get props => orders;
+  List<LocalOrderModel> get props => orders;
 }
 
 class AddingOrderErrorState extends FoodOrderState {
@@ -50,12 +50,12 @@ class ConclusionErrorState extends FoodOrderState {
 }
 
 class ConclusionLoadedState extends FoodOrderState {
-  final ConclusionModel conclusion;
+  final LocalConclusionModel conclusion;
 
   const ConclusionLoadedState({required this.conclusion});
 
   @override
-  List<ConclusionModel> get props => [conclusion];
+  List<LocalConclusionModel> get props => [conclusion];
 }
 
 class ClearAllInputsState extends FoodOrderState {}
