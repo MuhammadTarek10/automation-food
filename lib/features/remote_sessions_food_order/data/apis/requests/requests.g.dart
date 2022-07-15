@@ -34,7 +34,6 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
 RemoteSessionRequest _$RemoteSessionRequestFromJson(
         Map<String, dynamic> json) =>
     RemoteSessionRequest(
-      userId: json['userId'] as String,
       name: json['name'] as String,
       code: json['code'] as String,
       number: json['number'] as int,
@@ -43,7 +42,6 @@ RemoteSessionRequest _$RemoteSessionRequestFromJson(
 Map<String, dynamic> _$RemoteSessionRequestToJson(
         RemoteSessionRequest instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
       'name': instance.name,
       'code': instance.code,
       'number': instance.number,
@@ -51,7 +49,6 @@ Map<String, dynamic> _$RemoteSessionRequestToJson(
 
 RemoteOrderRequest _$RemoteOrderRequestFromJson(Map<String, dynamic> json) =>
     RemoteOrderRequest(
-      userId: json['userId'] as String,
       sessionId: json['sessionId'] as String,
       name: json['name'] as String,
       price: (json['price'] as num).toDouble(),
@@ -60,7 +57,6 @@ RemoteOrderRequest _$RemoteOrderRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RemoteOrderRequestToJson(RemoteOrderRequest instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
       'sessionId': instance.sessionId,
       'name': instance.name,
       'price': instance.price,
