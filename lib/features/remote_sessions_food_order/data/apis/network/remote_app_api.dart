@@ -13,7 +13,7 @@ abstract class AppServiceClient {
 
   // auth
   @POST(ApiRoutes.login)
-  Future<RemoteLoginResponse> login(@Body() LoginRequest loginRequest);
+  Future<RemoteAuthTokenResponse> login(@Body() LoginRequest loginRequest);
   @POST(ApiRoutes.register)
   Future<RemoteRegisterResponse> register(
       @Body() RegisterRequest registerRequest);

@@ -23,6 +23,8 @@ class AppStrings {
   static const String unauthorizedFailureMessage = "Unauthorized Failure";
   static const String noInternetFailureMessage = "No Internet Failure";
   static const String unknownFailureMessage = "Unknown Failure";
+  static const String badRequestsFailureMessage = "Bad Requests Failure";
+  static const String notFoundFailureMessage = "Not Found Failure";
 
   // excetpotion messages
   static const String cacheExceptionMessage = "Cache Exception";
@@ -77,6 +79,7 @@ class AppStrings {
   static const String pieces = "pieces";
 
   // rmeote session view
+  static const int defaultRoomNumber = 1;
 
   // remote conclusion view
 }

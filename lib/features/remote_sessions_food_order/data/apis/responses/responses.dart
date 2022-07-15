@@ -2,16 +2,16 @@ import 'package:json_annotation/json_annotation.dart';
 part 'responses.g.dart';
 
 @JsonSerializable()
-class RemoteLoginResponse {
-  @JsonKey(name: "Token")
+class RemoteAuthTokenResponse {
+  @JsonKey(name: 'token')
   String token;
 
-  RemoteLoginResponse(this.token);
+  RemoteAuthTokenResponse(this.token);
 
-  factory RemoteLoginResponse.fromJson(Map<String, dynamic> json) =>
-      _$RemoteLoginResponseFromJson(json);
+  factory RemoteAuthTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$RemoteAuthTokenResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RemoteLoginResponseToJson(this);
+  Map<String, dynamic> toJson() => _$RemoteAuthTokenResponseToJson(this);
 }
 
 @JsonSerializable()

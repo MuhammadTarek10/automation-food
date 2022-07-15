@@ -1,4 +1,4 @@
-import 'package:auto_food/core/error/exceptions.dart';
+import 'package:auto_food/core/error/error_handler.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/network_info.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/responses/extensions.dart';
@@ -6,12 +6,12 @@ import 'package:auto_food/features/remote_sessions_food_order/data/datasources/r
 import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_conclusion_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_order_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_session_model.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_login_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/requests/requests.dart';
 import 'package:auto_food/core/error/failures.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/models/user_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/repositories/remote_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class RemoteRespositoryImpl implements RemoteRepository {
   final AppPreference appPreference;
@@ -24,19 +24,14 @@ class RemoteRespositoryImpl implements RemoteRepository {
   });
 
   @override
-  Future<Either<Failure, RemoteLoginModel>> login(
-      LoginRequest loginRequest) async {
+  Future<Either<Failure, String>> login(LoginRequest loginRequest) async {
     if (await networkInfo.isConnected) {
       try {
         final response = await remoteDataSource.login(loginRequest);
         appPreference.setToken(response.token);
-        return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+        return Right(response.token);
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -50,12 +45,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.register(registerRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -68,12 +59,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.getSessions();
         return Right(response.map((resposne) => resposne.toModel()).toList());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -88,10 +75,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
         final response =
             await remoteDataSource.searchSession(remoteSessionRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -106,12 +91,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
         final response =
             await remoteDataSource.deleteSession(remoteSessionRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -126,12 +107,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
         final response =
             await remoteDataSource.createSession(remoteSessionRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -145,12 +122,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.deleteOrder(remoteOrderRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -164,12 +137,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.editOrder(remoteOrderRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -183,12 +152,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.getOrders(sessionId);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -202,12 +167,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.addOrder(remoteOrderRequest);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());
@@ -221,12 +182,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
       try {
         final response = await remoteDataSource.getConclusion(sessionId);
         return Right(response.toModel());
-      } on ServerException {
-        return Left(ServerFailure());
-      } on UnauthorizedException {
-        return Left(UnauthorizedFailure());
-      } on UnknownException {
-        return Left(UnknownFailure());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
       }
     } else {
       return Left(NoInternetFailure());

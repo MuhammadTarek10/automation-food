@@ -3,7 +3,7 @@ import 'package:auto_food/features/remote_sessions_food_order/data/apis/requests
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/responses/responses.dart';
 
 abstract class RemoteDataSource {
-  Future<RemoteLoginResponse> login(LoginRequest loginRequest);
+  Future<RemoteAuthTokenResponse> login(LoginRequest loginRequest);
   Future<RemoteRegisterResponse> register(RegisterRequest registerRequest);
   Future<List<RemoteSessionResponse>> getSessions();
   Future<RemoteSessionResponse> createSession(
@@ -26,7 +26,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   // auth
   @override
-  Future<RemoteLoginResponse> login(LoginRequest loginRequest) async {
+  Future<RemoteAuthTokenResponse> login(LoginRequest loginRequest) async {
     return await appServiceClient.login(loginRequest);
   }
 

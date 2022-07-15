@@ -6,15 +6,16 @@ part of 'responses.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RemoteLoginResponse _$RemoteLoginResponseFromJson(Map<String, dynamic> json) =>
-    RemoteLoginResponse(
-      json['Token'] as String,
+RemoteAuthTokenResponse _$RemoteAuthTokenResponseFromJson(
+        Map<String, dynamic> json) =>
+    RemoteAuthTokenResponse(
+      json['token'] as String,
     );
 
-Map<String, dynamic> _$RemoteLoginResponseToJson(
-        RemoteLoginResponse instance) =>
+Map<String, dynamic> _$RemoteAuthTokenResponseToJson(
+        RemoteAuthTokenResponse instance) =>
     <String, dynamic>{
-      'Token': instance.token,
+      'token': instance.token,
     };
 
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(

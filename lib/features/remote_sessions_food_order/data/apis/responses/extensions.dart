@@ -5,9 +5,9 @@ import 'package:auto_food/features/remote_sessions_food_order/data/models/remote
 import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_session_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/models/user_model.dart';
 
-extension LoginResponseExtension on RemoteLoginResponse {
-  RemoteLoginModel toModel() {
-    return RemoteLoginModel(token: token);
+extension LoginResponseExtension on RemoteAuthTokenResponse {
+  RespondedLoginModel toModel() {
+    return RespondedLoginModel(token: token);
   }
 }
 

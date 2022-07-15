@@ -58,7 +58,6 @@ class AppRouterGenerator {
           ),
         );
       case Routes.registerRoute:
-        initRemote();
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
@@ -66,7 +65,6 @@ class AppRouterGenerator {
           ),
         );
       case Routes.remoteSessionRoute:
-        initRemote();
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<RemoteSessionsFoodOrderBloc>(),

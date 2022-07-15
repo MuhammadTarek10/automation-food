@@ -1,8 +1,9 @@
 class ApiRoutes {
   static const String base = "/api";
   // auth
-  static const String login = "$base/login";
-  static const String register = "$base/register";
+  static const String baseAuth = "$base/auth";
+  static const String login = "$baseAuth/login";
+  static const String register = "$baseAuth/register";
 
   // session
   static const String baseSession = "$base/session";

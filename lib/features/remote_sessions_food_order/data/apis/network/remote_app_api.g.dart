@@ -20,18 +20,19 @@ class _AppServiceClient implements AppServiceClient {
   String? baseUrl;
 
   @override
-  Future<RemoteLoginResponse> login(loginRequest) async {
+  Future<RemoteAuthTokenResponse> login(loginRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = loginRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(loginRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<RemoteLoginResponse>(
+        _setStreamType<RemoteAuthTokenResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/login',
+                .compose(_dio.options, '/api/auth/login',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = RemoteLoginResponse.fromJson(_result.data!);
+    final value = RemoteAuthTokenResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -40,11 +41,12 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = registerRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(registerRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteRegisterResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/register',
+                .compose(_dio.options, '/api/auth/register',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteRegisterResponse.fromJson(_result.data!);
@@ -75,7 +77,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteSessionRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteSessionRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -91,7 +94,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteSessionRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteSessionRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -107,7 +111,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteSessionRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteSessionRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
@@ -139,7 +144,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteOrderRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteOrderRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
@@ -155,7 +161,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteOrderRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteOrderRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
@@ -171,7 +178,8 @@ class _AppServiceClient implements AppServiceClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = remoteOrderRequest;
+    final _data = <String, dynamic>{};
+    _data.addAll(remoteOrderRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'PUT', headers: _headers, extra: _extra)

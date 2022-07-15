@@ -35,6 +35,26 @@ class UnauthorizedFailure extends Failure {
   List<Object?> get props => [message];
 }
 
+class NotFoundFailure extends Failure {
+  final String message = AppStrings.notFoundFailureMessage;
+
+  @override
+  String get getMessage => message;
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class BadRequestFailure extends Failure {
+  final String message = AppStrings.badRequestsFailureMessage;
+
+  @override
+  String get getMessage => message;
+
+  @override
+  List<Object?> get props => [message];
+}
+
 class NoInternetFailure extends Failure {
   final String message = AppStrings.noInternetFailureMessage;
 
