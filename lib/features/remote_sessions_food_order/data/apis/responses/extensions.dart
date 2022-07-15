@@ -58,3 +58,36 @@ extension RemoteConclusionResponseExtension on RemoteConclusionResponse {
     );
   }
 }
+
+extension UserResponseExtension on UserResponse {
+  UserModel toModel() {
+    return UserModel(
+      id: id,
+      name: name,
+      email: email,
+      password: password,
+      isAdmin: isAdmin,
+    );
+  }
+}
+
+extension RemoteOrderInSessionResponseExtension
+    on RemoteOrderInSessionResponse {
+  RemoteGetOrderInSessionModel toModel() {
+    return RemoteGetOrderInSessionModel(
+      id: id,
+      userId: userId,
+      sessionId: sessionId,
+      name: name,
+      price: price,
+      done: done,
+      user: user.toModel(),
+    );
+  }
+}
+
+extension GetRemoteOrderExtension on RemoteGetOrdersResponse {
+  List<RemoteGetOrderInSessionModel> toModel() {
+    return orders.map((order) => order.toModel()).toList();
+  }
+}

@@ -22,7 +22,8 @@ abstract class RemoteRespository {
       RemoteSessionRequest remoteSessionRequest);
 
   // order
-  Future<Either<Failure, List<RemoteOrderModel>>> getOrders(String sessionId);
+  Future<Either<Failure, List<RemoteGetOrderInSessionModel>>> getOrders(
+      String sessionId);
   Future<Either<Failure, RemoteOrderModel>> addOrder(
       RemoteOrderRequest remoteOrderRequest);
   Future<Either<Failure, RemoteOrderModel>> deleteOrder(

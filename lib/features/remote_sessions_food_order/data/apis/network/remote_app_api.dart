@@ -33,7 +33,7 @@ abstract class AppServiceClient {
 
   // order
   @GET(ApiRoutes.getOrders)
-  Future<List<RemoteOrderResponse>> getOrders(String sessionId);
+  Future<RemoteGetOrdersResponse> getOrders(String sessionId);
   @POST(ApiRoutes.addOrder)
   Future<RemoteOrderResponse> addOrder(
       @Body() RemoteOrderRequest remoteOrderRequest);

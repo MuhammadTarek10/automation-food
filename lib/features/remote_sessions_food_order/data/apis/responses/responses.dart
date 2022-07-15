@@ -72,6 +72,51 @@ class RemoteOrderResponse {
 }
 
 @JsonSerializable()
+class RemoteOrderInSessionResponse {
+  @JsonKey(name: "_id")
+  String id;
+  @JsonKey(name: "user_id")
+  String userId;
+  @JsonKey(name: "session_id")
+  String sessionId;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "price")
+  double price;
+  @JsonKey(name: "done")
+  bool done;
+  @JsonKey(name: "user")
+  UserResponse user;
+
+  RemoteOrderInSessionResponse(
+    this.id,
+    this.userId,
+    this.sessionId,
+    this.name,
+    this.price,
+    this.done,
+    this.user,
+  );
+
+  factory RemoteOrderInSessionResponse.fromJson(Map<String, dynamic> json) =>
+      _$RemoteOrderInSessionResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RemoteOrderInSessionResponseToJson(this);
+}
+
+@JsonSerializable()
+class RemoteGetOrdersResponse {
+  List<RemoteOrderInSessionResponse> orders;
+
+  RemoteGetOrdersResponse(this.orders);
+
+  factory RemoteGetOrdersResponse.fromJson(Map<String, dynamic> json) =>
+      _$RemoteGetOrdersResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RemoteGetOrdersResponseToJson(this);
+}
+
+@JsonSerializable()
 class RemoteConclusionResponse {
   @JsonKey(name: "_id")
   String id;

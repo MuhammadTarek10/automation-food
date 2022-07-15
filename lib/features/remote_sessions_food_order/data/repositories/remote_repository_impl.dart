@@ -178,12 +178,12 @@ class RemoteRespositoryImpl implements RemoteRespository {
   }
 
   @override
-  Future<Either<Failure, List<RemoteOrderModel>>> getOrders(
+  Future<Either<Failure, List<RemoteGetOrderInSessionModel>>> getOrders(
       String sessionId) async {
     if (await networkInfo.isConnected) {
       try {
         final response = await remoteDataSource.getOrders(sessionId);
-        return Right(response.map((resposne) => resposne.toModel()).toList());
+        return Right(response.toModel());
       } on ServerException {
         return Left(ServerFailure());
       } on UnauthorizedException {
