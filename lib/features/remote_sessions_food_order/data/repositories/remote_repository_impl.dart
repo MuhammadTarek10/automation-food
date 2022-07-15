@@ -1,3 +1,4 @@
+import 'package:auto_food/core/error/exceptions.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/network_info.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/responses/extensions.dart';
@@ -30,8 +31,12 @@ class RemoteRespositoryImpl implements RemoteRespository {
         final response = await remoteDataSource.login(loginRequest);
         appPreference.setToken(response.token);
         return Right(response.toModel());
-      } catch (e) {
+      } on ServerException {
         return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
       }
     } else {
       return Left(NoInternetFailure());
@@ -45,8 +50,12 @@ class RemoteRespositoryImpl implements RemoteRespository {
       try {
         final response = await remoteDataSource.register(registerRequest);
         return Right(response.toModel());
-      } catch (e) {
+      } on ServerException {
         return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
       }
     } else {
       return Left(NoInternetFailure());
@@ -60,8 +69,12 @@ class RemoteRespositoryImpl implements RemoteRespository {
       try {
         final response = await remoteDataSource.getSession(id);
         return Right(response.map((resposne) => resposne.toModel()).toList());
-      } catch (e) {
+      } on ServerException {
         return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
       }
     } else {
       return Left(NoInternetFailure());
@@ -72,9 +85,15 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteSessionModel>> searchSession(
       RemoteSessionRequest remoteSessionRequest) async {
     if (await networkInfo.isConnected) {
-      final response =
-          await remoteDataSource.searchSession(remoteSessionRequest);
-      return Right(response.toModel());
+      try {
+        final response =
+            await remoteDataSource.searchSession(remoteSessionRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
@@ -84,9 +103,17 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteSessionModel>> deleteSession(
       RemoteSessionRequest remoteSessionRequest) async {
     if (await networkInfo.isConnected) {
-      final response =
-          await remoteDataSource.deleteSession(remoteSessionRequest);
-      return Right(response.toModel());
+      try {
+        final response =
+            await remoteDataSource.deleteSession(remoteSessionRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
@@ -96,9 +123,17 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteSessionModel>> createSession(
       RemoteSessionRequest remoteSessionRequest) async {
     if (await networkInfo.isConnected) {
-      final response =
-          await remoteDataSource.createSession(remoteSessionRequest);
-      return Right(response.toModel());
+      try {
+        final response =
+            await remoteDataSource.createSession(remoteSessionRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
@@ -108,8 +143,16 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteOrderModel>> deleteOrder(
       RemoteOrderRequest remoteOrderRequest) async {
     if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.deleteOrder(remoteOrderRequest);
-      return Right(response.toModel());
+      try {
+        final response = await remoteDataSource.deleteOrder(remoteOrderRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
@@ -119,8 +162,16 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteOrderModel>> editOrder(
       RemoteOrderRequest remoteOrderRequest) async {
     if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.editOrder(remoteOrderRequest);
-      return Right(response.toModel());
+      try {
+        final response = await remoteDataSource.editOrder(remoteOrderRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
@@ -133,8 +184,12 @@ class RemoteRespositoryImpl implements RemoteRespository {
       try {
         final response = await remoteDataSource.getOrders(sessionId);
         return Right(response.map((resposne) => resposne.toModel()).toList());
-      } catch (e) {
+      } on ServerException {
         return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
       }
     } else {
       return Left(NoInternetFailure());
@@ -145,18 +200,35 @@ class RemoteRespositoryImpl implements RemoteRespository {
   Future<Either<Failure, RemoteOrderModel>> addOrder(
       RemoteOrderRequest remoteOrderRequest) async {
     if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.addOrder(remoteOrderRequest);
-      return Right(response.toModel());
+      try {
+        final response = await remoteDataSource.addOrder(remoteOrderRequest);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }
   }
 
   @override
-  Future<Either<Failure, RemoteConclusionModel>> getConclusion(String sessionId) async {
+  Future<Either<Failure, RemoteConclusionModel>> getConclusion(
+      String sessionId) async {
     if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.getConclusion(sessionId);
-      return Right(response.toModel());
+      try {
+        final response = await remoteDataSource.getConclusion(sessionId);
+        return Right(response.toModel());
+      } on ServerException {
+        return Left(ServerFailure());
+      } on UnauthorizedException {
+        return Left(UnauthorizedFailure());
+      } on UnknownException {
+        return Left(UnknownFailure());
+      }
     } else {
       return Left(NoInternetFailure());
     }

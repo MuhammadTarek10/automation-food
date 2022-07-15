@@ -22,3 +22,24 @@ class InputsException extends BaseException {
   const InputsException({String? message})
       : super(message: AppStrings.inputsExceptionMessage);
 }
+
+
+class NetworkException extends BaseException {
+  const NetworkException({String? message})
+      : super(message: AppStrings.networkExceptionMessage);
+}
+
+class ServerException extends BaseException {
+  const ServerException({String? message})
+      : super(message: AppStrings.serverExceptionMessage);
+}
+
+class UnauthorizedException extends BaseException {
+  const UnauthorizedException({String? message})
+      : super(message: AppStrings.unauthorizedExceptionMessage);
+}
+
+class UnknownException extends BaseException {
+  const UnknownException({String? message})
+      : super(message: AppStrings.unknownExceptionMessage);
+}

@@ -27,6 +27,11 @@ class AppStrings {
   // excetpotion messages
   static const String cacheExceptionMessage = "Cache Exception";
   static const String inputsExceptionMessage = "Inputs Exception";
+  static const String networkExceptionMessage = "Network Exception";
+  static const String serverExceptionMessage = "Server Exception";
+  static const String unauthorizedExceptionMessage = "Unauthorized Exception";
+  static const String noInternetExceptionMessage = "No Internet Exception";
+  static const String unknownExceptionMessage = "Unknown Exception";
 
   // error toast messages
   static const String invalidInputs = "Invalid inputs";
