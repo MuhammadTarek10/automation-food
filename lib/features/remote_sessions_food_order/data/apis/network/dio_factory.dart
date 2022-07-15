@@ -14,7 +14,7 @@ class DioFactory {
     Map<String, String> headers = {
       AppConstants.cotnentType: AppConstants.applicationJson,
       AppConstants.accept: AppConstants.applicationJson,
-      AppConstants.authorization: token!,
+      AppConstants.authorization: token ?? "",
     };
 
     dio.options = BaseOptions(

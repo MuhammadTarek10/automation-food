@@ -13,6 +13,11 @@ import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/
 import 'package:auto_food/features/remote_sessions_food_order/data/datasources/remote_data_source.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/repositories/remote_repository_impl.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/repositories/remote_repository.dart';
+import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_auth_usecases.dart';
+import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_conclusion_usecases.dart';
+import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_order_usecases.dart';
+import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_session_usecases.dart';
+import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/remote_sessions_food_order_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -45,7 +50,7 @@ Future<void> initApp() async {
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
   instance.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImpl(appServiceClient: instance()));
-  instance.registerLazySingleton<RemoteRespository>(() => RemoteRespositoryImpl(
+  instance.registerLazySingleton<RemoteRepository>(() => RemoteRespositoryImpl(
       appPreference: instance(),
       networkInfo: instance(),
       remoteDataSource: instance()));
@@ -109,4 +114,65 @@ initLocal() {
   );
 }
 
-initRemote() {}
+initRemote() {
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteLoginUseCase>(
+        () => RemoteLoginUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteRegisterUseCase>(
+        () => RemoteRegisterUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<GetSessionsUeeCase>(
+        () => GetSessionsUeeCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<CreateSessionUeeCase>(
+        () => CreateSessionUeeCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<DeleteSessionUeeCase>(
+        () => DeleteSessionUeeCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<SearchSessionUeeCase>(
+        () => SearchSessionUeeCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteGetOtderUseCase>(
+        () => RemoteGetOtderUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteAddOrderUseCase>(
+        () => RemoteAddOrderUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteEditOrderUseCase>(
+        () => RemoteEditOrderUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteDeleteOrderUseCase>(
+        () => RemoteDeleteOrderUseCase(repository: instance()));
+  }
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<RemoteGetConclusion>(
+        () => RemoteGetConclusion(repository: instance()));
+  }
+
+  instance.registerFactory(
+    () => RemoteSessionsFoodOrderBloc(
+      createSession: instance(),
+      getSession: instance(),
+      searchSession: instance(),
+      deleteSession: instance(),
+      getOrder: instance(),
+      addOrder: instance(),
+      deleteOrder: instance(),
+      editOrder: instance(),
+      login: instance(),
+      logout: instance(),
+      getConclusion: instance(),
+    ),
+  );
+}

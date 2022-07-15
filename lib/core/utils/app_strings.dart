@@ -43,6 +43,10 @@ class AppStrings {
   // udefined route
   static const String undefinedRoute = "Unexpected Error";
 
+  // home view
+  static const String goOnline = "Go Online";
+  static const String goOffline = "Go Offline";
+
   // order view
   static const String enterOrderTitle = "Enter Order";
   static const String nameHintText = "Name";
@@ -71,4 +75,8 @@ class AppStrings {
   static const String conclusionRemainingText = "Remaining";
   static const String conclusionTotalText = "Total";
   static const String pieces = "pieces";
+
+  // rmeote session view
+
+  // remote conclusion view
 }

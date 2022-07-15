@@ -7,13 +7,14 @@ import 'package:auto_food/features/remote_sessions_food_order/data/models/remote
 import 'package:auto_food/features/remote_sessions_food_order/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 
-abstract class RemoteRespository {
+abstract class RemoteRepository {
   // auth
   Future<Either<Failure, RemoteLoginModel>> login(LoginRequest loginRequest);
-  Future<Either<Failure, UserModel>> register(RegisterRequest registerRequest);
+  Future<Either<Failure, RemoteUserModel>> register(
+      RegisterRequest registerRequest);
 
   // session
-  Future<Either<Failure, List<RemoteSessionModel>>> getSession(String id);
+  Future<Either<Failure, List<RemoteSessionModel>>> getSessions();
   Future<Either<Failure, RemoteSessionModel>> createSession(
       RemoteSessionRequest remoteSessionRequest);
   Future<Either<Failure, RemoteSessionModel>> searchSession(

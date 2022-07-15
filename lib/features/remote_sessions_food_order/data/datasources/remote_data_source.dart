@@ -5,7 +5,7 @@ import 'package:auto_food/features/remote_sessions_food_order/data/apis/response
 abstract class RemoteDataSource {
   Future<RemoteLoginResponse> login(LoginRequest loginRequest);
   Future<RemoteRegisterResponse> register(RegisterRequest registerRequest);
-  Future<List<RemoteSessionResponse>> getSession(String id);
+  Future<List<RemoteSessionResponse>> getSessions();
   Future<RemoteSessionResponse> createSession(
       RemoteSessionRequest remoteSessionRequest);
   Future<RemoteSessionResponse> searchSession(
@@ -38,8 +38,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   // session
   @override
-  Future<List<RemoteSessionResponse>> getSession(String id) async {
-    return await appServiceClient.getSession(id);
+  Future<List<RemoteSessionResponse>> getSessions() async {
+    return await appServiceClient.getSessions();
   }
 
   @override

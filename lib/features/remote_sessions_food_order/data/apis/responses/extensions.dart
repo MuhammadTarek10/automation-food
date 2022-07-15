@@ -12,8 +12,8 @@ extension LoginResponseExtension on RemoteLoginResponse {
 }
 
 extension RegsiterResponseExtension on RemoteRegisterResponse {
-  UserModel toModel() {
-    return UserModel(
+  RemoteUserModel toModel() {
+    return RemoteUserModel(
       id: user.id,
       name: user.name,
       email: user.email,
@@ -60,8 +60,8 @@ extension RemoteConclusionResponseExtension on RemoteConclusionResponse {
 }
 
 extension UserResponseExtension on UserResponse {
-  UserModel toModel() {
-    return UserModel(
+  RemoteUserModel toModel() {
+    return RemoteUserModel(
       id: id,
       name: name,
       email: email,

@@ -13,7 +13,7 @@ import 'package:auto_food/features/remote_sessions_food_order/data/models/user_m
 import 'package:auto_food/features/remote_sessions_food_order/domain/repositories/remote_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class RemoteRespositoryImpl implements RemoteRespository {
+class RemoteRespositoryImpl implements RemoteRepository {
   final AppPreference appPreference;
   final RemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
@@ -44,7 +44,7 @@ class RemoteRespositoryImpl implements RemoteRespository {
   }
 
   @override
-  Future<Either<Failure, UserModel>> register(
+  Future<Either<Failure, RemoteUserModel>> register(
       RegisterRequest registerRequest) async {
     if (await networkInfo.isConnected) {
       try {
@@ -63,11 +63,10 @@ class RemoteRespositoryImpl implements RemoteRespository {
   }
 
   @override
-  Future<Either<Failure, List<RemoteSessionModel>>> getSession(
-      String id) async {
+  Future<Either<Failure, List<RemoteSessionModel>>> getSessions() async {
     if (await networkInfo.isConnected) {
       try {
-        final response = await remoteDataSource.getSession(id);
+        final response = await remoteDataSource.getSessions();
         return Right(response.map((resposne) => resposne.toModel()).toList());
       } on ServerException {
         return Left(ServerFailure());

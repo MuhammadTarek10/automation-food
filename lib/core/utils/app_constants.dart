@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AppConstants {
-  static const String baseUrl = "localhost:3030";
+  // static const String baseUrl = "localhost:3030";
+  static const String baseUrl = "https://tarek-auto-food.herokuapp.com/";
   static const String tokenKey = "TOKEN_KEY";
   static const String cotnentType = "Content-Type";
   static const String applicationJson = "application/json";
   static const String accept = "Accept";
   static const String authorization = "x-auth-token";
 
-  static const int recieveTimeout = 60 * 2;
-  static const int connectTimeout = 60 * 2;
-  static const int sendTimeout = 60 * 2;
+  static const int recieveTimeout = 10000;
+  static const int connectTimeout = 10000;
+  static const int sendTimeout = 10000;
 
   static void showToast({
     required String message,

@@ -1,5 +1,5 @@
-class UserModel {
-  const UserModel({
+class RemoteUserModel {
+  const RemoteUserModel({
     required this.id,
     required this.name,
     required this.email,

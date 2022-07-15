@@ -20,7 +20,7 @@ abstract class AppServiceClient {
 
   // session
   @GET(ApiRoutes.getSessions)
-  Future<List<RemoteSessionResponse>> getSession(String id);
+  Future<List<RemoteSessionResponse>> getSessions();
   @POST(ApiRoutes.createSession)
   Future<RemoteSessionResponse> createSession(
       @Body() RemoteSessionRequest remoteSessionRequest);

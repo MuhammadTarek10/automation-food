@@ -35,7 +35,7 @@ class RemoteGetOrderInSessionModel {
   final double price;
   final String sessionId;
   final bool done;
-  final UserModel user;
+  final RemoteUserModel user;
 }
 
 class RemoteGetOrderModel {

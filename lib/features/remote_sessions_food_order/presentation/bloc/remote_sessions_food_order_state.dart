@@ -8,3 +8,5 @@ abstract class RemoteSessionsFoodOrderState extends Equatable {
 }
 
 class RemoteSessionsFoodOrderInitial extends RemoteSessionsFoodOrderState {}
+
+class RemoteSessionFoodOrderLoading extends RemoteSessionsFoodOrderState {}

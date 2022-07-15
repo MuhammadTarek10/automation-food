@@ -12,7 +12,7 @@ part of 'remote_app_api.dart';
 
 class _AppServiceClient implements AppServiceClient {
   _AppServiceClient(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'localhost:3030';
+    baseUrl ??= 'https://tarek-auto-food.herokuapp.com/';
   }
 
   final Dio _dio;
@@ -28,7 +28,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteLoginResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/login',
+                .compose(_dio.options, '/api/login',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteLoginResponse.fromJson(_result.data!);
@@ -44,7 +44,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteRegisterResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/register',
+                .compose(_dio.options, '/api/register',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteRegisterResponse.fromJson(_result.data!);
@@ -52,7 +52,7 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<List<RemoteSessionResponse>> getSession(id) async {
+  Future<List<RemoteSessionResponse>> getSessions() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -60,7 +60,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<RemoteSessionResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/get-sessions',
+                .compose(_dio.options, '/api/session/get-sessions',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
@@ -79,7 +79,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/create-session',
+                .compose(_dio.options, '/api/session/create-session',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteSessionResponse.fromJson(_result.data!);
@@ -95,7 +95,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/search-session',
+                .compose(_dio.options, '/api/session/search-session',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteSessionResponse.fromJson(_result.data!);
@@ -111,7 +111,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/delete-session',
+                .compose(_dio.options, '/api/session/delete-session',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteSessionResponse.fromJson(_result.data!);
@@ -127,7 +127,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteGetOrdersResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/get-orders',
+                .compose(_dio.options, '/api/order/get-orders',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteGetOrdersResponse.fromJson(_result.data!);
@@ -143,7 +143,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/add-order',
+                .compose(_dio.options, '/api/order/add-order',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteOrderResponse.fromJson(_result.data!);
@@ -159,7 +159,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/delete-order',
+                .compose(_dio.options, '/api/order/delete-order',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteOrderResponse.fromJson(_result.data!);
@@ -175,7 +175,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteOrderResponse>(
             Options(method: 'PUT', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/edit-order',
+                .compose(_dio.options, '/api/order/edit-order',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteOrderResponse.fromJson(_result.data!);
@@ -191,7 +191,7 @@ class _AppServiceClient implements AppServiceClient {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteConclusionResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, 'localhost:3030/api/get-conclusion',
+                .compose(_dio.options, '/api/conclusion/get-conclusion',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RemoteConclusionResponse.fromJson(_result.data!);

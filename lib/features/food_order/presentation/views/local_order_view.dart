@@ -102,7 +102,7 @@ class _LocalOrderViewState extends State<LocalOrderView> {
               heroTag: AppStrings.addOrderFloatingActionButtonTag,
               backgroundColor: AppColors.primary,
               onPressed: () {
-                Navigator.of(context).pushNamed(Routes.conclusionRoute);
+                Navigator.of(context).pushNamed(Routes.localConclusionRoute);
               },
               child: const Icon(Icons.add_chart),
             ),
