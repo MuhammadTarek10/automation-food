@@ -48,7 +48,9 @@ class UpdateOrderEvent extends FoodOrderEvent {
 
 class DeleteAllOrdersEvent extends FoodOrderEvent {}
 
-class GetConclusionEvent extends FoodOrderEvent {}
+class GetConclusionByOrderEvent extends FoodOrderEvent {}
+
+class GetConclusionByUserEvent extends FoodOrderEvent {}
 
 class UpdateOrderDoneEvent extends FoodOrderEvent {
   final LocalOrderModel order;

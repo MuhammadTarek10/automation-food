@@ -4,11 +4,24 @@ import 'package:auto_food/features/food_order/data/models/local_conclusion_model
 import 'package:auto_food/features/food_order/domain/repositories/local_repository.dart';
 import 'package:dartz/dartz.dart' show Either;
 
-class GetConclusionUseCase implements UseCase<LocalConclusionModel, NoParams> {
+class GetConclusionByOrderUseCase
+    implements UseCase<LocalConclusionOrderModel, NoParams> {
   final LocalRepository repository;
 
-  const GetConclusionUseCase({required this.repository});
+  const GetConclusionByOrderUseCase({required this.repository});
 
-  Future<Either<Failure, LocalConclusionModel>> call(NoParams params) async =>
-      await repository.getConclusion();
+  Future<Either<Failure, LocalConclusionOrderModel>> call(
+          NoParams params) async =>
+      await repository.getConclusionByOrder();
+}
+
+class GetConclusionByUserUseCase
+    implements UseCase<LocalConclusionUserModel, NoParams> {
+  final LocalRepository repository;
+
+  const GetConclusionByUserUseCase({required this.repository});
+
+  Future<Either<Failure, LocalConclusionUserModel>> call(
+          NoParams params) async =>
+      await repository.getConclusionByUser();
 }

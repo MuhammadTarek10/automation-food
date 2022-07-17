@@ -7,6 +7,7 @@ abstract class DataSource {
   Future<void> deleteOrder(LocalOrderModel order);
   Future<void> updateOrder(LocalOrderModel order);
   Future<void> deleteAllOrders();
-  Future<LocalConclusionModel> getConclusion();
+  Future<LocalConclusionOrderModel> getConclusionByOrder();
+  Future<LocalConclusionUserModel> getConclusionByUser();
   Future<void> updateOrderDone(LocalOrderModel orderModel);
 }

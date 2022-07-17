@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/data/datasources/data_source.dart';
 import 'package:auto_food/features/food_order/data/models/local_conclusion_model.dart';
@@ -25,6 +27,15 @@ class LocalDataSource implements DataSource {
       ],
     );
     return LocalOrderModel.fromJsonList(orders);
+  }
+
+  Future<List<String>> getUsers() async {
+    final users = await database.query(
+      AppStrings.databaseTableName,
+      columns: [AppStrings.databaseColName],
+    );
+    log(users.toString());
+    return ["ASD"];
   }
 
   @override
@@ -63,7 +74,7 @@ class LocalDataSource implements DataSource {
   }
 
   @override
-  Future<LocalConclusionModel> getConclusion() async {
+  Future<LocalConclusionOrderModel> getConclusionByOrder() async {
     final orders = await getOrders();
     double totalPrice = 0;
     double totalPayed = 0;
@@ -87,7 +98,7 @@ class LocalDataSource implements DataSource {
         totalByFood[food]!: orderToNames[food]!,
       };
     }
-    return LocalConclusionModel(
+    return LocalConclusionOrderModel(
       total: totalPrice,
       payed: totalPayed,
       remaining: totalRemaining,
@@ -102,6 +113,29 @@ class LocalDataSource implements DataSource {
       orderModel.toJson(),
       where: '${AppStrings.databaseColId} = ?',
       whereArgs: [orderModel.id],
+    );
+  }
+
+  @override
+  Future<LocalConclusionUserModel> getConclusionByUser() async {
+    final orders = await getOrders();
+    double totalPrice = 0;
+    double totalPayed = 0;
+    double totalRemaining = 0;
+    Map<String, List<LocalOrderModel>> groupedByUsers = {};
+    for (var order in orders) {
+      totalPrice += order.price;
+      totalPayed += order.payed;
+      totalRemaining += order.remaining;
+      groupedByUsers[order.name] = groupedByUsers.containsKey(order.name)
+          ? groupedByUsers[order.name]! + [order]
+          : [order];
+    }
+    return LocalConclusionUserModel(
+      total: totalPrice,
+      payed: totalPayed,
+      remaining: totalRemaining,
+      userCount: groupedByUsers,
     );
   }
 }

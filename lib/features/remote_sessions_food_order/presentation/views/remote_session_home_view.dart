@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/remote_sessions_food_order_bloc.dart';

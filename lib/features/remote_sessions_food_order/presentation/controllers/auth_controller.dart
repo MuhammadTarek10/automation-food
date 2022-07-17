@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/storage/app_pref.dart';

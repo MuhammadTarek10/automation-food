@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_food/core/usecases/usecases.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/domain/usecases/conclusion_usecase.dart';
@@ -27,7 +25,7 @@ class RemoteSessionsFoodOrderBloc
   final RemoteEditOrderUseCase editOrderUseCase;
   final RemoteLoginUseCase loginUseCase;
   final RemoteRegisterUseCase registerUsecase;
-  final GetConclusionUseCase getConclusionUseCase;
+  final GetConclusionByOrderUseCase getConclusionUseCase;
 
   RemoteSessionsFoodOrderBloc({
     required this.createSessionUseCase,

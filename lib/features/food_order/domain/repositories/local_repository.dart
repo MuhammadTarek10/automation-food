@@ -8,7 +8,8 @@ abstract class LocalRepository {
   Future<Either<Failure, void>> deleteOrder(LocalOrderModel order);
   Future<Either<Failure, void>> updateOrder(LocalOrderModel order);
   Future<Either<Failure, List<LocalOrderModel>>> getOrders();
-  Future<Either<Failure, LocalConclusionModel>> getConclusion();
+  Future<Either<Failure, LocalConclusionOrderModel>> getConclusionByOrder();
+  Future<Either<Failure, LocalConclusionUserModel>> getConclusionByUser();
   Future<Either<Failure, void>> deleteAllOrders();
   Future<Either<Failure, void>> updateOrderDone(LocalOrderModel orderModel);
 }

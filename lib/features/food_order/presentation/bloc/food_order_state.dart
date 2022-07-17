@@ -49,13 +49,22 @@ class ConclusionErrorState extends FoodOrderState {
   List<Object> get props => [message];
 }
 
-class ConclusionLoadedState extends FoodOrderState {
-  final LocalConclusionModel conclusion;
+class ConclusionByOrderLoadedState extends FoodOrderState {
+  final LocalConclusionOrderModel conclusion;
 
-  const ConclusionLoadedState({required this.conclusion});
+  const ConclusionByOrderLoadedState({required this.conclusion});
 
   @override
-  List<LocalConclusionModel> get props => [conclusion];
+  List<LocalConclusionOrderModel> get props => [conclusion];
+}
+
+class ConclusionByUserLoadedState extends FoodOrderState {
+  final LocalConclusionUserModel conclusion;
+
+  const ConclusionByUserLoadedState({required this.conclusion});
+
+  @override
+  List<LocalConclusionUserModel> get props => [conclusion];
 }
 
 class ClearAllInputsState extends FoodOrderState {}

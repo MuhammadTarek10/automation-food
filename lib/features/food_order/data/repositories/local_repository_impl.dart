@@ -27,9 +27,10 @@ class LocalRepositoryImpl implements LocalRepository {
   }
 
   @override
-  Future<Either<Failure, LocalConclusionModel>> getConclusion() async {
+  Future<Either<Failure, LocalConclusionOrderModel>>
+      getConclusionByOrder() async {
     try {
-      final conclusion = await localDataSource.getConclusion();
+      final conclusion = await localDataSource.getConclusionByOrder();
       return Right(conclusion);
     } on CacheException {
       return Left(CacheFailure());
@@ -83,6 +84,17 @@ class LocalRepositoryImpl implements LocalRepository {
     try {
       await localDataSource.updateOrderDone(orderModel);
       return const Right(Void);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, LocalConclusionUserModel>>
+      getConclusionByUser() async {
+    try {
+      final conclusion = await localDataSource.getConclusionByUser();
+      return Right(conclusion);
     } on CacheException {
       return Left(CacheFailure());
     }

@@ -94,13 +94,19 @@ initLocal() {
         () => DeleteAllOrdersUseCase(repository: instance()));
   }
   if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<GetConclusionUseCase>(
-        () => GetConclusionUseCase(repository: instance()));
+    instance.registerFactory<GetConclusionByOrderUseCase>(
+        () => GetConclusionByOrderUseCase(repository: instance()));
   }
   if (!GetIt.I.isRegistered<UseCase>()) {
     instance.registerFactory<UpdateOrderDoneUseCase>(
         () => UpdateOrderDoneUseCase(repository: instance()));
   }
+
+  if (!GetIt.I.isRegistered<UseCase>()) {
+    instance.registerFactory<GetConclusionByUserUseCase>(
+        () => GetConclusionByUserUseCase(repository: instance()));
+  }
+
   instance.registerFactory(
     () => FoodOrderBloc(
       saveOrderUseCase: instance<SaveOrderUseCase>(),
@@ -108,8 +114,9 @@ initLocal() {
       getOrdersUseCase: instance<GetOrdersUseCase>(),
       updateOrderUseCase: instance<UpdateOrderUseCase>(),
       deleteAllOrdersUseCase: instance<DeleteAllOrdersUseCase>(),
-      getConclusionUseCase: instance<GetConclusionUseCase>(),
+      getConclusionUseCase: instance<GetConclusionByOrderUseCase>(),
       updateOrderDoneUseCase: instance<UpdateOrderDoneUseCase>(),
+      getConclusionByUserUseCase: instance<GetConclusionByUserUseCase>(),
     ),
   );
 }

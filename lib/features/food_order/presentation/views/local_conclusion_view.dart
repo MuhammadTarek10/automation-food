@@ -19,7 +19,7 @@ class _LocalConclusionViewState extends State<LocalConclusionView> {
     super.initState();
     _controller = LocalConclusionViewController(
         foodOrderBloc: BlocProvider.of<FoodOrderBloc>(context));
-    _controller.getConclusion();
+    _controller.getConclusionByOrder();
   }
 
   @override
@@ -29,10 +29,25 @@ class _LocalConclusionViewState extends State<LocalConclusionView> {
         return Scaffold(
           appBar: AppBar(
             title: const Text(AppStrings.conclusionTitle),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.people),
+                onPressed: () => _controller.getConclusionByUser(),
+              ),
+              IconButton(
+                icon: const Icon(Icons.food_bank),
+                onPressed: () => _controller.getConclusionByOrder(),
+              ),
+            ],
           ),
-          body: state is ConclusionLoadedState
-              ? _controller.buildConclusion(state.conclusion)
-              : _buildLoading(),
+          body: state is ConclusionByOrderLoadedState
+              ? SingleChildScrollView(
+                  child: _controller.buildConclusionByOrder(state.conclusion))
+              : state is ConclusionByUserLoadedState
+                  ? SingleChildScrollView(
+                      child:
+                          _controller.buildConclusionByUser(state.conclusion))
+                  : _buildLoading(),
         );
       },
     );

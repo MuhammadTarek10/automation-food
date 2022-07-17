@@ -6,9 +6,9 @@ import 'package:auto_food/features/food_order/data/models/local_conclusion_model
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
-class ConclusionCard extends StatelessWidget {
-  final LocalConclusionModel conclusion;
-  const ConclusionCard({
+class ConclusionByOrderCard extends StatelessWidget {
+  final LocalConclusionOrderModel conclusion;
+  const ConclusionByOrderCard({
     Key? key,
     required this.conclusion,
   }) : super(key: key);

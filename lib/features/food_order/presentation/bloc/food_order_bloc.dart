@@ -17,17 +17,19 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
   final GetOrdersUseCase getOrdersUseCase;
   final UpdateOrderUseCase updateOrderUseCase;
   final DeleteAllOrdersUseCase deleteAllOrdersUseCase;
-  final GetConclusionUseCase getConclusionUseCase;
+  final GetConclusionByOrderUseCase getConclusionUseCase;
   final UpdateOrderDoneUseCase updateOrderDoneUseCase;
-  FoodOrderBloc(
-      {required this.saveOrderUseCase,
-      required this.deleteOrderUseCase,
-      required this.getOrdersUseCase,
-      required this.updateOrderUseCase,
-      required this.deleteAllOrdersUseCase,
-      required this.getConclusionUseCase,
-      required this.updateOrderDoneUseCase})
-      : super(FoodOrderInitial()) {
+  final GetConclusionByUserUseCase getConclusionByUserUseCase;
+  FoodOrderBloc({
+    required this.saveOrderUseCase,
+    required this.deleteOrderUseCase,
+    required this.getOrdersUseCase,
+    required this.updateOrderUseCase,
+    required this.deleteAllOrdersUseCase,
+    required this.getConclusionUseCase,
+    required this.updateOrderDoneUseCase,
+    required this.getConclusionByUserUseCase
+  }) : super(FoodOrderInitial()) {
     on<AddOrderEvent>((event, emit) async {
       emit(AddingOrderLoadingState());
       final order = LocalOrderModel(
@@ -87,13 +89,13 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       );
     });
 
-    on<GetConclusionEvent>((event, emit) async {
+    on<GetConclusionByOrderEvent>((event, emit) async {
       emit(ConclusionInitialState());
       emit(ConclusionLoaidingState());
       emit(
         (await getConclusionUseCase(NoParams())).fold(
           (failure) => ConclusionErrorState(message: failure.getMessage),
-          (conclusion) => ConclusionLoadedState(conclusion: conclusion),
+          (conclusion) => ConclusionByOrderLoadedState(conclusion: conclusion),
         ),
       );
     });
@@ -110,5 +112,15 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
     on<ClearAllInputsEvent>((event, emit) async {
       emit(ClearAllInputsState());
     });
+
+    on<GetConclusionByUserEvent>(((event, emit) async {
+      emit(ConclusionLoaidingState());
+      emit(
+        (await getConclusionByUserUseCase(NoParams())).fold(
+          (failure) => ConclusionErrorState(message: failure.getMessage),
+          (conclusion) => ConclusionByUserLoadedState(conclusion: conclusion),
+        ),
+      );
+    }));
   }
 }
