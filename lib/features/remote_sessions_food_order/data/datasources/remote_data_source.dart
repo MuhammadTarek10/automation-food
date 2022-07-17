@@ -11,7 +11,7 @@ abstract class RemoteDataSource {
   Future<RemoteSessionResponse> searchSession(
       RemoteSessionRequest remoteSessionRequest);
   Future<RemoteSessionResponse> deleteSession(
-      RemoteSessionRequest remoteSessionRequest);
+      String id);
   Future<RemoteGetOrdersResponse> getOrders(String sessionId);
   Future<RemoteOrderResponse> addOrder(RemoteOrderRequest remoteOrderRequest);
   Future<RemoteOrderResponse> deleteOrder(
@@ -56,8 +56,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<RemoteSessionResponse> deleteSession(
-      RemoteSessionRequest remoteSessionRequest) async {
-    return await appServiceClient.deleteSession(remoteSessionRequest);
+      String id) async {
+    return await appServiceClient.deleteSession(id);
   }
 
   // order

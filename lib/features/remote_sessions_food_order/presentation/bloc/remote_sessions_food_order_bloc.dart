@@ -40,7 +40,6 @@ class RemoteSessionsFoodOrderBloc
     required this.registerUsecase,
     required this.getConclusionUseCase,
   }) : super(RemoteSessionsFoodOrderInitial()) {
-    var sessionId = 0;
     on<LoginEvent>(
       ((event, emit) async {
         emit(RemoteSessionFoodOrderLoading());
@@ -103,6 +102,17 @@ class RemoteSessionsFoodOrderBloc
                     ? GetSessionsFailed(message: failure.getMessage)
                     : SessionFaildShouldLoggout(),
             (sessions) => GetSessionsSuccessfully(sessions: sessions),
+          ),
+        );
+      }),
+    );
+    on<DeleteSessionEvent>(
+      ((event, emit) async {
+        emit(RemoteSessionFoodOrderLoading());
+        emit(
+          (await deleteSessionUseCase(event.sessionId)).fold(
+            (failure) => DeleteSessionFailed(message: failure.getMessage),
+            (session) => DeleteSessionSuccessfully(session: session),
           ),
         );
       }),

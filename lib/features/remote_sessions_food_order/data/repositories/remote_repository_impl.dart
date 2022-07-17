@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_food/core/error/error_handler.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/network_info.dart';
@@ -85,14 +87,13 @@ class RemoteRespositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, RemoteSessionModel>> deleteSession(
-      RemoteSessionRequest remoteSessionRequest) async {
+  Future<Either<Failure, RemoteSessionModel>> deleteSession(String id) async {
     if (await networkInfo.isConnected) {
       try {
-        final response =
-            await remoteDataSource.deleteSession(remoteSessionRequest);
+        final response = await remoteDataSource.deleteSession(id);
         return Right(response.toModel());
       } on DioError catch (error) {
+        log(error.toString());
         return Left(ErrorHandler.handle(error));
       }
     } else {

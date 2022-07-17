@@ -23,8 +23,6 @@ class _RemoteSessionHomeViewState extends State<RemoteSessionHomeView> {
     super.initState();
     _controller = RemoteSessionController(
         bloc: BlocProvider.of<RemoteSessionsFoodOrderBloc>(context));
-    _authController = AuthController(
-        bloc: BlocProvider.of<RemoteSessionsFoodOrderBloc>(context));
     _controller.getSessions();
   }
 

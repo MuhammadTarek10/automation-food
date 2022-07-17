@@ -74,3 +74,21 @@ class GetSessionsFailed extends RemoteSessionsFoodOrderState {
   @override
   List<Object> get props => [message];
 }
+
+class DeleteSessionFailed extends RemoteSessionsFoodOrderState {
+  final String message;
+
+  const DeleteSessionFailed({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class DeleteSessionSuccessfully extends RemoteSessionsFoodOrderState {
+  final RemoteSessionModel session;
+
+  const DeleteSessionSuccessfully({required this.session});
+
+  @override
+  List<Object> get props => [session];
+}

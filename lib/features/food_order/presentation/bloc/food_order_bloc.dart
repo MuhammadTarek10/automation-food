@@ -20,16 +20,16 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
   final GetConclusionByOrderUseCase getConclusionUseCase;
   final UpdateOrderDoneUseCase updateOrderDoneUseCase;
   final GetConclusionByUserUseCase getConclusionByUserUseCase;
-  FoodOrderBloc({
-    required this.saveOrderUseCase,
-    required this.deleteOrderUseCase,
-    required this.getOrdersUseCase,
-    required this.updateOrderUseCase,
-    required this.deleteAllOrdersUseCase,
-    required this.getConclusionUseCase,
-    required this.updateOrderDoneUseCase,
-    required this.getConclusionByUserUseCase
-  }) : super(FoodOrderInitial()) {
+  FoodOrderBloc(
+      {required this.saveOrderUseCase,
+      required this.deleteOrderUseCase,
+      required this.getOrdersUseCase,
+      required this.updateOrderUseCase,
+      required this.deleteAllOrdersUseCase,
+      required this.getConclusionUseCase,
+      required this.updateOrderDoneUseCase,
+      required this.getConclusionByUserUseCase})
+      : super(FoodOrderInitial()) {
     on<AddOrderEvent>((event, emit) async {
       emit(AddingOrderLoadingState());
       final order = LocalOrderModel(

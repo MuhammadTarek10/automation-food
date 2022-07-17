@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';

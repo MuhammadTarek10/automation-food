@@ -48,7 +48,8 @@ class RemoteRegisterResponse {
   @JsonKey(name: "isAdmin")
   bool isAdmin;
 
-  RemoteRegisterResponse(this.id, this.name, this.email, this.password, this.isAdmin);
+  RemoteRegisterResponse(
+      this.id, this.name, this.email, this.password, this.isAdmin);
 
   factory RemoteRegisterResponse.fromJson(Map<String, dynamic> json) =>
       _$RemoteRegisterResponseFromJson(json);

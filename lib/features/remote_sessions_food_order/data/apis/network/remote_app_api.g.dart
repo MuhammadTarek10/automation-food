@@ -107,12 +107,11 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<RemoteSessionResponse> deleteSession(remoteSessionRequest) async {
+  Future<RemoteSessionResponse> deleteSession(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(remoteSessionRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RemoteSessionResponse>(
             Options(method: 'DELETE', headers: _headers, extra: _extra)
