@@ -15,6 +15,15 @@ class AppTheme {
           fontSize: AppFontSize.appBarTitle,
         ),
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: AppColors.primary,
+          textStyle: const TextStyle(
+            color: AppColors.primary,
+            fontSize: AppFontSize.button,
+          ),
+        ),
+      ),
     );
   }
 }

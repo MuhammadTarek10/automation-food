@@ -14,11 +14,11 @@ extension LoginResponseExtension on RemoteAuthTokenResponse {
 extension RegsiterResponseExtension on RemoteRegisterResponse {
   RemoteUserModel toModel() {
     return RemoteUserModel(
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      isAdmin: user.isAdmin,
+      id: id,
+      name: name,
+      email: email,
+      password: password,
+      isAdmin: isAdmin,
     );
   }
 }

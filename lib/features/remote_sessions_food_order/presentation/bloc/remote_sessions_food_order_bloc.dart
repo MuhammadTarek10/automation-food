@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:auto_food/core/usecases/usecases.dart';
+import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/domain/usecases/conclusion_usecase.dart';
 import 'package:auto_food/features/remote_sessions_food_order/data/apis/requests/requests.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_login_model.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_registration_model.dart';
+import 'package:auto_food/features/remote_sessions_food_order/data/models/remote_session_model.dart';
+import 'package:auto_food/features/remote_sessions_food_order/data/models/user_model.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_auth_usecases.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_order_usecases.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_session_usecases.dart';
@@ -43,13 +47,64 @@ class RemoteSessionsFoodOrderBloc
       ((event, emit) async {
         emit(RemoteSessionFoodOrderLoading());
         final loginRequest = LoginRequest(
-          email: event.model.email,
-          password: event.model.password,
+          email: event.request.email,
+          password: event.request.password,
         );
         emit(
           (await loginUseCase(loginRequest)).fold(
             (failure) => LoggedInFailed(message: failure.getMessage),
             (token) => LoggedInSuccessfully(token: token),
+          ),
+        );
+      }),
+    );
+
+    on<TryingToLoginEvent>(((event, emit) {
+      emit(TryingToLoginState());
+    }));
+
+    on<AutomatedLoginEvent>(((event, emit) async {
+      final loginRequest = LoginRequest(
+        email: event.request.email,
+        password: event.request.password,
+      );
+      emit(
+        (await loginUseCase(loginRequest)).fold(
+          (failure) => LoggedInFailed(message: failure.getMessage),
+          (token) => LoggedInSuccessfully(token: token),
+        ),
+      );
+    }));
+
+    on<LoggedOutEvent>(((event, emit) {
+      emit(LoggedOutState());
+    }));
+
+    on<RegisterEvent>(((event, emit) async {
+      emit(RemoteSessionFoodOrderLoading());
+      final registerRequest = RegisterRequest(
+        name: event.request.name,
+        email: event.request.email,
+        password: event.request.password,
+      );
+      emit(
+        (await registerUsecase(registerRequest)).fold(
+          (failure) => RegisterFailed(message: failure.getMessage),
+          (user) => RegisterSuccessfully(user: user),
+        ),
+      );
+    }));
+
+    on<GetSessionsEvent>(
+      ((event, emit) async {
+        emit(RemoteSessionFoodOrderLoading());
+        emit(
+          (await getSessionUseCase(NoParams())).fold(
+            (failure) =>
+                failure.getMessage == AppStrings.unauthorizedFailureMessage
+                    ? GetSessionsFailed(message: failure.getMessage)
+                    : SessionFaildShouldLoggout(),
+            (sessions) => GetSessionsSuccessfully(sessions: sessions),
           ),
         );
       }),

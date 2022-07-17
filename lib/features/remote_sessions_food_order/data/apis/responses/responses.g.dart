@@ -19,7 +19,7 @@ Map<String, dynamic> _$RemoteAuthTokenResponseToJson(
     };
 
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
-      json['Id'] as String,
+      json['_id'] as String,
       json['name'] as String,
       json['email'] as String,
       json['password'] as String,
@@ -28,7 +28,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
     <String, dynamic>{
-      'Id': instance.id,
+      '_id': instance.id,
       'name': instance.name,
       'email': instance.email,
       'password': instance.password,
@@ -38,13 +38,21 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
 RemoteRegisterResponse _$RemoteRegisterResponseFromJson(
         Map<String, dynamic> json) =>
     RemoteRegisterResponse(
-      UserResponse.fromJson(json['user'] as Map<String, dynamic>),
+      json['_id'] as String,
+      json['name'] as String,
+      json['email'] as String,
+      json['password'] as String,
+      json['isAdmin'] as bool,
     );
 
 Map<String, dynamic> _$RemoteRegisterResponseToJson(
         RemoteRegisterResponse instance) =>
     <String, dynamic>{
-      'user': instance.user,
+      '_id': instance.id,
+      'name': instance.name,
+      'email': instance.email,
+      'password': instance.password,
+      'isAdmin': instance.isAdmin,
     };
 
 RemoteOrderResponse _$RemoteOrderResponseFromJson(Map<String, dynamic> json) =>

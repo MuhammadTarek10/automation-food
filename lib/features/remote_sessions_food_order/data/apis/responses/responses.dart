@@ -16,7 +16,7 @@ class RemoteAuthTokenResponse {
 
 @JsonSerializable()
 class UserResponse {
-  @JsonKey(name: "Id")
+  @JsonKey(name: "_id")
   String id;
   @JsonKey(name: "name")
   String name;
@@ -37,9 +37,18 @@ class UserResponse {
 
 @JsonSerializable()
 class RemoteRegisterResponse {
-  UserResponse user;
+  @JsonKey(name: "_id")
+  String id;
+  @JsonKey(name: "name")
+  String name;
+  @JsonKey(name: "email")
+  String email;
+  @JsonKey(name: "password")
+  String password;
+  @JsonKey(name: "isAdmin")
+  bool isAdmin;
 
-  RemoteRegisterResponse(this.user);
+  RemoteRegisterResponse(this.id, this.name, this.email, this.password, this.isAdmin);
 
   factory RemoteRegisterResponse.fromJson(Map<String, dynamic> json) =>
       _$RemoteRegisterResponseFromJson(json);

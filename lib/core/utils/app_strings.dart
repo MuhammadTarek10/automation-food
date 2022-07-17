@@ -80,6 +80,25 @@ class AppStrings {
 
   // rmeote session view
   static const int defaultRoomNumber = 1;
+  static const String remoteSessionTitle = "Sessions";
+  static const int remoteSessionApiTime = 5;
 
   // remote conclusion view
+
+  // login
+  static const String loginTitle = "Login";
+  static const String loginEmailLabelText = "Email";
+  static const String loginPasswordLabelText = "Password";
+  static const String loginButton = "Login";
+  static const String registerHereButton = "Register Here!";
+  static const String dontHaveAccount = "Don't have an account?";
+
+  // register
+  static const String registerTitle = "Register";
+  static const String registerButton = "Register";
+  static const String registerNameLabelText = "Name";
+  static const String registerEmailLabelText = "Email";
+  static const String registerPasswordLabelText = "Password";
+  static const String alreadyHaveAnAccount = "Already have an account?";
+  static const String loginHereButton = "Login Here!";
 }

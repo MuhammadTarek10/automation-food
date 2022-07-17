@@ -37,11 +37,3 @@ class RemoteGetOrderInSessionModel {
   final bool done;
   final RemoteUserModel user;
 }
-
-class RemoteGetOrderModel {
-  const RemoteGetOrderModel({
-    required this.orders,
-  });
-
-  final List<RemoteGetOrderInSessionModel> orders;
-}

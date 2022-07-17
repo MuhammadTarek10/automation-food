@@ -14,6 +14,7 @@ import 'package:auto_food/features/remote_sessions_food_order/data/datasources/r
 import 'package:auto_food/features/remote_sessions_food_order/data/repositories/remote_repository_impl.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/repositories/remote_repository.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_auth_usecases.dart';
+import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_conclusion_usecases.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_order_usecases.dart';
 import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_session_usecases.dart';
 import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/remote_sessions_food_order_bloc.dart';
@@ -155,25 +156,25 @@ initRemote() {
         () => RemoteDeleteOrderUseCase(repository: instance()));
   }
   if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<GetConclusionUseCase>(
-        () => GetConclusionUseCase(repository: instance()));
+    instance.registerFactory<RemoteGetConclusion>(
+        () => RemoteGetConclusion(repository: instance()));
   }
 
-  if(!GetIt.I.isRegistered<RemoteSessionsFoodOrderBloc>()){
+  if (!GetIt.I.isRegistered<RemoteSessionsFoodOrderBloc>()) {
     instance.registerFactory(
-    () => RemoteSessionsFoodOrderBloc(
-      createSessionUseCase: instance(),
-      getSessionUseCase: instance(),
-      searchSessionUseCase: instance(),
-      deleteSessionUseCase: instance(),
-      getOrderUseCase: instance(),
-      addOrderUseCase: instance(),
-      deleteOrderUseCase: instance(),
-      editOrderUseCase: instance(),
-      loginUseCase: instance(),
-      registerUsecase: instance(),
-      getConclusionUseCase: instance(),
-    ),
-  );
+      () => RemoteSessionsFoodOrderBloc(
+        createSessionUseCase: instance(),
+        getSessionUseCase: instance(),
+        searchSessionUseCase: instance(),
+        deleteSessionUseCase: instance(),
+        getOrderUseCase: instance(),
+        addOrderUseCase: instance(),
+        deleteOrderUseCase: instance(),
+        editOrderUseCase: instance(),
+        loginUseCase: instance(),
+        registerUsecase: instance(),
+        getConclusionUseCase: instance(),
+      ),
+    );
   }
 }

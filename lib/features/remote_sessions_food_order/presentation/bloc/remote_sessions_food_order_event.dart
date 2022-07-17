@@ -8,21 +8,34 @@ abstract class RemoteSessionsFoodOrderEvent extends Equatable {
 }
 
 class LoginEvent extends RemoteSessionsFoodOrderEvent {
-  final LoginModel model;
+  final LoginRequest request;
 
-  const LoginEvent({required this.model});
+  const LoginEvent({required this.request});
 
   @override
-  List<Object> get props => [model];
+  List<Object> get props => [request];
 }
 
-class RegisterEvent extends RemoteSessionsFoodOrderEvent {
-  final RemoteRegisterModel model;
+class TryingToLoginEvent extends RemoteSessionsFoodOrderEvent {}
 
-  const RegisterEvent({required this.model});
+class AutomatedLoginEvent extends RemoteSessionsFoodOrderEvent {
+  final LoginRequest request;
+
+  const AutomatedLoginEvent({required this.request});
 
   @override
-  List<Object> get props => [model];
+  List<Object> get props => [request];
+}
+
+class LoggedOutEvent extends RemoteSessionsFoodOrderEvent {}
+
+class RegisterEvent extends RemoteSessionsFoodOrderEvent {
+  final RegisterRequest request;
+
+  const RegisterEvent({required this.request});
+
+  @override
+  List<Object> get props => [request];
 }
 
 class GetSessionsEvent extends RemoteSessionsFoodOrderEvent {}

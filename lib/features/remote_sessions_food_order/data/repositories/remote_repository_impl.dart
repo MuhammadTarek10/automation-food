@@ -28,7 +28,8 @@ class RemoteRespositoryImpl implements RemoteRepository {
     if (await networkInfo.isConnected) {
       try {
         final response = await remoteDataSource.login(loginRequest);
-        appPreference.setToken(response.token);
+        await appPreference.setToken(response.token);
+        appPreference.setUser(loginRequest.email, loginRequest.password);
         return Right(response.token);
       } on DioError catch (error) {
         return Left(ErrorHandler.handle(error));

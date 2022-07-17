@@ -7,7 +7,7 @@ import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/
 import 'package:auto_food/core/home_view.dart';
 import 'package:auto_food/features/remote_sessions_food_order/presentation/views/login_view.dart';
 import 'package:auto_food/features/remote_sessions_food_order/presentation/views/register_view.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/views/remote_session_view.dart';
+import 'package:auto_food/features/remote_sessions_food_order/presentation/views/remote_session_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,11 +31,12 @@ class AppRouterGenerator {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.initalHomeRoute:
+        initLocal();
+        initRemote();
         return MaterialPageRoute(
           builder: (context) => const HomeView(),
         );
       case Routes.localOrderRoute:
-        initLocal();
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<FoodOrderBloc>(),
@@ -50,7 +51,6 @@ class AppRouterGenerator {
           ),
         );
       case Routes.loginRoute:
-        initRemote();
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
@@ -68,7 +68,7 @@ class AppRouterGenerator {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
-            child: const RemoteSessionView(),
+            child: const RemoteSessionHomeView(),
           ),
         );
       default:

@@ -6,6 +6,9 @@ class AppConstants {
   // static const String baseUrl = "localhost:3030";
   static const String baseUrl = "https://tarek-auto-food.herokuapp.com/";
   static const String tokenKey = "TOKEN_KEY";
+  static const String userIdKey = "USER_ID_KEY";
+  static const String emailKey = "EMAIL";
+  static const String passwordKey = "PASSWORD";
   static const String cotnentType = "Content-Type";
   static const String applicationJson = "application/json";
   static const String accept = "Accept";
