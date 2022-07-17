@@ -59,12 +59,12 @@ class SearchSessionEvent extends RemoteSessionsFoodOrderEvent {
 }
 
 class DeleteSessionEvent extends RemoteSessionsFoodOrderEvent {
-  final String sessionId;
+  final RemoteSessionDeleteRequest request;
 
-  const DeleteSessionEvent({required this.sessionId});
+  const DeleteSessionEvent({required this.request});
 
   @override
-  List<Object> get props => [sessionId];
+  List<Object> get props => [request];
 }
 
 class GetOrdersEvent extends RemoteSessionsFoodOrderEvent {

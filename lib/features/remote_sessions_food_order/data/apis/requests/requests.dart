@@ -55,6 +55,7 @@ class RemoteSessionRequest {
 
 @JsonSerializable()
 class RemoteOrderRequest {
+  @JsonKey(name: "session_id")
   final String sessionId;
   final String name;
   final double price;
@@ -71,4 +72,19 @@ class RemoteOrderRequest {
       _$RemoteOrderRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RemoteOrderRequestToJson(this);
+}
+
+@JsonSerializable()
+class RemoteSessionDeleteRequest {
+  @JsonKey(name: "session_id")
+  final String sessionId;
+
+  const RemoteSessionDeleteRequest({
+    required this.sessionId,
+  });
+
+  factory RemoteSessionDeleteRequest.fromJson(Map<String, dynamic> json) =>
+      _$RemoteSessionDeleteRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RemoteSessionDeleteRequestToJson(this);
 }

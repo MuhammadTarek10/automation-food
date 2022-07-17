@@ -49,7 +49,7 @@ Map<String, dynamic> _$RemoteSessionRequestToJson(
 
 RemoteOrderRequest _$RemoteOrderRequestFromJson(Map<String, dynamic> json) =>
     RemoteOrderRequest(
-      sessionId: json['sessionId'] as String,
+      sessionId: json['session_id'] as String,
       name: json['name'] as String,
       price: (json['price'] as num).toDouble(),
       done: json['done'] as bool,
@@ -57,8 +57,20 @@ RemoteOrderRequest _$RemoteOrderRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RemoteOrderRequestToJson(RemoteOrderRequest instance) =>
     <String, dynamic>{
-      'sessionId': instance.sessionId,
+      'session_id': instance.sessionId,
       'name': instance.name,
       'price': instance.price,
       'done': instance.done,
+    };
+
+RemoteSessionDeleteRequest _$RemoteSessionDeleteRequestFromJson(
+        Map<String, dynamic> json) =>
+    RemoteSessionDeleteRequest(
+      sessionId: json['session_id'] as String,
+    );
+
+Map<String, dynamic> _$RemoteSessionDeleteRequestToJson(
+        RemoteSessionDeleteRequest instance) =>
+    <String, dynamic>{
+      'session_id': instance.sessionId,
     };

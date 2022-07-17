@@ -19,7 +19,7 @@ abstract class RemoteRepository {
   Future<Either<Failure, RemoteSessionModel>> searchSession(
       RemoteSessionRequest remoteSessionRequest);
   Future<Either<Failure, RemoteSessionModel>> deleteSession(
-      String id);
+      RemoteSessionDeleteRequest remoteSessionDeleteRequest);
 
   // order
   Future<Either<Failure, List<RemoteGetOrderInSessionModel>>> getOrders(

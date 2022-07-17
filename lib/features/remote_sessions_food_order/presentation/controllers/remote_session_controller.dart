@@ -33,8 +33,7 @@ class RemoteSessionController {
   void deleteSession(String sessionId) {
     bloc.add(
       DeleteSessionEvent(
-        sessionId: sessionId,
-      ),
+          request: RemoteSessionDeleteRequest(sessionId: sessionId)),
     );
   }
 

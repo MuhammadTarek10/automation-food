@@ -51,13 +51,15 @@ class _RemoteSessionHomeViewState extends State<RemoteSessionHomeView> {
                 AppStrings.remoteSessionTitle,
               ),
             ),
-            body: (state is GetSessionsSuccessfully)
+            body: state is GetSessionsSuccessfully
                 ? SessionCard(
                     sessions: state.sessions,
                     onDelete: (session) =>
                         _controller.deleteSession(session.id),
                   )
-                : _loading(),
+                : state is RemoteSessionFoodOrderLoading
+                    ? _loading()
+                    : Container(),
           );
         },
       ),

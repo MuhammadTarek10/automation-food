@@ -110,7 +110,7 @@ class RemoteSessionsFoodOrderBloc
       ((event, emit) async {
         emit(RemoteSessionFoodOrderLoading());
         emit(
-          (await deleteSessionUseCase(event.sessionId)).fold(
+          (await deleteSessionUseCase(event.request)).fold(
             (failure) => DeleteSessionFailed(message: failure.getMessage),
             (session) => DeleteSessionSuccessfully(session: session),
           ),

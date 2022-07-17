@@ -37,6 +37,6 @@ class DeleteSessionUeeCase
   final RemoteRepository repository;
   const DeleteSessionUeeCase({required this.repository});
   Future<Either<Failure, RemoteSessionModel>> call(
-          String params) async =>
+          RemoteSessionDeleteRequest params) async =>
       await repository.deleteSession(params);
 }

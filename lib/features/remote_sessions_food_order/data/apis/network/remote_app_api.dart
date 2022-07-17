@@ -28,7 +28,8 @@ abstract class AppServiceClient {
   Future<RemoteSessionResponse> searchSession(
       @Body() RemoteSessionRequest remoteSessionRequest);
   @DELETE(ApiRoutes.deleteSession)
-  Future<RemoteSessionResponse> deleteSession(String id);
+  Future<RemoteSessionResponse> deleteSession(
+      @Body() RemoteSessionDeleteRequest remoteSessionDeleteRequest);
 
   // order
   @GET(ApiRoutes.getOrders)

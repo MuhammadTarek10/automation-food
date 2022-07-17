@@ -87,10 +87,10 @@ class RemoteRespositoryImpl implements RemoteRepository {
   }
 
   @override
-  Future<Either<Failure, RemoteSessionModel>> deleteSession(String id) async {
+  Future<Either<Failure, RemoteSessionModel>> deleteSession(RemoteSessionDeleteRequest remoteSessionDeleteRequest) async {
     if (await networkInfo.isConnected) {
       try {
-        final response = await remoteDataSource.deleteSession(id);
+        final response = await remoteDataSource.deleteSession(remoteSessionDeleteRequest);
         return Right(response.toModel());
       } on DioError catch (error) {
         log(error.toString());
