@@ -21,6 +21,16 @@ class ConclusionByUserCard extends StatelessWidget {
         for (var key in conclusion.userCount.keys)
           ExpansionTile(
             title: Center(child: Text(key)),
+            trailing: Text(
+              conclusion.userCount[key]!
+                  .map((order) => order.remaining)
+                  .reduce((a, b) => a + b)
+                  .toString(),
+              style: TextStyle(
+                fontSize: context.width *
+                    AppSizes.conclusionCardNumberOfUsersPrecentage,
+              ),
+            ),
             children: [
               for (var order in conclusion.userCount[key]!)
                 ListTile(
