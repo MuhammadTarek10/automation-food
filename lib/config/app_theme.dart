@@ -9,7 +9,7 @@ class AppTheme {
       hintColor: AppColors.hint,
       appBarTheme: const AppBarTheme(
         centerTitle: true,
-        color: AppColors.appBar,
+        color: AppColors.primary,
         titleTextStyle: TextStyle(
           color: AppColors.appBarText,
           fontSize: AppFontSize.appBarTitle,

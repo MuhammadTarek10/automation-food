@@ -1,4 +1,5 @@
 class AppStrings {
+  static const String contactMe = "mohammadtarek000@gmail.com";
   static const String appName = "Food Order";
   static const String databaseName = "food_order.db";
   static const String empty = "Empty";

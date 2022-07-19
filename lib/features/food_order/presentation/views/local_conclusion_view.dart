@@ -41,11 +41,24 @@ class _LocalConclusionViewState extends State<LocalConclusionView> {
             ],
           ),
           body: SingleChildScrollView(
-            child: state is ConclusionByOrderLoadedState
-                ? _controller.buildConclusionByOrder(state.conclusion)
-                : state is ConclusionByUserLoadedState
-                    ? _controller.buildConclusionByUser(state.conclusion)
-                    : _buildLoading(),
+            child: Column(
+              children: [
+                if (state is ConclusionByOrderLoadedState)
+                  _controller.buildConclusionByOrder(state.conclusion)
+                else if (state is ConclusionByUserLoadedState)
+                  _controller.buildConclusionByUser(state.conclusion)
+                else
+                  _buildLoading(),
+                if (state is ConclusionByOrderLoadedState)
+                  Column(
+                    children: _controller.buildRest(context, state.conclusion),
+                  )
+                else if (state is ConclusionByUserLoadedState)
+                  Column(
+                    children: _controller.buildRest(context, state.conclusion),
+                  )
+              ],
+            ),
           ),
         );
       },
