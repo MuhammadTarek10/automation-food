@@ -88,9 +88,9 @@ class _LoginViewState extends State<RegisterView> {
                           AppStrings.registerButton,
                         ),
                   onPressed: () {
-                    final name = _nameController.text;
-                    final email = _emailController.text;
-                    final password = _passwordController.text;
+                    final name = _nameController.text.trim();
+                    final email = _emailController.text.trim();
+                    final password = _passwordController.text.trim();
                     if (_controller.registerInputsValid(
                         name, email, password)) {
                       _controller.register(name, email, password);

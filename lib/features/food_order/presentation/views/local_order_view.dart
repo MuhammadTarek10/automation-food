@@ -53,6 +53,11 @@ class _LocalOrderViewState extends State<LocalOrderView> {
             icon: const Icon(Icons.delete),
             onPressed: () => _controller.deleteAllOrders(context),
           ),
+          IconButton(
+            icon: const Icon(Icons.insights),
+            onPressed: () =>
+                Navigator.pushNamed(context, Routes.localConclusionRoute),
+          ),
         ],
       ),
       body: BlocConsumer<FoodOrderBloc, FoodOrderState>(
@@ -95,33 +100,20 @@ class _LocalOrderViewState extends State<LocalOrderView> {
           left: context.width *
               AppSizes.floatingAcitonButtonsPaddingLeftPrecentage,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton(
-              heroTag: AppStrings.addOrderFloatingActionButtonTag,
-              backgroundColor: AppColors.primary,
-              onPressed: () {
-                Navigator.of(context).pushNamed(Routes.localConclusionRoute);
-              },
-              child: const Icon(Icons.add_chart),
-            ),
-            FloatingActionButton(
-              heroTag: AppStrings.getConclusionFloatingActionButtonTag,
-              backgroundColor: AppColors.primary,
-              onPressed: () async {
-                await _controller.takeInputsDialog(
-                  context,
-                  null,
-                  nameController,
-                  orderController,
-                  priceController,
-                  payedController,
-                );
-              },
-              child: const Icon(Icons.add),
-            ),
-          ],
+        child: FloatingActionButton(
+          heroTag: AppStrings.getConclusionFloatingActionButtonTag,
+          backgroundColor: AppColors.primary,
+          onPressed: () async {
+            await _controller.takeInputsDialog(
+              context,
+              null,
+              nameController,
+              orderController,
+              priceController,
+              payedController,
+            );
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );

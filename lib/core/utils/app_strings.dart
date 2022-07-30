@@ -54,6 +54,7 @@ class AppStrings {
   static const String enterOrderTitle = "Enter Order";
   static const String nameHintText = "Name";
   static const String orderHintText = "Order";
+  static const String ordersHintText = "Orders";
   static const String priceHintText = "Price";
   static const String payedHintText = "Payed";
   static const String remainingHintText = "Remaining";
@@ -62,6 +63,7 @@ class AppStrings {
 
   // dialog text buttons and content
   static const String addOrderButtonText = "Add Order";
+  static const String addGroupOfOrdersButtonText = "Add Group Of Orders";
   static const String cancelOrderButtonText = "Cancel";
   static const String saveOrderButtonText = "Save";
   static const String deleteOrderButtonText = "Delete";

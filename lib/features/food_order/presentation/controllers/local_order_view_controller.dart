@@ -44,16 +44,28 @@ class LocalOrderViewController {
   }
 
   Future<dynamic> takeInputsDialog(
-      BuildContext context,
-      LocalOrderModel? order,
-      TextEditingController? nameController,
-      TextEditingController? orderController,
-      TextEditingController? priceController,
-      TextEditingController? payedController) async {
+    BuildContext context,
+    LocalOrderModel? order,
+    TextEditingController? nameController,
+    TextEditingController? orderController,
+    TextEditingController? priceController,
+    TextEditingController? payedController,
+  ) async {
     nameController!.text = order?.name ?? '';
     orderController!.text = order?.order ?? '';
     priceController!.text = order?.price.toString() ?? '';
     payedController!.text = order?.payed.toString() ?? '';
+    return getOrders(context, nameController, orderController, priceController,
+        payedController, order);
+  }
+
+  Future<dynamic> getOrders(
+      BuildContext context,
+      TextEditingController nameController,
+      TextEditingController orderController,
+      TextEditingController priceController,
+      TextEditingController payedController,
+      LocalOrderModel? order) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -101,30 +113,44 @@ class LocalOrderViewController {
             onPressed: () {
               if (_inputsValid(nameController, orderController, priceController,
                   payedController)) {
-                order == null
+                orderController.text.trim().contains(',')
                     ? foodOrderBloc.add(
-                        AddOrderEvent(
-                          name: nameController.text,
-                          order: orderController.text,
-                          price: double.parse(priceController.text),
-                          payed: double.parse(payedController.text),
-                          remaining: double.parse(payedController.text) -
-                              double.parse(priceController.text),
+                        AddGroupOrdersEvent(
+                          name: nameController.text.trim(),
+                          order: orderController.text.trim(),
+                          price: priceController.text.trim(),
+                          payed: payedController.text.trim(),
                         ),
                       )
-                    : foodOrderBloc.add(
-                        UpdateOrderEvent(
-                          order: LocalOrderModel(
-                              id: order.id,
-                              name: nameController.text,
-                              order: orderController.text,
-                              price: double.parse(priceController.text),
-                              payed: double.parse(payedController.text),
-                              remaining: double.parse(payedController.text) -
-                                  double.parse(priceController.text),
-                              done: order.done),
-                        ),
-                      );
+                    : order == null
+                        ? foodOrderBloc.add(
+                            AddOrderEvent(
+                              name: nameController.text.trim(),
+                              order: orderController.text.trim(),
+                              price: double.parse(priceController.text.trim()),
+                              payed: double.parse(payedController.text.trim()),
+                              remaining:
+                                  double.parse(payedController.text.trim()) -
+                                      double.parse(priceController.text.trim()),
+                            ),
+                          )
+                        : foodOrderBloc.add(
+                            UpdateOrderEvent(
+                              order: LocalOrderModel(
+                                id: order.id,
+                                name: nameController.text.trim(),
+                                order: orderController.text.trim(),
+                                price:
+                                    double.parse(priceController.text.trim()),
+                                payed:
+                                    double.parse(payedController.text.trim()),
+                                remaining: double.parse(
+                                        payedController.text.trim()) -
+                                    double.parse(priceController.text.trim()),
+                                done: order.done,
+                              ),
+                            ),
+                          );
                 Navigator.of(context).pop();
               } else {
                 AppConstants.showToast(message: AppStrings.invalidInputs);
@@ -151,12 +177,17 @@ class LocalOrderViewController {
       double.parse(payedController!.text);
       if (nameController!.text.isEmpty ||
           orderController!.text.isEmpty ||
-          priceController.text.isEmpty ||
-          payedController.text.isEmpty) {
+          priceController.text.trim().isEmpty ||
+          payedController.text.trim().isEmpty) {
         return false;
       }
-    } on Exception {
-      return false;
+    } catch (error) {
+      if (priceController!.text.contains(',') &&
+          payedController!.text.contains(',')) {
+        return true;
+      } else {
+        return false;
+      }
     }
     return true;
   }

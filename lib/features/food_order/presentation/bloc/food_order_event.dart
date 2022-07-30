@@ -52,6 +52,23 @@ class GetConclusionByOrderEvent extends FoodOrderEvent {}
 
 class GetConclusionByUserEvent extends FoodOrderEvent {}
 
+class AddGroupOrdersEvent extends FoodOrderEvent {
+  final String name;
+  final String order;
+  final String price;
+  final String payed;
+
+  const AddGroupOrdersEvent({
+    required this.name,
+    required this.order,
+    required this.price,
+    required this.payed,
+  });
+
+  @override
+  List<Object> get props => [name, order, price, payed];
+}
+
 class UpdateOrderDoneEvent extends FoodOrderEvent {
   final LocalOrderModel order;
 

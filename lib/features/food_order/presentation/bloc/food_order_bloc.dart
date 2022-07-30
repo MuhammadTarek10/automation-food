@@ -35,7 +35,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       final order = LocalOrderModel(
         id: const Uuid().v4(),
         name: event.name,
-        order: event.order,
+        order: event.order.trim(),
         price: event.price,
         payed: event.payed,
         remaining: event.remaining,
@@ -113,14 +113,47 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       emit(ClearAllInputsState());
     });
 
-    on<GetConclusionByUserEvent>(((event, emit) async {
-      emit(ConclusionLoaidingState());
-      emit(
-        (await getConclusionByUserUseCase(NoParams())).fold(
-          (failure) => ConclusionErrorState(message: failure.getMessage),
-          (conclusion) => ConclusionByUserLoadedState(conclusion: conclusion),
-        ),
-      );
-    }));
+    on<GetConclusionByUserEvent>(
+      ((event, emit) async {
+        emit(ConclusionLoaidingState());
+        emit(
+          (await getConclusionByUserUseCase(NoParams())).fold(
+            (failure) => ConclusionErrorState(message: failure.getMessage),
+            (conclusion) => ConclusionByUserLoadedState(conclusion: conclusion),
+          ),
+        );
+      }),
+    );
+    on<AddGroupOrdersEvent>((event, emit) async {
+      emit(AddingOrderLoadingState());
+      final name = event.name;
+      final orders = event.order.split(',');
+      final prices = event.price.split(',');
+      final payeds = event.payed.split(',');
+      final models = <LocalOrderModel>[];
+      for (var i = 0; i < orders.length; i++) {
+        final order = LocalOrderModel(
+          id: const Uuid().v4(),
+          name: name,
+          order: orders[i].trim(),
+          price: double.parse(prices[i].trim()),
+          payed: double.parse(payeds[i].trim()),
+          remaining: double.parse(
+            (double.parse(prices[i]) - double.parse(payeds[i]))
+                .toStringAsFixed(2),
+          ),
+          done: AppStrings.orderModelNotDone,
+        );
+        models.add(order);
+      }
+      for (var model in models) {
+        emit(
+          (await saveOrderUseCase.call(model)).fold(
+            (failure) => AddingOrderErrorState(message: failure.getMessage),
+            (_) => AddingOrderSuccessState(),
+          ),
+        );
+      }
+    });
   }
 }

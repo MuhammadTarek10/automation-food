@@ -91,8 +91,8 @@ class _LoginViewState extends State<LoginView> {
                               AppStrings.loginButton,
                             ),
                       onPressed: () {
-                        final email = _emailController.text;
-                        final password = _passwordController.text;
+                        final email = _emailController.text.trim();
+                        final password = _passwordController.text.trim();
                         if (_controller.loginInputsValid(email, password)) {
                           _controller.login(email, password);
                         } else {
