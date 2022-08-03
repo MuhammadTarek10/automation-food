@@ -62,18 +62,23 @@ class OrderCard extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Price: ${order.price}",
-              style: Theme.of(context).textTheme.headline4,
+        Expanded(
+          child: InkWell(
+            onTap: () => onEdit(order),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Price: ${order.price}",
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                Text(
+                  "Payed: ${order.payed}",
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ],
             ),
-            Text(
-              "Payed: ${order.payed}",
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
         ),
         SizedBox(
           width: context.width * AppSizes.differenceBetweenOrderNameAndMoney,
