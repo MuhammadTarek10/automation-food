@@ -1,5 +1,6 @@
 import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_colors.dart';
+import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
@@ -73,7 +74,7 @@ class _LocalOrderViewState extends State<LocalOrderView> {
           return ListView.separated(
             itemCount: orders.length,
             separatorBuilder: (context, index) => Divider(
-              thickness: context.height * 0.002,
+              thickness: context.height * AppSizes.dividerBetweenOrderCards,
               color: Colors.grey,
             ),
             itemBuilder: (context, index) {
