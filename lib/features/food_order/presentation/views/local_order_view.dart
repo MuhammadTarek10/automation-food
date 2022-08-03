@@ -1,6 +1,7 @@
 import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
+import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/food_order/presentation/controllers/local_order_view_controller.dart';
 import 'package:auto_food/features/food_order/presentation/widgets/order_card.dart';
@@ -69,8 +70,12 @@ class _LocalOrderViewState extends State<LocalOrderView> {
         if (state is DataLoadedState) {
           final orders = state.orders
             ..sort((a, b) => b.remaining.compareTo(a.remaining));
-          return ListView.builder(
+          return ListView.separated(
             itemCount: orders.length,
+            separatorBuilder: (context, index) => Divider(
+              thickness: context.height * 0.002,
+              color: Colors.grey,
+            ),
             itemBuilder: (context, index) {
               final order = orders[index];
               return OrderCard(
@@ -88,6 +93,8 @@ class _LocalOrderViewState extends State<LocalOrderView> {
               );
             },
           );
+        } else if (state is DataEmptyState) {
+          return const Center(child: Text(AppStrings.emptyOrdersText));
         } else {
           _controller.getAllOrders();
           return const Center(child: CircularProgressIndicator());

@@ -54,7 +54,9 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       emit(
         (await getOrdersUseCase(NoParams())).fold(
           (failure) => DataEmptyState(),
-          (orders) => DataLoadedState(orders: orders),
+          (orders) => orders.isEmpty
+              ? DataEmptyState()
+              : DataLoadedState(orders: orders),
         ),
       );
     });
@@ -84,7 +86,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       emit(
         (await deleteAllOrdersUseCase(NoParams())).fold(
           (failure) => AddingOrderErrorState(message: failure.getMessage),
-          (_) => AddingOrderSuccessState(),
+          (_) => DataEmptyState(),
         ),
       );
     });
@@ -139,7 +141,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
           price: double.parse(prices[i].trim()),
           payed: double.parse(payeds[i].trim()),
           remaining: double.parse(
-            (double.parse(prices[i]) - double.parse(payeds[i]))
+            (double.parse(payeds[i]) - double.parse(prices[i]))
                 .toStringAsFixed(2),
           ),
           done: AppStrings.orderModelNotDone,

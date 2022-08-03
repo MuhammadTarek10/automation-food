@@ -58,6 +58,7 @@ class AppStrings {
   static const String priceHintText = "Price";
   static const String payedHintText = "Payed";
   static const String remainingHintText = "Remaining";
+  static const String emptyOrdersText = "No Orders. To Add, press add button";
   static const String addOrderFloatingActionButtonTag = "ADD_ORDER";
   static const String getConclusionFloatingActionButtonTag = "GET_CONCLUSION";
 
