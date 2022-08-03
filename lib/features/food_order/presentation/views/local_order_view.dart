@@ -1,8 +1,6 @@
 import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_colors.dart';
-import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
-import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/food_order/presentation/controllers/local_order_view_controller.dart';
 import 'package:auto_food/features/food_order/presentation/widgets/order_card.dart';
@@ -95,26 +93,20 @@ class _LocalOrderViewState extends State<LocalOrderView> {
           return const Center(child: CircularProgressIndicator());
         }
       }),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-          left: context.width *
-              AppSizes.floatingAcitonButtonsPaddingLeftPrecentage,
-        ),
-        child: FloatingActionButton(
-          heroTag: AppStrings.getConclusionFloatingActionButtonTag,
-          backgroundColor: AppColors.primary,
-          onPressed: () async {
-            await _controller.takeInputsDialog(
-              context,
-              null,
-              nameController,
-              orderController,
-              priceController,
-              payedController,
-            );
-          },
-          child: const Icon(Icons.add),
-        ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: AppStrings.getConclusionFloatingActionButtonTag,
+        backgroundColor: AppColors.primary,
+        onPressed: () async {
+          await _controller.takeInputsDialog(
+            context,
+            null,
+            nameController,
+            orderController,
+            priceController,
+            payedController,
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
