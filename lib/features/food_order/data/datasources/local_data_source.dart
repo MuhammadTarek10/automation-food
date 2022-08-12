@@ -138,4 +138,14 @@ class LocalDataSource implements DataSource {
       userCount: groupedByUsers,
     );
   }
+
+  @override
+  Future<List<LocalOrderModel>> getSuggestionsOrders(String pattern) async =>
+      List.of(await getOrders()).toSet().where(
+        (order) {
+          final orderLower = order.order.toLowerCase();
+          final patternLower = pattern.toLowerCase();
+          return orderLower.contains(patternLower);
+        },
+      ).toList();
 }

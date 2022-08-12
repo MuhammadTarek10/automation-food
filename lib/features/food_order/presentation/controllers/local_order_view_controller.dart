@@ -1,5 +1,8 @@
+import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
+import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
+import 'package:auto_food/features/food_order/data/datasources/local_data_source.dart';
 import 'package:auto_food/features/food_order/data/models/local_order_model.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/food_order/presentation/widgets/confrimation_dialog.dart';
@@ -8,7 +11,9 @@ import 'package:flutter/material.dart';
 class LocalOrderViewController {
   final FoodOrderBloc foodOrderBloc;
 
-  const LocalOrderViewController({required this.foodOrderBloc});
+  LocalOrderViewController({required this.foodOrderBloc});
+
+  final LocalDataSource dataSource = instance<LocalDataSource>();
 
   void getAllOrders() async {
     foodOrderBloc.add(GetOrdersEvent());
@@ -73,29 +78,25 @@ class LocalOrderViewController {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: AppStrings.nameHintText,
-              ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppPadding.paddingAll),
+              child: getInputField(nameController, AppStrings.nameHintText),
             ),
-            TextField(
-              controller: orderController,
-              decoration: const InputDecoration(
-                labelText: AppStrings.orderHintText,
-              ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppPadding.paddingAll),
+              child: getOrderSuggestions(orderController, priceController),
             ),
-            TextField(
-              controller: priceController,
-              decoration: const InputDecoration(
-                labelText: AppStrings.priceHintText,
-              ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppPadding.paddingAll),
+              child: getInputField(priceController, AppStrings.priceHintText),
             ),
-            TextField(
-              controller: payedController,
-              decoration: const InputDecoration(
-                labelText: AppStrings.payedHintText,
-              ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: AppPadding.paddingAll),
+              child: getInputField(payedController, AppStrings.payedHintText),
             ),
           ],
         ),
@@ -164,6 +165,79 @@ class LocalOrderViewController {
           ),
         ],
       ),
+    );
+  }
+
+  TextField getInputField(TextEditingController controller, String hint) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: hint,
+      ),
+    );
+  }
+
+  Autocomplete<LocalOrderModel> getOrderSuggestions(
+    TextEditingController orderController,
+    TextEditingController priceController,
+  ) {
+    return Autocomplete<LocalOrderModel>(
+      optionsBuilder: (TextEditingValue textEditingValue) async {
+        if (textEditingValue.text.isEmpty) {
+          return List.empty();
+        } else {
+          return await dataSource.getSuggestionsOrders(textEditingValue.text);
+        }
+      },
+      fieldViewBuilder:
+          (context, textEditingController, focusNode, onFieldSubmitted) {
+        return TextField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: AppStrings.orderHintText,
+          ),
+        );
+      },
+      optionsViewBuilder: (
+        BuildContext context,
+        Function onSelected,
+        Iterable<LocalOrderModel> options,
+      ) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              margin: EdgeInsets.only(right: constraints.maxWidth * 0.45),
+              child: Material(
+                elevation: AppPadding.paddingAll,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: ListView.separated(
+                  itemCount: options.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) {
+                    final LocalOrderModel order = options.elementAt(index);
+                    return ListTile(
+                      title: Text(order.order),
+                      subtitle: Text(order.price.toString()),
+                      onTap: () => onSelected(order),
+                    );
+                  },
+                ),
+              ),
+            );
+          },
+        );
+      },
+      onSelected: (option) {
+        orderController.text = option.order;
+        priceController.text = option.price.toString();
+      },
+      displayStringForOption: (option) => option.order,
     );
   }
 

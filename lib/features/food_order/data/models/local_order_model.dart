@@ -44,4 +44,12 @@ class LocalOrderModel {
   static List<LocalOrderModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => LocalOrderModel.fromJson(json)).toList();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LocalOrderModel && order == other.order && price == other.price;
+
+  @override
+  int get hashCode => order.hashCode ^ price.hashCode;
 }

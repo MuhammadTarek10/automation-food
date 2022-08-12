@@ -53,7 +53,7 @@ class FoodOrderBloc extends Bloc<FoodOrderEvent, FoodOrderState> {
       emit(AddingOrderLoadingState());
       emit(
         (await getOrdersUseCase(NoParams())).fold(
-          (failure) => DataEmptyState(),
+          (failure) => AddingOrderErrorState(message: failure.getMessage),
           (orders) => orders.isEmpty
               ? DataEmptyState()
               : DataLoadedState(orders: orders),
