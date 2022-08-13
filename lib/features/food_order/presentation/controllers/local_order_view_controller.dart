@@ -65,12 +65,13 @@ class LocalOrderViewController {
   }
 
   Future<dynamic> getOrders(
-      BuildContext context,
-      TextEditingController nameController,
-      TextEditingController orderController,
-      TextEditingController priceController,
-      TextEditingController payedController,
-      LocalOrderModel? order) {
+    BuildContext context,
+    TextEditingController nameController,
+    TextEditingController orderController,
+    TextEditingController priceController,
+    TextEditingController payedController,
+    LocalOrderModel? order,
+  ) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -184,6 +185,8 @@ class LocalOrderViewController {
   ) {
     return Autocomplete<LocalOrderModel>(
       optionsBuilder: (TextEditingValue textEditingValue) async {
+        orderController.text = textEditingValue.text;
+
         if (textEditingValue.text.isEmpty) {
           return List.empty();
         } else {
