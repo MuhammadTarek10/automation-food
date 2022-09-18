@@ -5,5 +5,5 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initApp();
-  runApp(const AutoOrderApp());
+  runApp(const FoodOrderApp());
 }

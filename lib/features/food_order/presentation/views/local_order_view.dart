@@ -56,7 +56,7 @@ class _LocalOrderViewState extends State<LocalOrderView> {
           IconButton(
             icon: const Icon(Icons.insights),
             onPressed: () =>
-                Navigator.pushNamed(context, Routes.localConclusionRoute),
+                Navigator.pushNamed(context, AppRoutes.localConclusionRoute),
           ),
         ],
       ),

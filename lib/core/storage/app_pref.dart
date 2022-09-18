@@ -10,6 +10,10 @@ class AppPreference {
     await sharedPreferences.setString(AppConstants.passwordKey, password);
   }
 
+  Future<bool> isLoggedIn() async {
+    return await getUserId() != null;
+  }
+
   Future<String?> getUserEmail() async {
     return sharedPreferences.getString(AppConstants.emailKey);
   }

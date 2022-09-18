@@ -3,15 +3,15 @@ import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/food_order/presentation/views/local_conclusion_view.dart';
 import 'package:auto_food/features/food_order/presentation/views/local_order_view.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/remote_sessions_food_order_bloc.dart';
 import 'package:auto_food/core/home_view.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/views/login_view.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/views/register_view.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/views/remote_session_home_view.dart';
+import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
+import 'package:auto_food/features/online_food_order/presentation/views/auth/login_view.dart';
+import 'package:auto_food/features/online_food_order/presentation/views/auth/register_view.dart';
+import 'package:auto_food/features/online_food_order/presentation/views/home/online_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Routes {
+class AppRoutes {
   static const String initalHomeRoute = "/";
 
   // local
@@ -21,7 +21,7 @@ class Routes {
   // remote
   static const String loginRoute = "/login";
   static const String registerRoute = "/register";
-  static const String remoteSessionRoute = "/remote-session";
+  static const String onlineHomeRoute = "/home";
   static const String remoteConclusionRoute = '/remote-conclusion';
 
   static const String undefined = '/undefined';
@@ -30,45 +30,48 @@ class Routes {
 class AppRouterGenerator {
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Routes.initalHomeRoute:
+      case AppRoutes.initalHomeRoute:
         initLocal();
-        initRemote();
         return MaterialPageRoute(
           builder: (context) => const HomeView(),
         );
-      case Routes.localOrderRoute:
+      case AppRoutes.localOrderRoute:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<FoodOrderBloc>(),
             child: const LocalOrderView(),
           ),
         );
-      case Routes.localConclusionRoute:
+      case AppRoutes.localConclusionRoute:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => instance<FoodOrderBloc>(),
             child: const LocalConclusionView(),
           ),
         );
-      case Routes.loginRoute:
+      case AppRoutes.loginRoute:
+        initRemote();
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
+          builder: (_) => BlocProvider(
+            create: (context) => instance<OnlineFoodOrderBloc>(),
             child: const LoginView(),
           ),
         );
-      case Routes.registerRoute:
+      case AppRoutes.registerRoute:
+        initRemote();
+
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
+          builder: (_) => BlocProvider(
+            create: (context) => instance<OnlineFoodOrderBloc>(),
             child: const RegisterView(),
           ),
         );
-      case Routes.remoteSessionRoute:
+      case AppRoutes.onlineHomeRoute:
+        initRemote();
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) => instance<RemoteSessionsFoodOrderBloc>(),
-            child: const RemoteSessionHomeView(),
+          builder: (_) => BlocProvider(
+            create: (context) => instance<OnlineFoodOrderBloc>(),
+            child: const OnlineHomeView(),
           ),
         );
       default:

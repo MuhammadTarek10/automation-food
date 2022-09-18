@@ -6,15 +6,25 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData getAppTheme() {
     return ThemeData(
+      scaffoldBackgroundColor: AppColors.appBackgroundColor,
       primaryColor: AppColors.primary,
       hintColor: AppColors.hint,
       appBarTheme: const AppBarTheme(
         centerTitle: true,
-        color: AppColors.primary,
+        elevation: 0,
+        color: AppColors.appBackgroundColor,
         titleTextStyle: TextStyle(
           color: AppColors.appBarText,
           fontSize: AppFontSize.appBarTitle,
         ),
+        iconTheme: IconThemeData(
+          color: AppColors.appBarText,
+        ),
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: <TargetPlatform, PageTransitionsBuilder>{
+          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+        },
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -38,6 +48,10 @@ class AppTheme {
         ),
         headline5: TextStyle(
           fontSize: AppSizes.headline5FontSize,
+        ),
+        subtitle2: TextStyle(
+          fontSize: AppSizes.buttonTextFontSize,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );

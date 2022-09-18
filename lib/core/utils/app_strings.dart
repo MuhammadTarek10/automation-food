@@ -38,6 +38,7 @@ class AppStrings {
 
   // error toast messages
   static const String invalidInputs = "Invalid inputs";
+  static const String invalidCreditials = "Email or password is wrong";
 
   // cache keys
   static const String cacheKeyConclusion = "CONCLUSION";

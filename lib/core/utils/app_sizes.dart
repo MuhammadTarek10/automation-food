@@ -18,6 +18,8 @@ class AppSizes {
   static const double titleSmallFontSize = 12;
 
   static const double differenceBetweenTextFields = 8;
+
+  static const double buttonTextFontSize = 20;
 }
 
 class AppPadding {
@@ -26,4 +28,18 @@ class AppPadding {
   static const double paddingTop = 8;
   static const double paddingBottom = 8;
   static const double paddingAll = 8;
+}
+
+class AppRatio {
+  static const double loginImageHeight = 0.3;
+  static const double registerImageHeight = 0.25;
+
+  static const double defaultPaddingWithWidth = 0.1;
+  static const double defaultPaddingWithHeight = 0.1;
+  static const double sizedBox = 0.05;
+  static const double paddingBetweenTextFields = 0.01;
+
+  static const double borderRadiusTextField = 0.03;
+  static const double borderButtonRadius = 0.02;
+  static const double loginButtonHeight = 0.1;
 }

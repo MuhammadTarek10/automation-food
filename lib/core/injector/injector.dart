@@ -7,17 +7,13 @@ import 'package:auto_food/features/food_order/domain/repositories/local_reposito
 import 'package:auto_food/features/food_order/domain/usecases/conclusion_usecase.dart';
 import 'package:auto_food/features/food_order/domain/usecases/order_usecase.dart';
 import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/dio_factory.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/network_info.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/apis/network/remote_app_api.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/datasources/remote_data_source.dart';
-import 'package:auto_food/features/remote_sessions_food_order/data/repositories/remote_repository_impl.dart';
-import 'package:auto_food/features/remote_sessions_food_order/domain/repositories/remote_repository.dart';
-import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_auth_usecases.dart';
-import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_conclusion_usecases.dart';
-import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_order_usecases.dart';
-import 'package:auto_food/features/remote_sessions_food_order/domain/usecases/remote_session_usecases.dart';
-import 'package:auto_food/features/remote_sessions_food_order/presentation/bloc/remote_sessions_food_order_bloc.dart';
+import 'package:auto_food/features/online_food_order/data/apis/network/app_service_client.dart';
+import 'package:auto_food/features/online_food_order/data/apis/network/dio_factory.dart';
+import 'package:auto_food/features/online_food_order/data/apis/network/network_info.dart';
+import 'package:auto_food/features/online_food_order/data/datasources/remote_data_source.dart';
+import 'package:auto_food/features/online_food_order/data/repositories/online_repo_impl.dart';
+import 'package:auto_food/features/online_food_order/domain/usecases/usecases.dart';
+import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -48,12 +44,6 @@ Future<void> initApp() async {
       () => DioFactory(appPreference: instance()));
   Dio dio = await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
-  instance.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(appServiceClient: instance()));
-  instance.registerLazySingleton<RemoteRepository>(() => RemoteRespositoryImpl(
-      appPreference: instance(),
-      networkInfo: instance(),
-      remoteDataSource: instance()));
 }
 
 Future<dynamic> _createDatabase(Database db, int version) async {
@@ -122,65 +112,37 @@ initLocal() {
 }
 
 initRemote() {
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteLoginUseCase>(
-        () => RemoteLoginUseCase(repository: instance()));
+  // data source
+  if (!GetIt.I.isRegistered<RemoteDataSource>()) {
+    instance.registerFactory<RemoteDataSource>(
+        () => RemoteDataSource(appServiceClient: instance<AppServiceClient>()));
   }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteRegisterUseCase>(
-        () => RemoteRegisterUseCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<GetSessionsUeeCase>(
-        () => GetSessionsUeeCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<CreateSessionUeeCase>(
-        () => CreateSessionUeeCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<DeleteSessionUeeCase>(
-        () => DeleteSessionUeeCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<SearchSessionUeeCase>(
-        () => SearchSessionUeeCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteGetOtderUseCase>(
-        () => RemoteGetOtderUseCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteAddOrderUseCase>(
-        () => RemoteAddOrderUseCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteEditOrderUseCase>(
-        () => RemoteEditOrderUseCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteDeleteOrderUseCase>(
-        () => RemoteDeleteOrderUseCase(repository: instance()));
-  }
-  if (!GetIt.I.isRegistered<UseCase>()) {
-    instance.registerFactory<RemoteGetConclusion>(
-        () => RemoteGetConclusion(repository: instance()));
+  // repository
+  if (!GetIt.I.isRegistered<OnlineRepositoryImpl>()) {
+    instance.registerFactory<OnlineRepositoryImpl>(
+      () => OnlineRepositoryImpl(
+        dataSource: instance<RemoteDataSource>(),
+        networkInfo: instance<NetworkInfo>(),
+      ),
+    );
   }
 
-  if (!GetIt.I.isRegistered<RemoteSessionsFoodOrderBloc>()) {
-    instance.registerFactory(
-      () => RemoteSessionsFoodOrderBloc(
-        createSessionUseCase: instance(),
-        getSessionUseCase: instance(),
-        searchSessionUseCase: instance(),
-        deleteSessionUseCase: instance(),
-        getOrderUseCase: instance(),
-        addOrderUseCase: instance(),
-        deleteOrderUseCase: instance(),
-        editOrderUseCase: instance(),
-        loginUseCase: instance(),
-        registerUsecase: instance(),
-        getConclusionUseCase: instance(),
+  // usecases
+  if (!GetIt.I.isRegistered<LoginUseCase>()) {
+    instance.registerFactory<LoginUseCase>(
+        () => LoginUseCase(repository: instance<OnlineRepositoryImpl>()));
+  }
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+    instance.registerFactory<RegisterUseCase>(
+        () => RegisterUseCase(repository: instance<OnlineRepositoryImpl>()));
+  }
+  // bloc
+
+  if (!GetIt.I.isRegistered<OnlineFoodOrderBloc>()) {
+    instance.registerFactory<OnlineFoodOrderBloc>(
+      () => OnlineFoodOrderBloc(
+        loginUseCase: instance<LoginUseCase>(),
+        registerUseCase: instance<RegisterUseCase>(),
       ),
     );
   }
