@@ -42,17 +42,17 @@ class UserResponse {
 
 @JsonSerializable()
 class RegisterResponse {
+  @JsonKey(name: "_id")
+  String id;
   @JsonKey(name: "name")
   String name;
   @JsonKey(name: "email")
   String email;
-  @JsonKey(name: "password")
-  String password;
 
   RegisterResponse({
+    required this.id,
     required this.name,
     required this.email,
-    required this.password,
   });
 
   factory RegisterResponse.fromJson(Map<String, dynamic> json) =>

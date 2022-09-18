@@ -40,8 +40,18 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
 
   @override
   Future<Either<Failure, User>> register(
-      String name, String email, String password) {
-    // TODO: implement register
-    throw UnimplementedError();
+      String name, String email, String password) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final request = RegisterRequest(name: name, email: email, password: password);
+        final response = await dataSource.register(request);
+        appPreference.setUserId(response.id);
+        return Right(response.toModel());
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
   }
 }

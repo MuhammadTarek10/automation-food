@@ -10,4 +10,9 @@ class RemoteDataSource implements OnlineDataSource {
   Future<LoginResponse> login(LoginRequest request) async {
     return await appServiceClient.login(request);
   }
+
+  @override
+  Future<RegisterResponse> register(RegisterRequest request) async {
+    return await appServiceClient.register(request);
+  }
 }

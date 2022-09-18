@@ -24,5 +24,15 @@ class OnlineFoodOrderBloc
         ),
       );
     });
+
+    on<RegisterEvent>((event, emit) async {
+      emit(OnlineLoading());
+      emit(
+        (await registerUseCase(event.name, event.email, event.password)).fold(
+          (failure) => LoginFailedState(message: failure.getMessage),
+          (user) => RegisterSuccessState(),
+        ),
+      );
+    });
   }
 }

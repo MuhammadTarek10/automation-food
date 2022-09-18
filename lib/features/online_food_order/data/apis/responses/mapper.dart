@@ -10,3 +10,15 @@ extension LoginResponseExtension on LoginResponse {
     );
   }
 }
+
+
+extension RegisterResposneExtension on RegisterResponse {
+  UserModel toModel() {
+    return UserModel(
+      id: id,
+      name: name,
+      email: email,
+    );
+  }
+}
+

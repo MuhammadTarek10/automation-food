@@ -45,9 +45,9 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return BlocListener<OnlineFoodOrderBloc, OnlineFoodOrderState>(
       listener: (context, state) {
-        if (state is LoginSuccessState) {
+        if (state is RegisterSuccessState) {
           Navigator.pushReplacementNamed(context, AppRoutes.onlineHomeRoute);
-        } else if (state is LoginFailedState) {
+        } else if (state is RegisterFailedState) {
           AppConstants.showToast(message: state.message);
         }
       },
