@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 
 class ErrorHandler {
   static Failure handle(DioError error) {
-    if (error.response!.statusCode != null) {
+    if (error.response != null) {
       switch (error.response!.statusCode) {
         case 400:
           return BadRequestFailure();

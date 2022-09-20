@@ -17,7 +17,6 @@ class LoginRequest {
   Map<String, dynamic> toJson() => _$LoginRequestToJson(this);
 }
 
-
 @JsonSerializable()
 class RegisterRequest {
   final String name;
@@ -34,4 +33,19 @@ class RegisterRequest {
       _$RegisterRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterRequestToJson(this);
+}
+
+@JsonSerializable()
+class RoomIdRequest {
+  @JsonKey(name: "room_id")
+  final String roomId;
+
+  const RoomIdRequest({
+    required this.roomId,
+  });
+
+  factory RoomIdRequest.fromJson(Map<String, dynamic> json) =>
+      _$RoomIdRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RoomIdRequestToJson(this);
 }

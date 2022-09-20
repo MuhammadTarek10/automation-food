@@ -14,4 +14,5 @@ class AppColors {
   static const Color orderCardRemainingAvaterColor = Color(0xFF2A2C41);
 
   static const Color appBackgroundColor = Color(0xFFFBFBFD);
+  static const Color loading = Colors.green;
 }

@@ -3,6 +3,7 @@ class AppStrings {
   static const String appName = "Food Order";
   static const String databaseName = "food_order.db";
   static const String empty = "Empty";
+  static const String loading = "Loading";
 
   // database
   static const int databaseVersion = 1;
@@ -106,4 +107,7 @@ class AppStrings {
   static const String registerPasswordLabelText = "Password";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String loginHereButton = "Login Here!";
+
+  // online
+  static const String roomViewTitle = "Your Rooms";
 }

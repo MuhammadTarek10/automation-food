@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
               onPressed: () async {
                 appPreference.isLoggedIn().then((isLoggedIn) {
                   if (isLoggedIn) {
-                    Navigator.pushNamed(context, AppRoutes.onlineHomeRoute);
+                    Navigator.pushNamed(context, AppRoutes.roomRoute);
                   } else {
                     Navigator.pushNamed(context, AppRoutes.loginRoute);
                   }

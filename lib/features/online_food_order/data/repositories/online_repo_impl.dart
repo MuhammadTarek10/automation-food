@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_food/core/error/error_handler.dart';
 import 'package:auto_food/core/error/failures.dart';
 import 'package:auto_food/core/injector/injector.dart';
@@ -6,6 +8,8 @@ import 'package:auto_food/features/online_food_order/data/apis/network/network_i
 import 'package:auto_food/features/online_food_order/data/apis/requrests/requests.dart';
 import 'package:auto_food/features/online_food_order/data/apis/responses/mapper.dart';
 import 'package:auto_food/features/online_food_order/data/datasources/online_data_source.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
 import 'package:auto_food/features/online_food_order/domain/repositories/online_repo.dart';
 import 'package:dartz/dartz.dart';
@@ -43,11 +47,53 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
       String name, String email, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final request = RegisterRequest(name: name, email: email, password: password);
+        final request =
+            RegisterRequest(name: name, email: email, password: password);
         final response = await dataSource.register(request);
         appPreference.setUserId(response.id);
         return Right(response.toModel());
       } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OnlineRoom>>> getRooms() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final id = appPreference.getUserId();
+        if (id != null) {
+          final response = await dataSource.getRooms(id);
+          return Right(response.toModel());
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<OrderInRoom>>> getOrders() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final id = appPreference.getUserId();
+        final roomId = appPreference.getRoomId();
+        if (id != null && roomId != null) {
+          final response =
+              await dataSource.getOrders(id, RoomIdRequest(roomId: roomId));
+          return Right(response.toModel());
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        log(error.toString());
         return Left(ErrorHandler.handle(error));
       }
     } else {

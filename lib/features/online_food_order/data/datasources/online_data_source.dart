@@ -3,5 +3,7 @@ import 'package:auto_food/features/online_food_order/data/apis/responses/respons
 
 abstract class OnlineDataSource {
   Future<LoginResponse> login(LoginRequest request);
-  Future<RegisterResponse> register(RegisterRequest request);
+  Future<UserResponse> register(RegisterRequest request);
+  Future<GetRoomsResponse> getRooms(String id);
+  Future<OrderInRoomResponse> getOrders(String id, RoomIdRequest roomId);
 }

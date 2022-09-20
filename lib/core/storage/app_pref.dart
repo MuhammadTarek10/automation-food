@@ -11,7 +11,15 @@ class AppPreference {
   }
 
   Future<bool> isLoggedIn() async {
-    return await getUserId() != null;
+    return await Future.value(getUserId() != null);
+  }
+
+  Future<void> setRoomId(String roomId) async {
+    await sharedPreferences.setString(AppConstants.roomIdKey, roomId);
+  }
+
+  String? getRoomId() {
+    return sharedPreferences.getString(AppConstants.roomIdKey);
   }
 
   Future<String?> getUserEmail() async {
@@ -26,7 +34,7 @@ class AppPreference {
     await sharedPreferences.setString(AppConstants.tokenKey, token);
   }
 
-  Future<String?> getToken() async {
+  String? getToken() {
     return sharedPreferences.getString(AppConstants.tokenKey);
   }
 
@@ -34,7 +42,7 @@ class AppPreference {
     await sharedPreferences.setString(AppConstants.userIdKey, userId);
   }
 
-  Future<String?> getUserId() async {
+  String? getUserId() {
     return sharedPreferences.getString(AppConstants.userIdKey);
   }
 

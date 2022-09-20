@@ -46,8 +46,8 @@ class _RegisterViewState extends State<RegisterView> {
     return BlocListener<OnlineFoodOrderBloc, OnlineFoodOrderState>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          Navigator.pushReplacementNamed(context, AppRoutes.onlineHomeRoute);
-        } else if (state is RegisterFailedState) {
+          Navigator.pushReplacementNamed(context, AppRoutes.roomRoute);
+        } else if (state is FailedState) {
           AppConstants.showToast(message: state.message);
         }
       },

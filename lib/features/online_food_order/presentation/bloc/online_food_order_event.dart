@@ -41,3 +41,7 @@ class RegisterEvent extends OnlineFoodOrderEvent {
         password,
       ];
 }
+
+class GetRoomsEvent extends OnlineFoodOrderEvent {}
+
+class GetRoomOrdersEvent extends OnlineFoodOrderEvent {}

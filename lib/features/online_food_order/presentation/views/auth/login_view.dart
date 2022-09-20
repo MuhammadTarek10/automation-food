@@ -43,8 +43,8 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<OnlineFoodOrderBloc, OnlineFoodOrderState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigator.pushReplacementNamed(context, AppRoutes.onlineHomeRoute);
-        } else if (state is LoginFailedState) {
+          Navigator.pushReplacementNamed(context, AppRoutes.roomRoute);
+        } else if (state is FailedState) {
           AppConstants.showToast(message: state.message);
         }
       },

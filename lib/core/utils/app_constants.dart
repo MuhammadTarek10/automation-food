@@ -14,6 +14,9 @@ class AppConstants {
   static const String accept = "Accept";
   static const String authorization = "x-auth-token";
 
+  // online keys
+  static const String roomIdKey = "ROOM_ID";
+
   static const int recieveTimeout = 10000;
   static const int connectTimeout = 10000;
   static const int sendTimeout = 10000;
@@ -28,6 +31,21 @@ class AppConstants {
       toastLength: Toast.LENGTH_SHORT,
       backgroundColor: color ?? AppColors.hint,
       gravity: gravity ?? ToastGravity.BOTTOM,
+    );
+  }
+
+  static Future<dynamic> showSnackBar({
+    required BuildContext context,
+    required String message,
+    Color? color = AppColors.loading,
+    int duration = 1,
+  }) async {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+        duration: Duration(seconds: duration),
+      ),
     );
   }
 }

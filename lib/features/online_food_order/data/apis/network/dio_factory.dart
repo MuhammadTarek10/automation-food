@@ -10,7 +10,7 @@ class DioFactory {
 
   Future<Dio> getDio() async {
     Dio dio = Dio();
-    String? token = await appPreference.getToken();
+    String? token = appPreference.getToken();
     Map<String, String> headers = {
       AppConstants.cotnentType: AppConstants.applicationJson,
       AppConstants.accept: AppConstants.applicationJson,

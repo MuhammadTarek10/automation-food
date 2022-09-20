@@ -30,3 +30,13 @@ Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
       'email': instance.email,
       'password': instance.password,
     };
+
+RoomIdRequest _$RoomIdRequestFromJson(Map<String, dynamic> json) =>
+    RoomIdRequest(
+      roomId: json['room_id'] as String,
+    );
+
+Map<String, dynamic> _$RoomIdRequestToJson(RoomIdRequest instance) =>
+    <String, dynamic>{
+      'room_id': instance.roomId,
+    };

@@ -21,14 +21,29 @@ class RegisterSuccessState extends OnlineFoodOrderState {}
 
 class OnlineLoading extends OnlineFoodOrderState {}
 
-class LoginFailedState extends OnlineFoodOrderState {
+class FailedState extends OnlineFoodOrderState {
   final String message;
 
-  const LoginFailedState({required this.message});
+  const FailedState({required this.message});
 }
 
-class RegisterFailedState extends OnlineFoodOrderState {
-  final String message;
+class GetRoomsSuccessState extends OnlineFoodOrderState {
+  final List<OnlineRoom> rooms;
 
-  const RegisterFailedState({required this.message});
+  const GetRoomsSuccessState({required this.rooms});
+
+  @override
+  List<Object> get props => [
+        rooms,
+      ];
+}
+
+class GetRoomOrdersSuccess extends OnlineFoodOrderState {
+  final List<OrderInRoom> orders;
+
+  const GetRoomOrdersSuccess({required this.orders});
+  @override
+  List<Object> get props => [
+        orders,
+      ];
 }
