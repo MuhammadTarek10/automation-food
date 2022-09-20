@@ -22,7 +22,7 @@ class RemoteDataSource implements OnlineDataSource {
   }
 
   @override
-  Future<OrderInRoomResponse> getOrders(String id, RoomIdRequest roomId) async {
+  Future<OrderInRoomResponse> getOrders(String id, String roomId) async {
     return await appServiceClient.getOrders(id, roomId);
   }
 }

@@ -86,8 +86,7 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
         final id = appPreference.getUserId();
         final roomId = appPreference.getRoomId();
         if (id != null && roomId != null) {
-          final response =
-              await dataSource.getOrders(id, RoomIdRequest(roomId: roomId));
+          final response = await dataSource.getOrders(id, roomId);
           return Right(response.toModel());
         } else {
           return Left(UnauthorizedFailure());

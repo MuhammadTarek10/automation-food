@@ -14,7 +14,6 @@ import 'package:auto_food/features/online_food_order/data/datasources/remote_dat
 import 'package:auto_food/features/online_food_order/data/repositories/online_repo_impl.dart';
 import 'package:auto_food/features/online_food_order/domain/usecases/usecases.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
-import 'package:auto_food/features/online_food_order/presentation/controllers/online_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -156,13 +155,5 @@ initRemote() {
         getOrdersInRoomUseCase: instance<GetOrdersInRoomUseCase>(),
       ),
     );
-
-    if (!GetIt.I.isRegistered<OnlineController>()) {
-      instance.registerFactory<OnlineController>(
-        () => OnlineController(
-          bloc: instance<OnlineFoodOrderBloc>(),
-        ),
-      );
-    }
   }
 }

@@ -12,16 +12,25 @@ class RoomDetails extends StatefulWidget {
 }
 
 class _RoomDetailsState extends State<RoomDetails> {
-  final OnlineController controller = instance<OnlineController>();
+  late final OnlineController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = OnlineController(bloc: context.read<OnlineFoodOrderBloc>());
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<OnlineFoodOrderBloc, OnlineFoodOrderState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is GetRoomOrdersSuccess) {}
+      },
       child: Scaffold(
-          appBar: AppBar(
-        title: const Text("Room Details"),
-      )),
+        appBar: AppBar(
+          title: const Text("Room Details"),
+        ),
+      ),
     );
   }
 }

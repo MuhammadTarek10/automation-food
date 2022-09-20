@@ -57,27 +57,25 @@ class _AppServiceClient implements AppServiceClient {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<dynamic>(
-        _setStreamType<GetRoomsResponse>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/room/get-rooms/${id}',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final _result = await _dio.fetch<dynamic>(_setStreamType<GetRoomsResponse>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/api/room/get-rooms/${id}',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetRoomsResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<OrderInRoomResponse> getOrders(id, request) async {
+  Future<OrderInRoomResponse> getOrders(id, roomId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
     final _result = await _dio.fetch<dynamic>(
         _setStreamType<OrderInRoomResponse>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/order/get-orders/${id}',
+                .compose(_dio.options, '/api/order/get-orders/${id}/${roomId}',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OrderInRoomResponse.fromJson(_result.data!);

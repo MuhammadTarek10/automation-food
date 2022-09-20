@@ -15,7 +15,7 @@ class ApiRoutes {
 
   // order
   static const String baseOrder = "$base/order";
-  static const String getOrders = "$baseOrder/get-orders/{id}";
+  static const String getOrders = "$baseOrder/get-orders/{id}/{room_id}";
   static const String addOrder = "$baseOrder/add-order/{id}";
   static const String deleteOrder = "$baseOrder/delete-order/{id}";
   static const String editOrder = "$baseOrder/edit-order/{id}";

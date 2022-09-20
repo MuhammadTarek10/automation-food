@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:auto_food/config/routes.dart';
-import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/core/utils/media_query_values.dart';
@@ -20,7 +19,7 @@ class RoomsView extends StatefulWidget {
 }
 
 class _RoomsViewState extends State<RoomsView> {
-  final OnlineController controller = instance<OnlineController>();
+  late final OnlineController controller;
 
   late final StreamController<List<OnlineRoom>> roomsController;
 
@@ -28,6 +27,7 @@ class _RoomsViewState extends State<RoomsView> {
   void initState() {
     super.initState();
     roomsController = StreamController<List<OnlineRoom>>();
+    controller = OnlineController(bloc: context.read<OnlineFoodOrderBloc>());
   }
 
   @override

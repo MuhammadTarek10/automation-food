@@ -83,7 +83,7 @@ Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
 OrderInRoomSingleResponse _$OrderInRoomSingleResponseFromJson(
         Map<String, dynamic> json) =>
     OrderInRoomSingleResponse(
-      order: OrderResponse.fromJson(json['order'] as Map<String, dynamic>),
+      order: OrderResponse.fromJson(json),
       user: UserResponse.fromJson(json['user'] as Map<String, dynamic>),
     );
 
