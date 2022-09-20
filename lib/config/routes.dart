@@ -4,6 +4,7 @@ import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.
 import 'package:auto_food/features/food_order/presentation/views/local_conclusion_view.dart';
 import 'package:auto_food/features/food_order/presentation/views/local_order_view.dart';
 import 'package:auto_food/core/home_view.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/auth/login_view.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/auth/register_view.dart';
@@ -82,7 +83,7 @@ class AppRouterGenerator {
           builder: (_) => BlocProvider(
             create: (context) =>
                 instance<OnlineFoodOrderBloc>()..add(GetRoomOrdersEvent()),
-            child: const RoomDetails(),
+            child: RoomDetails(room: settings.arguments as OnlineRoom),
           ),
         );
       default:

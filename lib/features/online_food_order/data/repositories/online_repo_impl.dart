@@ -99,4 +99,57 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
       return Left(NoInternetFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> createRoom(
+    String name,
+    String code,
+    int? number,
+  ) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final id = appPreference.getUserId();
+        if (id != null) {
+          final request = CreateRoomRequest(
+            name: name,
+            code: code,
+            number: number,
+          );
+          final response = await dataSource.createRoom(id, request);
+          return Right(response);
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addOrder(String name, double price) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final id = appPreference.getUserId();
+        final roomId = appPreference.getRoomId();
+        if (id != null && roomId != null) {
+          final request = AddOrderRequest(
+            name: name,
+            price: price,
+            roomId: roomId,
+          );
+          final response = await dataSource.addOrder(id, request);
+          return Right(response);
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
 }

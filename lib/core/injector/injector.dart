@@ -144,6 +144,14 @@ initRemote() {
     instance.registerFactory<GetOrdersInRoomUseCase>(() =>
         GetOrdersInRoomUseCase(repository: instance<OnlineRepositoryImpl>()));
   }
+  if (!GetIt.I.isRegistered<CreateRoomUseCase>()) {
+    instance.registerFactory<CreateRoomUseCase>(
+        () => CreateRoomUseCase(repository: instance<OnlineRepositoryImpl>()));
+  }
+  if (!GetIt.I.isRegistered<AddOrderUseCase>()) {
+    instance.registerFactory<AddOrderUseCase>(
+        () => AddOrderUseCase(repository: instance<OnlineRepositoryImpl>()));
+  }
   // bloc
 
   if (!GetIt.I.isRegistered<OnlineFoodOrderBloc>()) {
@@ -153,6 +161,8 @@ initRemote() {
         registerUseCase: instance<RegisterUseCase>(),
         getRoomsUseCase: instance<GetRoomsUseCase>(),
         getOrdersInRoomUseCase: instance<GetOrdersInRoomUseCase>(),
+        createRoomUseCase: instance<CreateRoomUseCase>(),
+        addOrderUseCase: instance<AddOrderUseCase>(),
       ),
     );
   }

@@ -110,4 +110,14 @@ class AppStrings {
 
   // online
   static const String roomViewTitle = "Your Rooms";
+  static const String enterRoomDetailsTitle = "Enter Room Details";
+  static const String roomNameHintText = "Room Name";
+  static const String roomCodeHintText = "Room Code";
+  static const String roomNumberHintText = "Number (Optional)";
+  static const String createRoomButton = "Create Room";
+
+  static const String addOrderTitle = "Add Order";
+  static const String orderNameHintText = "Order Name";
+  static const String orderPriceHintText = "Price";
+
 }

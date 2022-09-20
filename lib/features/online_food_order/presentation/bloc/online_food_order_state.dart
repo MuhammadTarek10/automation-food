@@ -38,6 +38,8 @@ class GetRoomsSuccessState extends OnlineFoodOrderState {
       ];
 }
 
+class GenericSuccessState extends OnlineFoodOrderState {}
+
 class GetRoomOrdersSuccess extends OnlineFoodOrderState {
   final List<OrderInRoom> orders;
 

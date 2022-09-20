@@ -40,3 +40,31 @@ Map<String, dynamic> _$RoomIdRequestToJson(RoomIdRequest instance) =>
     <String, dynamic>{
       'room_id': instance.roomId,
     };
+
+CreateRoomRequest _$CreateRoomRequestFromJson(Map<String, dynamic> json) =>
+    CreateRoomRequest(
+      name: json['name'] as String,
+      code: json['code'] as String,
+      number: json['number'] as int?,
+    );
+
+Map<String, dynamic> _$CreateRoomRequestToJson(CreateRoomRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'code': instance.code,
+      'number': instance.number,
+    };
+
+AddOrderRequest _$AddOrderRequestFromJson(Map<String, dynamic> json) =>
+    AddOrderRequest(
+      name: json['name'] as String,
+      price: (json['price'] as num).toDouble(),
+      roomId: json['room_id'] as String,
+    );
+
+Map<String, dynamic> _$AddOrderRequestToJson(AddOrderRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'price': instance.price,
+      'room_id': instance.roomId,
+    };

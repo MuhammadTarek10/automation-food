@@ -1,4 +1,5 @@
 import 'package:auto_food/core/usecases/usecases.dart';
+import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -15,12 +16,16 @@ class OnlineFoodOrderBloc
   final RegisterUseCase registerUseCase;
   final GetRoomsUseCase getRoomsUseCase;
   final GetOrdersInRoomUseCase getOrdersInRoomUseCase;
+  final CreateRoomUseCase createRoomUseCase;
+  final AddOrderUseCase addOrderUseCase;
 
   OnlineFoodOrderBloc({
     required this.loginUseCase,
     required this.registerUseCase,
     required this.getRoomsUseCase,
     required this.getOrdersInRoomUseCase,
+    required this.createRoomUseCase,
+    required this.addOrderUseCase,
   }) : super(OnlineFoodOrderInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(OnlineLoading());
@@ -58,6 +63,23 @@ class OnlineFoodOrderBloc
         (await getOrdersInRoomUseCase(NoParams())).fold(
           (failure) => FailedState(message: failure.getMessage),
           (orders) => GetRoomOrdersSuccess(orders: orders),
+        ),
+      );
+    });
+
+    on<CreateRoomEvent>((event, emit) async {
+      emit(
+        (await createRoomUseCase(event.name, event.code, event.number)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (unit) => GenericSuccessState(),
+        ),
+      );
+    });
+    on<AddOnlineOrderEvent>((event, emit) async {
+      emit(
+        (await addOrderUseCase(event.name, event.price)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (unit) => GenericSuccessState(),
         ),
       );
     });

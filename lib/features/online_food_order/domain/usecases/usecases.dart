@@ -34,12 +34,30 @@ class GetRoomsUseCase implements UseCase<List<OnlineRoom>, NoParams> {
   }
 }
 
-
-class GetOrdersInRoomUseCase implements UseCase<List<OrderInRoom>, String> {
+class GetOrdersInRoomUseCase implements UseCase<List<OrderInRoom>, NoParams> {
   final OnlineRepoistory repository;
   GetOrdersInRoomUseCase({required this.repository});
 
   Future<Either<Failure, List<OrderInRoom>>> call(NoParams params) async {
     return await repository.getOrders();
+  }
+}
+
+class CreateRoomUseCase implements UseCase<void, String> {
+  final OnlineRepoistory repository;
+  CreateRoomUseCase({required this.repository});
+
+  Future<Either<Failure, void>> call(
+      String name, String code, int? number) async {
+    return await repository.createRoom(name, code, number);
+  }
+}
+
+class AddOrderUseCase implements UseCase<void, String> {
+  final OnlineRepoistory repository;
+  AddOrderUseCase({required this.repository});
+
+  Future<Either<Failure, void>> call(String name, double price) async {
+    return await repository.addOrder(name, price);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
+import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 
 class OnlineController {
@@ -8,12 +9,38 @@ class OnlineController {
 
   final AppPreference appPreference = instance<AppPreference>();
 
+  // room
   void getRooms() {
     bloc.add(GetRoomsEvent());
   }
 
   void goToRoom(String roomId) async {
     await appPreference.setRoomId(roomId);
+  }
+
+  void createRoom(
+    String name,
+    String code,
+    int? number,
+  ) {
+    bloc.add(CreateRoomEvent(name: name, code: code, number: number));
+  }
+
+  void deleteRoom(String roomId) {}
+
+  void searchRoom(String code) {}
+
+  // orders
+  void addOrder(String name, double price) {
+    bloc.add(AddOnlineOrderEvent(name: name, price: price));
+  }
+
+  void deleteOrder(String orderId) {}
+
+  void editOrder(String orderId) {}
+
+  void getOrders() {
+    bloc.add(GetRoomOrdersEvent());
   }
 
   void close() {

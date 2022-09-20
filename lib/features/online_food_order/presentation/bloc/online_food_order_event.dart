@@ -44,4 +44,30 @@ class RegisterEvent extends OnlineFoodOrderEvent {
 
 class GetRoomsEvent extends OnlineFoodOrderEvent {}
 
+class CreateRoomEvent extends OnlineFoodOrderEvent {
+  final String name;
+  final String code;
+  final int? number;
+
+  const CreateRoomEvent({
+    required this.name,
+    required this.code,
+    this.number,
+  });
+}
+
+class AddOnlineOrderEvent extends OnlineFoodOrderEvent {
+  final String name;
+  final double price;
+
+  const AddOnlineOrderEvent({
+    required this.name,
+    required this.price,
+  });
+}
+
+class DeleteRoomEvent extends OnlineFoodOrderEvent {}
+
+class SearchRoomEvent extends OnlineFoodOrderEvent {}
+
 class GetRoomOrdersEvent extends OnlineFoodOrderEvent {}
