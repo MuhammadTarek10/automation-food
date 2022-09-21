@@ -31,5 +31,13 @@ abstract class AppServiceClient {
       @Path("id") String id, @Body() CreateRoomRequest request);
 
   @POST(ApiRoutes.addOrder)
-  Future<OrderResponse> addOrder(@Path("id") String id, @Body() AddOrderRequest request);
+  Future<OrderResponse> addOrder(
+      @Path("id") String id, @Body() AddOrderRequest request);
+
+  @DELETE(ApiRoutes.deleteOrder)
+  Future<OrderResponse> deleteOrder(
+      @Path("id") String id, @Path("user_id") String userId);
+
+  @GET(ApiRoutes.getRoom)
+  Future<RoomResponse> getRoom(@Path("room_id") String roomId);
 }

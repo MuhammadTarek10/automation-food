@@ -64,9 +64,9 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
   Future<Either<Failure, List<OnlineRoom>>> getRooms() async {
     if (await networkInfo.isConnected) {
       try {
-        final id = appPreference.getUserId();
-        if (id != null) {
-          final response = await dataSource.getRooms(id);
+        final userId = appPreference.getUserId();
+        if (userId != null) {
+          final response = await dataSource.getRooms(userId);
           return Right(response.toModel());
         } else {
           return Left(UnauthorizedFailure());
@@ -83,10 +83,10 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
   Future<Either<Failure, List<OrderInRoom>>> getOrders() async {
     if (await networkInfo.isConnected) {
       try {
-        final id = appPreference.getUserId();
+        final userId = appPreference.getUserId();
         final roomId = appPreference.getRoomId();
-        if (id != null && roomId != null) {
-          final response = await dataSource.getOrders(id, roomId);
+        if (userId != null && roomId != null) {
+          final response = await dataSource.getOrders(userId, roomId);
           return Right(response.toModel());
         } else {
           return Left(UnauthorizedFailure());
@@ -108,14 +108,14 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        final id = appPreference.getUserId();
-        if (id != null) {
+        final userId = appPreference.getUserId();
+        if (userId != null) {
           final request = CreateRoomRequest(
             name: name,
             code: code,
             number: number,
           );
-          final response = await dataSource.createRoom(id, request);
+          final response = await dataSource.createRoom(userId, request);
           return Right(response);
         } else {
           return Left(UnauthorizedFailure());
@@ -132,16 +132,54 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
   Future<Either<Failure, void>> addOrder(String name, double price) async {
     if (await networkInfo.isConnected) {
       try {
-        final id = appPreference.getUserId();
+        final userId = appPreference.getUserId();
         final roomId = appPreference.getRoomId();
-        if (id != null && roomId != null) {
+        if (userId != null && roomId != null) {
           final request = AddOrderRequest(
             name: name,
             price: price,
             roomId: roomId,
           );
-          final response = await dataSource.addOrder(id, request);
+          final response = await dataSource.addOrder(userId, request);
           return Right(response);
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteOrder(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userId = appPreference.getUserId();
+        if (userId != null) {
+          final response = await dataSource.deleteOrder(id, userId);
+          return Right(response);
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, OnlineRoom>> getRoom(String roomId) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userId = appPreference.getUserId();
+        if (userId != null) {
+          final response = await dataSource.getRoom(roomId);
+          return Right(response.toModel());
         } else {
           return Left(UnauthorizedFailure());
         }

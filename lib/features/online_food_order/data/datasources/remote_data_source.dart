@@ -30,9 +30,19 @@ class RemoteDataSource implements OnlineDataSource {
   Future<RoomResponse> createRoom(String id, CreateRoomRequest request) async {
     return await appServiceClient.createRoom(id, request);
   }
-  
+
   @override
   Future<void> addOrder(String id, AddOrderRequest request) async {
     await appServiceClient.addOrder(id, request);
+  }
+
+  @override
+  Future<void> deleteOrder(String id, String userId) async {
+    await appServiceClient.deleteOrder(id, userId);
+  }
+
+  @override
+  Future<RoomResponse> getRoom(String roomId) async {
+    return await appServiceClient.getRoom(roomId);
   }
 }

@@ -8,9 +8,11 @@ class OnlineOrderCard extends StatelessWidget {
   const OnlineOrderCard({
     Key? key,
     required this.data,
+    required this.onDelete,
   }) : super(key: key);
 
   final OrderInRoom data;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class OnlineOrderCard extends StatelessWidget {
           width: context.width * AppSizes.differenceBetweenOrderNameAndMoney,
         ),
         InkWell(
-          onTap: () {},
+          onTap: onDelete,
           child: SizedBox(
             height: context.height * AppSizes.deleteContainerHeightPrecentage,
             width: context.width * AppSizes.deleteContainerWidthPrecentage,

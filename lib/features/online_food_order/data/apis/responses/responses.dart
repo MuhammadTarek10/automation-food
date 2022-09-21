@@ -28,11 +28,14 @@ class UserResponse {
   String name;
   @JsonKey(name: "email")
   String email;
+  @JsonKey(name: "rooms")
+  List<String> rooms;
 
   UserResponse({
     required this.id,
     required this.name,
     required this.email,
+    required this.rooms,
   });
 
   factory UserResponse.fromJson(Map<String, dynamic> json) =>
@@ -61,19 +64,25 @@ class RoomResponse {
   String id;
   @JsonKey(name: "admin_id")
   String adminId;
+  @JsonKey(name: "admin")
+  UserResponse admin;
   @JsonKey(name: "name")
   String name;
   @JsonKey(name: "code")
   String code;
   @JsonKey(name: "number")
   int number;
+  @JsonKey(name: "users")
+  List<UserResponse> users;
 
   RoomResponse({
     required this.id,
     required this.adminId,
+    required this.admin,
     required this.name,
     required this.code,
     required this.number,
+    required this.users,
   });
 
   factory RoomResponse.fromJson(Map<String, dynamic> json) =>
@@ -140,5 +149,3 @@ class OrderInRoomResponse {
 
   Map<String, dynamic> toJson() => _$OrderInRoomResponseToJson(this);
 }
-
-

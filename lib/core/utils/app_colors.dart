@@ -15,4 +15,7 @@ class AppColors {
 
   static const Color appBackgroundColor = Color(0xFFFBFBFD);
   static const Color loading = Colors.green;
+
+  static const Color success = Color(0xFF00C569);
+  static const Color failure = Color(0xFFFF611D);
 }

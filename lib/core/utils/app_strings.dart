@@ -22,11 +22,16 @@ class AppStrings {
   static const String cacheFailureMessage = "Cache Failure";
   static const String unexpectedFailureMessage = "Unexpected Failure";
   static const String serverFailureMessage = "Server Failure";
-  static const String unauthorizedFailureMessage = "Unauthorized Failure";
+  static const String unauthorizedFailureMessage = "Unauthorized";
   static const String noInternetFailureMessage = "No Internet Failure";
   static const String unknownFailureMessage = "Unknown Failure";
   static const String badRequestsFailureMessage = "Bad Requests Failure";
   static const String notFoundFailureMessage = "Not Found Failure";
+
+  // sucess Messages
+  static const String deletedSuccessMessage = "Deleted Successfully";
+  static const String addedSuccessMessage = "Added Successfully";
+  static const String editedSuccessMessage = "Edited Successfully";
 
   // excetpotion messages
   static const String cacheExceptionMessage = "Cache Exception";
@@ -119,5 +124,4 @@ class AppStrings {
   static const String addOrderTitle = "Add Order";
   static const String orderNameHintText = "Order Name";
   static const String orderPriceHintText = "Price";
-
 }

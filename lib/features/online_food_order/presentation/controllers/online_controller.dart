@@ -1,6 +1,5 @@
 import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
-import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 
 class OnlineController {
@@ -12,6 +11,10 @@ class OnlineController {
   // room
   void getRooms() {
     bloc.add(GetRoomsEvent());
+  }
+
+  void getRoom(String roomId) {
+    bloc.add(GetRoomEvent(roomId: roomId));
   }
 
   void goToRoom(String roomId) async {
@@ -35,7 +38,9 @@ class OnlineController {
     bloc.add(AddOnlineOrderEvent(name: name, price: price));
   }
 
-  void deleteOrder(String orderId) {}
+  void deleteOrder(String orderId) {
+    bloc.add(DeleteOnlineOrderEvent(id: orderId));
+  }
 
   void editOrder(String orderId) {}
 

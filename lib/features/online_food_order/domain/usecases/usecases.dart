@@ -61,3 +61,22 @@ class AddOrderUseCase implements UseCase<void, String> {
     return await repository.addOrder(name, price);
   }
 }
+
+class DeleteOnlineOrderUseCase implements UseCase<void, String> {
+  final OnlineRepoistory repository;
+  DeleteOnlineOrderUseCase({required this.repository});
+
+  Future<Either<Failure, void>> call(String id) async {
+    return await repository.deleteOrder(id);
+  }
+}
+
+
+class GetRoomUseCase implements UseCase<OnlineRoom, String> {
+  final OnlineRepoistory repository;
+  GetRoomUseCase({required this.repository});
+
+  Future<Either<Failure, OnlineRoom>> call(String id) async {
+    return await repository.getRoom(id);
+  }
+}

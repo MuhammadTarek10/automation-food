@@ -8,4 +8,6 @@ abstract class OnlineDataSource {
   Future<OrderInRoomResponse> getOrders(String id, String roomId);
   Future<void> createRoom(String id, CreateRoomRequest request);
   Future<void> addOrder(String id, AddOrderRequest request);
+  Future<void> deleteOrder(String id, String userId);
+  Future<RoomResponse> getRoom(String roomId);
 }

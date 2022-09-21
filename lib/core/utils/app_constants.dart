@@ -42,7 +42,7 @@ class AppConstants {
   }) async {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message),
+        content: Text(message, textAlign: TextAlign.center),
         backgroundColor: color,
         duration: Duration(seconds: duration),
       ),

@@ -1,5 +1,5 @@
 import 'package:auto_food/core/usecases/usecases.dart';
-import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.dart';
+import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -18,6 +18,8 @@ class OnlineFoodOrderBloc
   final GetOrdersInRoomUseCase getOrdersInRoomUseCase;
   final CreateRoomUseCase createRoomUseCase;
   final AddOrderUseCase addOrderUseCase;
+  final DeleteOnlineOrderUseCase deleteOrderUseCase;
+  final GetRoomUseCase getRoomUseCase;
 
   OnlineFoodOrderBloc({
     required this.loginUseCase,
@@ -26,6 +28,8 @@ class OnlineFoodOrderBloc
     required this.getOrdersInRoomUseCase,
     required this.createRoomUseCase,
     required this.addOrderUseCase,
+    required this.deleteOrderUseCase,
+    required this.getRoomUseCase,
   }) : super(OnlineFoodOrderInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(OnlineLoading());
@@ -71,7 +75,8 @@ class OnlineFoodOrderBloc
       emit(
         (await createRoomUseCase(event.name, event.code, event.number)).fold(
           (failure) => FailedState(message: failure.getMessage),
-          (unit) => GenericSuccessState(),
+          (unit) => const GenericSuccessState(
+              message: AppStrings.addedSuccessMessage),
         ),
       );
     });
@@ -79,7 +84,28 @@ class OnlineFoodOrderBloc
       emit(
         (await addOrderUseCase(event.name, event.price)).fold(
           (failure) => FailedState(message: failure.getMessage),
-          (unit) => GenericSuccessState(),
+          (unit) => const GenericSuccessState(
+              message: AppStrings.addedSuccessMessage),
+        ),
+      );
+    });
+
+    on<DeleteOnlineOrderEvent>((event, emit) async {
+      emit(
+        (await deleteOrderUseCase(event.id)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (unit) => const GenericSuccessState(
+              message: AppStrings.deletedSuccessMessage),
+        ),
+      );
+    });
+
+    on<GetRoomEvent>((event, emit) async {
+      emit(OnlineLoading());
+      emit(
+        (await getRoomUseCase(event.roomId)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (room) => GetRoomSuccessState(room: room),
         ),
       );
     });

@@ -35,9 +35,11 @@ extension RoomResponseExtension on RoomResponse {
     return OnlineRoomModel(
       id: id,
       adminId: adminId,
+      admin: admin.toModel(),
       name: name,
       code: code,
       number: number,
+      users: users.map((e) => e.toModel()).toList(),
     );
   }
 }

@@ -22,6 +22,7 @@ UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       id: json['_id'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
+      rooms: (json['rooms'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
@@ -29,6 +30,7 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       '_id': instance.id,
       'name': instance.name,
       'email': instance.email,
+      'rooms': instance.rooms,
     };
 
 GetRoomsResponse _$GetRoomsResponseFromJson(List<dynamic> json) =>
@@ -46,18 +48,24 @@ Map<String, dynamic> _$GetRoomsResponseToJson(GetRoomsResponse instance) =>
 RoomResponse _$RoomResponseFromJson(Map<String, dynamic> json) => RoomResponse(
       id: json['_id'] as String,
       adminId: json['admin_id'] as String,
+      admin: UserResponse.fromJson(json['admin'] as Map<String, dynamic>),
       name: json['name'] as String,
       code: json['code'] as String,
       number: json['number'] as int,
+      users: (json['users'] as List<dynamic>)
+          .map((e) => UserResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$RoomResponseToJson(RoomResponse instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'admin_id': instance.adminId,
+      'admin': instance.admin,
       'name': instance.name,
       'code': instance.code,
       'number': instance.number,
+      'users': instance.users,
     };
 
 OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>

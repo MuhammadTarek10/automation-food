@@ -38,7 +38,11 @@ class GetRoomsSuccessState extends OnlineFoodOrderState {
       ];
 }
 
-class GenericSuccessState extends OnlineFoodOrderState {}
+class GenericSuccessState extends OnlineFoodOrderState {
+  final String message;
+
+  const GenericSuccessState({required this.message});
+}
 
 class GetRoomOrdersSuccess extends OnlineFoodOrderState {
   final List<OrderInRoom> orders;
@@ -47,5 +51,15 @@ class GetRoomOrdersSuccess extends OnlineFoodOrderState {
   @override
   List<Object> get props => [
         orders,
+      ];
+}
+
+class GetRoomSuccessState extends OnlineFoodOrderState {
+  final OnlineRoom room;
+
+  const GetRoomSuccessState({required this.room});
+  @override
+  List<Object> get props => [
+        room,
       ];
 }

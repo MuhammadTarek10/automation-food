@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:developer';
 
+import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/controllers/online_controller.dart';
 import 'package:auto_food/features/online_food_order/presentation/widgets/order.dart';
@@ -24,8 +25,10 @@ class RoomDetails extends StatefulWidget {
 class _RoomDetailsState extends State<RoomDetails> {
   late final OnlineController controller;
   late final StreamController<List<OrderInRoom>> orderConroller;
+  late final StreamController<OnlineRoom> roomController;
   late final TextEditingController nameController;
   late final TextEditingController priceController;
+  late final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
   void initState() {
@@ -34,26 +37,77 @@ class _RoomDetailsState extends State<RoomDetails> {
     orderConroller = StreamController<List<OrderInRoom>>();
     nameController = TextEditingController();
     priceController = TextEditingController();
+    roomController = StreamController<OnlineRoom>.broadcast();
+    scaffoldKey = GlobalKey<ScaffoldState>();
+  }
+
+  @override
+  void dispose() {
+    orderConroller.close();
+    nameController.dispose();
+    priceController.dispose();
+    roomController.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.room.name),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.getRoom(widget.room.id);
+              scaffoldKey.currentState!.openEndDrawer();
+            },
             icon: const Icon(Icons.people),
           ),
         ],
+      ),
+      endDrawer: Drawer(
+        child: StreamBuilder<OnlineRoom>(
+          stream: roomController.stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.requireData.users.length + 1,
+                itemBuilder: (context, index) {
+                  List<User> users = snapshot.requireData.users;
+                  users.add(snapshot.requireData.admin);
+                  return Center(
+                    child: ListTile(
+                      title: Text(users[index].name),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
       body: BlocConsumer<OnlineFoodOrderBloc, OnlineFoodOrderState>(
         listener: (context, state) {
           if (state is GetRoomOrdersSuccess) {
             orderConroller.add(state.orders);
           } else if (state is GenericSuccessState) {
+            AppConstants.showSnackBar(
+              context: context,
+              message: state.message,
+            );
             controller.getOrders();
+          } else if (state is FailedState) {
+            AppConstants.showSnackBar(
+              context: context,
+              message: state.message,
+              color: AppColors.failure,
+            );
+          }
+          if (state is GetRoomSuccessState) {
+            roomController.add(state.room);
           }
         },
         builder: (context, state) {
@@ -76,8 +130,12 @@ class _RoomDetailsState extends State<RoomDetails> {
                             separatorBuilder: (context, index) =>
                                 const Divider(),
                             itemBuilder: (context, index) {
-                              final order = snapshot.requireData[index];
-                              return OnlineOrderCard(data: order);
+                              final data = snapshot.requireData[index];
+                              return OnlineOrderCard(
+                                data: data,
+                                onDelete: () =>
+                                    controller.deleteOrder(data.order.id),
+                              );
                             },
                           ),
                         ],
