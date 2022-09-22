@@ -71,12 +71,20 @@ class DeleteOnlineOrderUseCase implements UseCase<void, String> {
   }
 }
 
-
-class GetRoomUseCase implements UseCase<OnlineRoom, String> {
+class GetRoomUseCase implements UseCase<OnlineRoom, NoParams> {
   final OnlineRepoistory repository;
   GetRoomUseCase({required this.repository});
 
-  Future<Either<Failure, OnlineRoom>> call(String id) async {
-    return await repository.getRoom(id);
+  Future<Either<Failure, OnlineRoom>> call(NoParams params) async {
+    return await repository.getRoom();
+  }
+}
+
+class DeleteRoomUseCase implements UseCase<void, NoParams> {
+  final OnlineRepoistory repository;
+  DeleteRoomUseCase({required this.repository});
+
+  Future<Either<Failure, void>> call(NoParams params) async {
+    return await repository.deleteRoom();
   }
 }

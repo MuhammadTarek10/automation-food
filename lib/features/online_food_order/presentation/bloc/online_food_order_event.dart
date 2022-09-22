@@ -45,16 +45,8 @@ class RegisterEvent extends OnlineFoodOrderEvent {
 class GetRoomsEvent extends OnlineFoodOrderEvent {}
 
 class GetRoomEvent extends OnlineFoodOrderEvent {
-  final String roomId;
-
-  const GetRoomEvent({
-    required this.roomId,
-  });
-
   @override
-  List<Object> get props => [
-        roomId,
-      ];
+  List<Object> get props => [];
 }
 
 class CreateRoomEvent extends OnlineFoodOrderEvent {
@@ -68,8 +60,6 @@ class CreateRoomEvent extends OnlineFoodOrderEvent {
     this.number,
   });
 }
-
-
 
 class AddOnlineOrderEvent extends OnlineFoodOrderEvent {
   final String name;
@@ -94,4 +84,3 @@ class DeleteOnlineOrderEvent extends OnlineFoodOrderEvent {
     required this.id,
   });
 }
-

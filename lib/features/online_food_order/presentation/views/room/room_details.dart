@@ -180,7 +180,7 @@ class _RoomDetailsState extends State<RoomDetails> {
         actions: [
           TextButton(
             onPressed: clearInputs,
-            child: const Text(AppStrings.cancelOrderButtonText),
+            child: const Text(AppStrings.cancel),
           ),
           TextButton(
             onPressed: checkInputs,

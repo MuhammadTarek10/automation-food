@@ -12,7 +12,7 @@ class ApiRoutes {
   static const String getRoom = "$baseRoom/get-room/{room_id}";
   static const String createRoom = "$baseRoom/create-room/{id}";
   static const String joinRoom = "$baseRoom/join-room/{id}";
-  static const String deleteRoom = "$baseRoom/delete-room/{id}";
+  static const String deleteRoom = "$baseRoom/delete-room/{id}/{room_id}";
 
   // order
   static const String baseOrder = "$base/order";

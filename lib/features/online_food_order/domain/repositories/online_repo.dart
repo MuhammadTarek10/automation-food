@@ -19,5 +19,6 @@ abstract class OnlineRepoistory {
       String name, String code, int? number);
   Future<Either<Failure, void>> addOrder(String name, double price);
   Future<Either<Failure, void>> deleteOrder(String id);
-  Future<Either<Failure, OnlineRoom>> getRoom(String id);
+  Future<Either<Failure, OnlineRoom>> getRoom();
+  Future<Either<Failure, void>> deleteRoom();
 }

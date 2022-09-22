@@ -92,6 +92,11 @@ class _RoomsViewState extends State<RoomsView> {
                               final room = snapshot.requireData[index];
                               return Room(
                                 room: room,
+                                onLongPress: () async {
+                                  if (await ifDelete()) {
+                                    controller.deleteRoom();
+                                  }
+                                },
                                 onTap: () async {
                                   controller.goToRoom(room.id);
                                   Navigator.pushNamed(
@@ -118,6 +123,26 @@ class _RoomsViewState extends State<RoomsView> {
       floatingActionButton: FloatingActionButton(
         onPressed: getInputs,
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Future<dynamic> ifDelete() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(AppStrings.deleteRoom),
+        content: const Text(AppStrings.deleteRoomContent),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text(AppStrings.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text(AppStrings.delete),
+          ),
+        ],
       ),
     );
   }
@@ -150,7 +175,7 @@ class _RoomsViewState extends State<RoomsView> {
         actions: [
           TextButton(
             onPressed: clearInputs,
-            child: const Text(AppStrings.cancelOrderButtonText),
+            child: const Text(AppStrings.cancel),
           ),
           TextButton(
             onPressed: checkInputs,

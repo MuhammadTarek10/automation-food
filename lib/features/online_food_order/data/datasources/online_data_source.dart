@@ -10,4 +10,5 @@ abstract class OnlineDataSource {
   Future<void> addOrder(String id, AddOrderRequest request);
   Future<void> deleteOrder(String id, String userId);
   Future<RoomResponse> getRoom(String roomId);
+  Future<void> deleteRoom(String id, String roomId);
 }

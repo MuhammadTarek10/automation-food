@@ -14,7 +14,7 @@ class OnlineController {
   }
 
   void getRoom(String roomId) {
-    bloc.add(GetRoomEvent(roomId: roomId));
+    bloc.add(GetRoomEvent());
   }
 
   void goToRoom(String roomId) async {
@@ -29,7 +29,9 @@ class OnlineController {
     bloc.add(CreateRoomEvent(name: name, code: code, number: number));
   }
 
-  void deleteRoom(String roomId) {}
+  void deleteRoom() {
+    bloc.add(DeleteRoomEvent());
+  }
 
   void searchRoom(String code) {}
 

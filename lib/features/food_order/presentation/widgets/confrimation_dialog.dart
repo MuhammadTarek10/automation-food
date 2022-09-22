@@ -14,7 +14,7 @@ class ConfirmationDialog {
         content: const Text(AppStrings.deleteOrderContent),
         actions: [
           TextButton(
-            child: const Text(AppStrings.cancelOrderButtonText),
+            child: const Text(AppStrings.cancel),
             onPressed: () => Navigator.pop(context, false),
           ),
           TextButton(

@@ -72,7 +72,7 @@ class AppStrings {
   // dialog text buttons and content
   static const String addOrderButtonText = "Add Order";
   static const String addGroupOfOrdersButtonText = "Add Group Of Orders";
-  static const String cancelOrderButtonText = "Cancel";
+  static const String cancel = "Cancel";
   static const String saveOrderButtonText = "Save";
   static const String deleteOrderButtonText = "Delete";
   static const String deleteOrderTitle = "Delete Order";
@@ -124,4 +124,9 @@ class AppStrings {
   static const String addOrderTitle = "Add Order";
   static const String orderNameHintText = "Order Name";
   static const String orderPriceHintText = "Price";
+
+  static const String deleteRoom = "Delete Room";
+  static const String deleteRoomContent =
+      "Are you sure you want to delete this room?";
+  static const String delete = "Delete";
 }

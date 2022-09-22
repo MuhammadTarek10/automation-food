@@ -20,6 +20,7 @@ class OnlineFoodOrderBloc
   final AddOrderUseCase addOrderUseCase;
   final DeleteOnlineOrderUseCase deleteOrderUseCase;
   final GetRoomUseCase getRoomUseCase;
+  final DeleteRoomUseCase deleteRoomUseCase;
 
   OnlineFoodOrderBloc({
     required this.loginUseCase,
@@ -30,6 +31,7 @@ class OnlineFoodOrderBloc
     required this.addOrderUseCase,
     required this.deleteOrderUseCase,
     required this.getRoomUseCase,
+    required this.deleteRoomUseCase,
   }) : super(OnlineFoodOrderInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(OnlineLoading());
@@ -103,9 +105,19 @@ class OnlineFoodOrderBloc
     on<GetRoomEvent>((event, emit) async {
       emit(OnlineLoading());
       emit(
-        (await getRoomUseCase(event.roomId)).fold(
+        (await getRoomUseCase(NoParams())).fold(
           (failure) => FailedState(message: failure.getMessage),
           (room) => GetRoomSuccessState(room: room),
+        ),
+      );
+    });
+
+    on<DeleteRoomEvent>((event, emit) async {
+      emit(
+        (await deleteRoomUseCase(NoParams())).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (unit) => const GenericSuccessState(
+              message: AppStrings.deletedSuccessMessage),
         ),
       );
     });

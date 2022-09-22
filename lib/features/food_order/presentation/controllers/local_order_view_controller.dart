@@ -108,7 +108,7 @@ class LocalOrderViewController {
               foodOrderBloc.add(ClearAllInputsEvent());
             },
             child: const Text(
-              AppStrings.cancelOrderButtonText,
+              AppStrings.cancel,
             ),
           ),
           TextButton(

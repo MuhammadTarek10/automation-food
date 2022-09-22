@@ -173,13 +173,34 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
   }
 
   @override
-  Future<Either<Failure, OnlineRoom>> getRoom(String roomId) async {
+  Future<Either<Failure, OnlineRoom>> getRoom() async {
     if (await networkInfo.isConnected) {
       try {
         final userId = appPreference.getUserId();
-        if (userId != null) {
+        final roomId = appPreference.getRoomId();
+        if (userId != null && roomId != null) {
           final response = await dataSource.getRoom(roomId);
           return Right(response.toModel());
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteRoom() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userId = appPreference.getUserId();
+        final roomId = appPreference.getRoomId();
+        if (userId != null && roomId != null) {
+          final response = await dataSource.deleteRoom(userId, roomId);
+          return Right(response);
         } else {
           return Left(UnauthorizedFailure());
         }

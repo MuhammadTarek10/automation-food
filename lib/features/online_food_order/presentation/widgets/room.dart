@@ -3,16 +3,22 @@ import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:flutter/material.dart';
 
 class Room extends StatelessWidget {
-  const Room({Key? key, required this.room, required this.onTap})
-      : super(key: key);
+  const Room({
+    Key? key,
+    required this.room,
+    required this.onLongPress,
+    required this.onTap,
+  }) : super(key: key);
 
   final OnlineRoom room;
+  final VoidCallback onLongPress;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: context.width * 0.05,
