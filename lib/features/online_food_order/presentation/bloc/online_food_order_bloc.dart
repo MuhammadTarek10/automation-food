@@ -1,5 +1,6 @@
 import 'package:auto_food/core/usecases/usecases.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -21,6 +22,7 @@ class OnlineFoodOrderBloc
   final DeleteOnlineOrderUseCase deleteOrderUseCase;
   final GetRoomUseCase getRoomUseCase;
   final DeleteRoomUseCase deleteRoomUseCase;
+  final GetConclusionUseCase getConclusionUseCase;
 
   OnlineFoodOrderBloc({
     required this.loginUseCase,
@@ -32,6 +34,7 @@ class OnlineFoodOrderBloc
     required this.deleteOrderUseCase,
     required this.getRoomUseCase,
     required this.deleteRoomUseCase,
+    required this.getConclusionUseCase,
   }) : super(OnlineFoodOrderInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(OnlineLoading());
@@ -118,6 +121,16 @@ class OnlineFoodOrderBloc
           (failure) => FailedState(message: failure.getMessage),
           (unit) => const GenericSuccessState(
               message: AppStrings.deletedSuccessMessage),
+        ),
+      );
+    });
+
+    on<GetConclusionEvent>((event, emit) async {
+      emit(OnlineLoading());
+      emit(
+        (await getConclusionUseCase(event.orders)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (conclusion) => GetConclusionSuccessState(conclusion: conclusion),
         ),
       );
     });

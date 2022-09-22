@@ -1,4 +1,5 @@
 import 'package:auto_food/core/error/failures.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -18,7 +19,9 @@ abstract class OnlineRepoistory {
   Future<Either<Failure, void>> createRoom(
       String name, String code, int? number);
   Future<Either<Failure, void>> addOrder(String name, double price);
+  // Future<Either<Failure, void>> editOrder(String id, String name, double price);
   Future<Either<Failure, void>> deleteOrder(String id);
   Future<Either<Failure, OnlineRoom>> getRoom();
   Future<Either<Failure, void>> deleteRoom();
+  Future<Either<Failure, OnlineConclusion>> getConclusion(List<OrderInRoom> orders);
 }

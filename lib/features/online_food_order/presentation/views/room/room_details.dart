@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_food/config/routes.dart';
 import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
@@ -9,7 +10,7 @@ import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/controllers/online_controller.dart';
-import 'package:auto_food/features/online_food_order/presentation/widgets/order.dart';
+import 'package:auto_food/features/online_food_order/presentation/widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,6 +30,7 @@ class _RoomDetailsState extends State<RoomDetails> {
   late final TextEditingController nameController;
   late final TextEditingController priceController;
   late final GlobalKey<ScaffoldState> scaffoldKey;
+  List<OrderInRoom> orders = [];
 
   @override
   void initState() {
@@ -56,17 +58,21 @@ class _RoomDetailsState extends State<RoomDetails> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text(widget.room.name),
+        leading: IconButton(
+          onPressed: () {
+            controller.getRoom(widget.room.id);
+            scaffoldKey.currentState!.openDrawer();
+          },
+          icon: const Icon(Icons.people),
+        ),
         actions: [
           IconButton(
-            onPressed: () {
-              controller.getRoom(widget.room.id);
-              scaffoldKey.currentState!.openEndDrawer();
-            },
-            icon: const Icon(Icons.people),
+            onPressed: () => controller.getConclusion(orders),
+            icon: const Icon(Icons.receipt_long),
           ),
         ],
       ),
-      endDrawer: Drawer(
+      drawer: Drawer(
         child: StreamBuilder<OnlineRoom>(
           stream: roomController.stream,
           builder: (context, snapshot) {
@@ -93,6 +99,7 @@ class _RoomDetailsState extends State<RoomDetails> {
         listener: (context, state) {
           if (state is GetRoomOrdersSuccess) {
             orderConroller.add(state.orders);
+            orders = state.orders;
           } else if (state is GenericSuccessState) {
             AppConstants.showSnackBar(
               context: context,
@@ -108,6 +115,13 @@ class _RoomDetailsState extends State<RoomDetails> {
           }
           if (state is GetRoomSuccessState) {
             roomController.add(state.room);
+          }
+          if (state is GetConclusionSuccessState) {
+            Navigator.pushNamed(
+              context,
+              AppRoutes.remoteConclusionRoute,
+              arguments: state.conclusion,
+            );
           }
         },
         builder: (context, state) {

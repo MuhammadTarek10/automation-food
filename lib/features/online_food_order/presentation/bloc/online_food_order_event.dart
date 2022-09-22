@@ -84,3 +84,14 @@ class DeleteOnlineOrderEvent extends OnlineFoodOrderEvent {
     required this.id,
   });
 }
+
+class GetConclusionEvent extends OnlineFoodOrderEvent {
+  final List<OrderInRoom> orders;
+
+  const GetConclusionEvent({
+    required this.orders,
+  });
+
+  @override
+  List<Object> get props => [orders];
+}

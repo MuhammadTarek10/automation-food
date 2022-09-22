@@ -4,10 +4,12 @@ import 'package:auto_food/features/food_order/presentation/bloc/food_order_bloc.
 import 'package:auto_food/features/food_order/presentation/views/local_conclusion_view.dart';
 import 'package:auto_food/features/food_order/presentation/views/local_order_view.dart';
 import 'package:auto_food/core/home_view.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/auth/login_view.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/auth/register_view.dart';
+import 'package:auto_food/features/online_food_order/presentation/views/room/conclusion_view.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/room/room_details.dart';
 import 'package:auto_food/features/online_food_order/presentation/views/room/rooms_view.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +86,12 @@ class AppRouterGenerator {
             create: (context) =>
                 instance<OnlineFoodOrderBloc>()..add(GetRoomOrdersEvent()),
             child: RoomDetails(room: settings.arguments as OnlineRoom),
+          ),
+        );
+      case AppRoutes.remoteConclusionRoute:
+        return MaterialPageRoute(
+          builder: (_) => ConclusionView(
+            conclusion: settings.arguments as OnlineConclusion,
           ),
         );
       default:

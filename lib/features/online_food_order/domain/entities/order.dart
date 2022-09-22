@@ -17,12 +17,13 @@ class OnlineOrder extends Equatable {
     required this.done,
   });
   @override
-  List<Object?> get props => [
-    id,
-    userId,
-    roomId,
-    name,
-    price,
-    done
-  ];
+  List<Object?> get props => [id, userId, roomId, name, price, done];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is OnlineOrder && name == other.name && price == other.price;
+
+  @override
+  int get hashCode => name.hashCode ^ price.hashCode;
 }

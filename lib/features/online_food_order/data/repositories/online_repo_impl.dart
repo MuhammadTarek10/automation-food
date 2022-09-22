@@ -8,6 +8,8 @@ import 'package:auto_food/features/online_food_order/data/apis/network/network_i
 import 'package:auto_food/features/online_food_order/data/apis/requrests/requests.dart';
 import 'package:auto_food/features/online_food_order/data/apis/responses/mapper.dart';
 import 'package:auto_food/features/online_food_order/data/datasources/online_data_source.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/order.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -201,6 +203,52 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
         if (userId != null && roomId != null) {
           final response = await dataSource.deleteRoom(userId, roomId);
           return Right(response);
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, OnlineConclusion>> getConclusion(
+      List<OrderInRoom> orders) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userId = appPreference.getUserId();
+        final roomId = appPreference.getRoomId();
+        if (userId != null && roomId != null) {
+          final data = orders;
+          Map<String, int> totalByFood = {};
+          Map<String, List<OnlineOrder>> orderToNames = {};
+          Map<String, Map<int, List<OnlineOrder>>> totalByFoodCount = {};
+          for (final element in data) {
+            totalByFood[element.order.name] =
+                totalByFood.containsKey(element.order.name)
+                    ? totalByFood[element.order.name]! + 1
+                    : 1;
+            orderToNames[element.order.name] =
+                orderToNames.containsKey(element.order)
+                    ? orderToNames[element.order.name]! + [element.order]
+                    : [element.order];
+          }
+          for (final food in totalByFood.keys) {
+            totalByFoodCount[food] = {
+              totalByFood[food]!: orderToNames[food]!,
+            };
+          }
+          final conclusion = OnlineConclusion(
+            orders: totalByFoodCount,
+            total: data.fold(
+                0,
+                (previousValue, element) =>
+                    previousValue + element.order.price),
+          );
+          return Right(conclusion);
         } else {
           return Left(UnauthorizedFailure());
         }

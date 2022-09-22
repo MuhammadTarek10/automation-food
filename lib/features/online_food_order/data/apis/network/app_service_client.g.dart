@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 part of 'app_service_client.dart';
 
 // **************************************************************************
@@ -160,7 +162,7 @@ class _AppServiceClient implements AppServiceClient {
             .compose(_dio.options, '/api/room/delete-room/${id}/${roomId}',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    return null;
+    
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

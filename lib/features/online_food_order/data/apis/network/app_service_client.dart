@@ -3,7 +3,6 @@ import 'package:auto_food/features/online_food_order/data/apis/network/api_route
 import 'package:auto_food/features/online_food_order/data/apis/requrests/requests.dart';
 import 'package:auto_food/features/online_food_order/data/apis/responses/responses.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'app_service_client.g.dart';

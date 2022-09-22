@@ -1,5 +1,6 @@
 import 'package:auto_food/core/error/failures.dart';
 import 'package:auto_food/core/usecases/usecases.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/user.dart';
@@ -86,5 +87,14 @@ class DeleteRoomUseCase implements UseCase<void, NoParams> {
 
   Future<Either<Failure, void>> call(NoParams params) async {
     return await repository.deleteRoom();
+  }
+}
+
+class GetConclusionUseCase implements UseCase<OnlineConclusion, NoParams> {
+  final OnlineRepoistory repository;
+  GetConclusionUseCase({required this.repository});
+
+  Future<Either<Failure, OnlineConclusion>> call(List<OrderInRoom> params) async {
+    return await repository.getConclusion(params);
   }
 }

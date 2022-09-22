@@ -8,7 +8,7 @@ import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/room.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 import 'package:auto_food/features/online_food_order/presentation/controllers/online_controller.dart';
-import 'package:auto_food/features/online_food_order/presentation/widgets/room.dart';
+import 'package:auto_food/features/online_food_order/presentation/widgets/room_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,6 +65,9 @@ class _RoomsViewState extends State<RoomsView> {
               roomsController.add(state.rooms);
             } else if (state is GenericSuccessState) {
               controller.getRooms();
+            }
+            if (state is FailedState) {
+              roomsController.add([]);
             }
           },
           builder: (cotnext, state) => StreamBuilder<List<OnlineRoom>>(

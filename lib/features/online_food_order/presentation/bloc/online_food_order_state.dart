@@ -63,3 +63,13 @@ class GetRoomSuccessState extends OnlineFoodOrderState {
         room,
       ];
 }
+
+class GetConclusionSuccessState extends OnlineFoodOrderState {
+  final OnlineConclusion conclusion;
+
+  const GetConclusionSuccessState({required this.conclusion});
+  @override
+  List<Object> get props => [
+        conclusion,
+      ];
+}

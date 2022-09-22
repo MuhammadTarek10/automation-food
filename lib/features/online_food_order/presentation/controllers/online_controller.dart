@@ -1,5 +1,6 @@
 import 'package:auto_food/core/injector/injector.dart';
 import 'package:auto_food/core/storage/app_pref.dart';
+import 'package:auto_food/features/online_food_order/domain/entities/order_in_room.dart';
 import 'package:auto_food/features/online_food_order/presentation/bloc/online_food_order_bloc.dart';
 
 class OnlineController {
@@ -48,6 +49,10 @@ class OnlineController {
 
   void getOrders() {
     bloc.add(GetRoomOrdersEvent());
+  }
+
+  void getConclusion(List<OrderInRoom> orders) {
+    bloc.add(GetConclusionEvent(orders: orders));
   }
 
   void close() {
