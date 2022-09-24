@@ -95,3 +95,11 @@ class GetConclusionEvent extends OnlineFoodOrderEvent {
   @override
   List<Object> get props => [orders];
 }
+
+class JoinRoomEvent extends OnlineFoodOrderEvent {
+  final String code;
+
+  const JoinRoomEvent({
+    required this.code,
+  });
+}

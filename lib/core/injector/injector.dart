@@ -165,8 +165,12 @@ initRemote() {
         () => DeleteRoomUseCase(repository: instance<OnlineRepositoryImpl>()));
   }
   if (!GetIt.I.isRegistered<GetConclusionUseCase>()) {
-    instance.registerFactory<GetConclusionUseCase>(
-        () => GetConclusionUseCase(repository: instance<OnlineRepositoryImpl>()));
+    instance.registerFactory<GetConclusionUseCase>(() =>
+        GetConclusionUseCase(repository: instance<OnlineRepositoryImpl>()));
+  }
+  if (!GetIt.I.isRegistered<JoinRoomUseCase>()) {
+    instance.registerFactory<JoinRoomUseCase>(
+        () => JoinRoomUseCase(repository: instance<OnlineRepositoryImpl>()));
   }
   // bloc
 
@@ -183,6 +187,7 @@ initRemote() {
         getRoomUseCase: instance<GetRoomUseCase>(),
         deleteRoomUseCase: instance<DeleteRoomUseCase>(),
         getConclusionUseCase: instance<GetConclusionUseCase>(),
+        joinRoomUseCase: instance<JoinRoomUseCase>(),
       ),
     );
   }

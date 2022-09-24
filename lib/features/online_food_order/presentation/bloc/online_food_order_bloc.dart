@@ -23,6 +23,7 @@ class OnlineFoodOrderBloc
   final GetRoomUseCase getRoomUseCase;
   final DeleteRoomUseCase deleteRoomUseCase;
   final GetConclusionUseCase getConclusionUseCase;
+  final JoinRoomUseCase joinRoomUseCase;
 
   OnlineFoodOrderBloc({
     required this.loginUseCase,
@@ -35,6 +36,7 @@ class OnlineFoodOrderBloc
     required this.getRoomUseCase,
     required this.deleteRoomUseCase,
     required this.getConclusionUseCase,
+    required this.joinRoomUseCase,
   }) : super(OnlineFoodOrderInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(OnlineLoading());
@@ -131,6 +133,15 @@ class OnlineFoodOrderBloc
         (await getConclusionUseCase(event.orders)).fold(
           (failure) => FailedState(message: failure.getMessage),
           (conclusion) => GetConclusionSuccessState(conclusion: conclusion),
+        ),
+      );
+    });
+
+    on<JoinRoomEvent>((event, emit) async {
+      emit(
+        (await joinRoomUseCase(event.code)).fold(
+          (failure) => FailedState(message: failure.getMessage),
+          (room) => JoinedRoomSuccessState(room: room),
         ),
       );
     });

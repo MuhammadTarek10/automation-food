@@ -216,38 +216,14 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
 
   @override
   Future<Either<Failure, OnlineConclusion>> getConclusion(
-      List<OrderInRoom> orders) async {
+    List<OrderInRoom> orders,
+  ) async {
     if (await networkInfo.isConnected) {
       try {
         final userId = appPreference.getUserId();
         final roomId = appPreference.getRoomId();
         if (userId != null && roomId != null) {
-          final data = orders;
-          Map<String, int> totalByFood = {};
-          Map<String, List<OnlineOrder>> orderToNames = {};
-          Map<String, Map<int, List<OnlineOrder>>> totalByFoodCount = {};
-          for (final element in data) {
-            totalByFood[element.order.name] =
-                totalByFood.containsKey(element.order.name)
-                    ? totalByFood[element.order.name]! + 1
-                    : 1;
-            orderToNames[element.order.name] =
-                orderToNames.containsKey(element.order)
-                    ? orderToNames[element.order.name]! + [element.order]
-                    : [element.order];
-          }
-          for (final food in totalByFood.keys) {
-            totalByFoodCount[food] = {
-              totalByFood[food]!: orderToNames[food]!,
-            };
-          }
-          final conclusion = OnlineConclusion(
-            orders: totalByFoodCount,
-            total: data.fold(
-                0,
-                (previousValue, element) =>
-                    previousValue + element.order.price),
-          );
+          final conclusion = Helper.getConlsuionByOrder(orders);
           return Right(conclusion);
         } else {
           return Left(UnauthorizedFailure());
@@ -258,5 +234,55 @@ class OnlineRepositoryImpl implements OnlineRepoistory {
     } else {
       return Left(NoInternetFailure());
     }
+  }
+
+  @override
+  Future<Either<Failure, OnlineRoom>> joinRoom(String code) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userId = appPreference.getUserId();
+        if (userId != null) {
+          final request = JoinRoomRequest(code: code);
+          final resposne = await dataSource.joinRoom(userId, request);
+          return Right(resposne.toModel());
+        } else {
+          return Left(UnauthorizedFailure());
+        }
+      } on DioError catch (error) {
+        return Left(ErrorHandler.handle(error));
+      }
+    } else {
+      return Left(NoInternetFailure());
+    }
+  }
+}
+
+class Helper {
+  static OnlineConclusion getConlsuionByOrder(List<OrderInRoom> orders) {
+    final data = orders;
+    Map<String, int> totalByFood = {};
+    Map<String, List<OnlineOrder>> orderToNames = {};
+    Map<String, Map<int, List<OnlineOrder>>> totalByFoodCount = {};
+    for (final element in data) {
+      totalByFood[element.order.name] =
+          totalByFood.containsKey(element.order.name)
+              ? totalByFood[element.order.name]! + 1
+              : 1;
+      orderToNames[element.order.name] =
+          orderToNames.containsKey(element.order.name)
+              ? [...orderToNames[element.order.name]!, element.order]
+              : [element.order];
+    }
+    for (final food in totalByFood.keys) {
+      totalByFoodCount[food] = {
+        totalByFood[food]!: orderToNames[food]!,
+      };
+    }
+    final conclusion = OnlineConclusion(
+      orders: totalByFoodCount,
+      total: data.fold(
+          0, (previousValue, element) => previousValue + element.order.price),
+    );
+    return conclusion;
   }
 }

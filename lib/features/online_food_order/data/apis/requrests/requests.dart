@@ -91,3 +91,19 @@ class AddOrderRequest {
 
   Map<String, dynamic> toJson() => _$AddOrderRequestToJson(this);
 }
+
+
+@JsonSerializable()
+class JoinRoomRequest{
+  @JsonKey(name: "code")
+  final String code;
+
+  const JoinRoomRequest({
+    required this.code,
+  });
+
+  factory JoinRoomRequest.fromJson(Map<String, dynamic> json) =>
+      _$JoinRoomRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$JoinRoomRequestToJson(this);
+}

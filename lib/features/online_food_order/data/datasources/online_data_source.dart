@@ -11,4 +11,5 @@ abstract class OnlineDataSource {
   Future<void> deleteOrder(String id, String userId);
   Future<RoomResponse> getRoom(String roomId);
   Future<void> deleteRoom(String id, String roomId);
+  Future<RoomResponse> joinRoom(String id, JoinRoomRequest request);
 }

@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:auto_food/config/routes.dart';
+import 'package:auto_food/core/utils/app_colors.dart';
 import 'package:auto_food/core/utils/app_constants.dart';
 import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/app_strings.dart';
@@ -54,6 +56,10 @@ class _RoomsViewState extends State<RoomsView> {
           IconButton(
             onPressed: () => controller.getRooms(),
             icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
+            onPressed: () => getRoomCode(),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
@@ -61,13 +67,30 @@ class _RoomsViewState extends State<RoomsView> {
         onRefresh: () async => controller.getRooms(),
         child: BlocConsumer<OnlineFoodOrderBloc, OnlineFoodOrderState>(
           listener: (context, state) {
+            log(state.toString());
             if (state is GetRoomsSuccessState) {
               roomsController.add(state.rooms);
             } else if (state is GenericSuccessState) {
+              AppConstants.showSnackBar(
+                context: context,
+                message: state.message,
+              );
               controller.getRooms();
+            } else if (state is JoinedRoomSuccessState) {
+              controller.getRooms();
+              controller.goToRoom(state.room.id);
+              Navigator.pushNamed(
+                context,
+                AppRoutes.roomDetails,
+                arguments: state.room,
+              );
             }
             if (state is FailedState) {
-              roomsController.add([]);
+              AppConstants.showSnackBar(
+                context: context,
+                message: state.message,
+                color: AppColors.failure,
+              );
             }
           },
           builder: (cotnext, state) => StreamBuilder<List<OnlineRoom>>(
@@ -237,5 +260,45 @@ class _RoomsViewState extends State<RoomsView> {
     codeController.clear();
     numberController.clear();
     Navigator.pop(context);
+  }
+
+  Future<dynamic> getRoomCode() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(AppStrings.enterRoomCode),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              inputField(
+                controller: codeController,
+                hint: AppStrings.roomCodeHintText,
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: clearInputs,
+            child: const Text(AppStrings.cancel),
+          ),
+          TextButton(
+            onPressed: () => joinRoon(),
+            child: const Text(AppStrings.joinRoomButton),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void joinRoon() {
+    final code = codeController.text;
+    if (code.isEmpty) {
+      AppConstants.showToast(message: AppStrings.invalidInputs);
+    } else {
+      controller.joinRoom(code);
+      clearInputs();
+    }
   }
 }

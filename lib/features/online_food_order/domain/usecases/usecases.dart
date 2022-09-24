@@ -98,3 +98,12 @@ class GetConclusionUseCase implements UseCase<OnlineConclusion, NoParams> {
     return await repository.getConclusion(params);
   }
 }
+
+class JoinRoomUseCase implements UseCase<OnlineRoom, String> {
+  final OnlineRepoistory repository;
+  JoinRoomUseCase({required this.repository});
+
+  Future<Either<Failure, OnlineRoom>> call(String code) async {
+    return await repository.joinRoom(code);
+  }
+}

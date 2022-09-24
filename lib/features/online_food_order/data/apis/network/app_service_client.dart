@@ -44,4 +44,8 @@ abstract class AppServiceClient {
   @DELETE(ApiRoutes.deleteRoom)
   Future<void> deleteRoom(
       @Path("id") String id, @Path("room_id") String roomId);
+
+  @POST(ApiRoutes.joinRoom)
+  Future<RoomResponse> joinRoom(
+      @Path("id") String id, @Body() JoinRoomRequest request);
 }

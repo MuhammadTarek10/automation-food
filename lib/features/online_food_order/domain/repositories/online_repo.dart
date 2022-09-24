@@ -24,4 +24,5 @@ abstract class OnlineRepoistory {
   Future<Either<Failure, OnlineRoom>> getRoom();
   Future<Either<Failure, void>> deleteRoom();
   Future<Either<Failure, OnlineConclusion>> getConclusion(List<OrderInRoom> orders);
+  Future<Either<Failure, OnlineRoom>> joinRoom(String code);
 }

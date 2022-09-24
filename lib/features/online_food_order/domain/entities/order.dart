@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class OnlineOrder extends Equatable {
   final String id;
-  final String userId;
+  final String username;
   final String roomId;
   final String name;
   final double price;
@@ -10,14 +10,14 @@ class OnlineOrder extends Equatable {
 
   const OnlineOrder({
     required this.id,
-    required this.userId,
+    required this.username,
     required this.roomId,
     required this.name,
     required this.price,
     required this.done,
   });
   @override
-  List<Object?> get props => [id, userId, roomId, name, price, done];
+  List<Object?> get props => [id, username, roomId, name, price, done];
 
   @override
   bool operator ==(Object other) =>

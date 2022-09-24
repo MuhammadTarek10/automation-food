@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
 import 'package:auto_food/features/online_food_order/presentation/widgets/conclusion_card.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class ConclusionView extends StatefulWidget {
 class _ConclusionViewState extends State<ConclusionView> {
   @override
   Widget build(BuildContext context) {
+    log(widget.conclusion.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Conclusion'),

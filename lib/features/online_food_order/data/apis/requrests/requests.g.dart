@@ -68,3 +68,13 @@ Map<String, dynamic> _$AddOrderRequestToJson(AddOrderRequest instance) =>
       'price': instance.price,
       'room_id': instance.roomId,
     };
+
+JoinRoomRequest _$JoinRoomRequestFromJson(Map<String, dynamic> json) =>
+    JoinRoomRequest(
+      code: json['code'] as String,
+    );
+
+Map<String, dynamic> _$JoinRoomRequestToJson(JoinRoomRequest instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+    };

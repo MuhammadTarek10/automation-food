@@ -48,7 +48,7 @@ extension OrderResponseExtension on OrderResponse {
   OnlineOrderModel toModel() {
     return OnlineOrderModel(
       id: id,
-      userId: userId,
+      username: username,
       name: name,
       price: price,
       roomId: roomId,

@@ -71,7 +71,7 @@ Map<String, dynamic> _$RoomResponseToJson(RoomResponse instance) =>
 OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
     OrderResponse(
       id: json['_id'] as String,
-      userId: json['user_id'] as String,
+      username: json['username'] as String,
       roomId: json['room_id'] as String,
       name: json['name'] as String,
       price: (json['price'] as num).toDouble(),
@@ -81,7 +81,7 @@ OrderResponse _$OrderResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OrderResponseToJson(OrderResponse instance) =>
     <String, dynamic>{
       '_id': instance.id,
-      'user_id': instance.userId,
+      'username': instance.username,
       'room_id': instance.roomId,
       'name': instance.name,
       'price': instance.price,

@@ -48,6 +48,7 @@ class _LocalOrderViewState extends State<LocalOrderView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.appName),
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.delete),

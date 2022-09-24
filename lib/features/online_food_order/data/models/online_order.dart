@@ -3,7 +3,7 @@ import 'package:auto_food/features/online_food_order/domain/entities/order.dart'
 class OnlineOrderModel extends OnlineOrder {
   const OnlineOrderModel({
     required super.id,
-    required super.userId,
+    required super.username,
     required super.name,
     required super.price,
     required super.roomId,
@@ -13,7 +13,7 @@ class OnlineOrderModel extends OnlineOrder {
   factory OnlineOrderModel.fromJson(Map<String, dynamic> json) =>
       OnlineOrderModel(
         id: json['id'],
-        userId: json['user_id'],
+        username: json['user_id'],
         roomId: json["room_id"],
         name: json["name"],
         price: json["price"],
@@ -22,7 +22,7 @@ class OnlineOrderModel extends OnlineOrder {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "user_id": userId,
+        "user_id": username,
         "room_id": roomId,
         "name": name,
         "price": price,

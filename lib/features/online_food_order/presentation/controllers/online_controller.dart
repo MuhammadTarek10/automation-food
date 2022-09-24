@@ -34,6 +34,10 @@ class OnlineController {
     bloc.add(DeleteRoomEvent());
   }
 
+  void joinRoom(String code){
+    bloc.add(JoinRoomEvent(code: code));
+  }
+
   void searchRoom(String code) {}
 
   // orders

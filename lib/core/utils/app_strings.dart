@@ -32,6 +32,7 @@ class AppStrings {
   static const String deletedSuccessMessage = "Deleted Successfully";
   static const String addedSuccessMessage = "Added Successfully";
   static const String editedSuccessMessage = "Edited Successfully";
+  static const String joinedRoomSuccessfuly = "Joined Room Successfuly";
 
   // excetpotion messages
   static const String cacheExceptionMessage = "Cache Exception";
@@ -120,6 +121,9 @@ class AppStrings {
   static const String roomCodeHintText = "Room Code";
   static const String roomNumberHintText = "Number (Optional)";
   static const String createRoomButton = "Create Room";
+  static const String enterRoomCode = "Join Room";
+  static const String enterRoomCodeHintText = "Room Code";
+  static const String joinRoomButton = "Join";
 
   static const String addOrderTitle = "Add Order";
   static const String orderNameHintText = "Order Name";

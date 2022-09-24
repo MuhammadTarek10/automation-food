@@ -1,4 +1,3 @@
-
 import 'package:auto_food/core/utils/app_sizes.dart';
 import 'package:auto_food/core/utils/media_query_values.dart';
 import 'package:auto_food/features/online_food_order/domain/entities/conclusion.dart';
@@ -31,7 +30,7 @@ class ConclusionCard extends StatelessWidget {
               for (var orders in conclusion.orders[key]!.values)
                 for (var item in orders)
                   ListTile(
-                    title: Text(item.name),
+                    title: Text(item.username),
                     trailing: Text(item.price.toString()),
                   ),
             ],

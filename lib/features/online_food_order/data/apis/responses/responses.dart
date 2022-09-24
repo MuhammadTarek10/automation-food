@@ -95,8 +95,8 @@ class RoomResponse {
 class OrderResponse {
   @JsonKey(name: "_id")
   String id;
-  @JsonKey(name: "user_id")
-  String userId;
+  @JsonKey(name: "username")
+  String username;
   @JsonKey(name: "room_id")
   String roomId;
   @JsonKey(name: "name")
@@ -108,7 +108,7 @@ class OrderResponse {
 
   OrderResponse({
     required this.id,
-    required this.userId,
+    required this.username,
     required this.roomId,
     required this.name,
     required this.price,
